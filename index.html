@@ -535,11 +535,20 @@ a{color:inherit;text-decoration:none}
 .mob-stat span{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-top:10px;line-height:1.5}
 
 /* ---------- MOBILE OVERRIDES (≤768px phones) ---------- */
+.mob-show{display:none}
 @media(max-width:768px){
   #why .why-grid{display:none}
   #work{display:none}
   #pricing{display:none}
   .mob-stats{display:block}
+  .mob-hide{display:none !important}
+  .mob-show{display:inline}
+  a.mob-show{display:inline-flex}
+}
+/* fix price overflow on small screens */
+@media(max-width:600px){
+  .cc-side{padding:28px 20px}
+  .cc-side .price{font-size:clamp(36px,10vw,64px)}
 }
 
 /* ---------- CONTACT ---------- */
@@ -799,8 +808,9 @@ a{color:inherit;text-decoration:none}
     <div class="hero-foot">
       <p class="lede">I study what's winning on Meta &amp; TikTok, build a brand DNA, then ship scroll-stopping creator-style ads with AI — no $3,000 influencer fee.</p>
       <div class="hero-ctas">
-        <a href="#pricing" class="btn btn-primary">See pricing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-        <a href="#work" class="btn btn-ghost">View the work</a>
+        <a href="#pricing" class="btn btn-primary mob-hide">See pricing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a href="#work" class="btn btn-ghost mob-hide">View the work</a>
+        <a href="#case" class="btn btn-ghost mob-show" style="display:none">View the work</a>
         <span class="reply-tag">↩ reply within 2 hours</span>
       </div>
     </div>
@@ -855,11 +865,12 @@ a{color:inherit;text-decoration:none}
         <span class="text-accent">A fraction</span> of the budget.
       </h2>
       <p class="lede reveal d1">
-        A single influencer can charge <b>$3,000+ for one video</b> — and you're
+        <span class="mob-hide">A single influencer can charge <b>$3,000+ for one video</b> — and you're
         locked into <em>their</em> face, <em>their</em> aesthetic, and
         <em>their</em> calendar. AI UGC flips the equation: you keep the budget,
         the creative control, and the ability to test a brand-true look across
-        dozens of hooks until the algorithm picks a winner.
+        dozens of hooks until the algorithm picks a winner.</span>
+        <span class="mob-show">Influencers charge <b>$3,000+</b> and lock you into their face, aesthetic, and calendar. With AI UGC you keep the budget, the control, and can test dozens of hooks.</span>
       </p>
     </div>
 
