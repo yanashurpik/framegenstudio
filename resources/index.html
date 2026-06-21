@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Resources — FrameGen Studio</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" href="../avatar/logo.svg" type="image/svg+xml" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- TOKENS ---------- */
+:root{
+  --bg:        #fbfbf9;
+  --bg-2:      #f3f3ef;
+  --card:      #ffffff;
+  --ink:       #111111;
+  --ink-2:     #444444;
+  --muted:     #7a7a73;
+  --line:      rgba(17,17,17,.10);
+  --line-2:    rgba(17,17,17,.06);
+  --accent:    #d24034;
+  --accent-soft:#ffd9d3;
+  --accent-deep:#6e1714;
+  --shadow-lg: 0 30px 60px -28px rgba(17,17,17,.25);
+  --shadow-md: 0 14px 30px -18px rgba(17,17,17,.22);
+
+  --f-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
+  --f-body:    "Geist", system-ui, sans-serif;
+  --f-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --maxw: 1320px;
+  --pad:  clamp(20px, 4vw, 56px);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+}
+
+/* ---------- RESET ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html{scroll-behavior:smooth}
+body{overflow-x:hidden;line-height:1.5;font-size:16px}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#fff}
+
+/* ---------- LAYOUT ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:30;
+  width:min(calc(100vw - 32px), 1200px);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:10px 14px 10px 22px;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid var(--line);
+  border-radius:999px;
+  box-shadow:0 8px 24px -16px rgba(0,0,0,.12);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-0.01em}
+.brand .mark{width:24px;height:24px;border-radius:7px;background:var(--ink);position:relative;display:grid;place-items:center;overflow:hidden}
+.brand .mark::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.brand .mark::after{content:"";position:absolute;left:3px;top:3px;width:5px;height:5px;border-radius:50%;background:#fff}
+.brand b{font-size:15px}
+.nav .back-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .2s ease}
+.nav .back-link:hover{color:var(--ink)}
+.nav .back-link svg{width:14px;height:14px}
+
+/* ---------- PAGE HEADER ---------- */
+.page-header{
+  padding-top:clamp(110px,14vh,160px);
+  padding-bottom:clamp(40px,5vw,64px);
+  border-bottom:1px solid var(--line-2);
+}
+.page-header .kicker{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;
+}
+.page-header .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.page-header h1{
+  font-family:var(--f-display);font-weight:500;font-size:clamp(40px,6vw,80px);
+  line-height:.96;letter-spacing:-0.035em;color:var(--ink);margin-bottom:16px;
+}
+.page-header p{
+  font-size:clamp(15px,1.2vw,18px);color:var(--ink-2);max-width:52ch;line-height:1.6;
+}
+
+/* ---------- FILTERS ---------- */
+.filters{
+  display:flex;gap:8px;flex-wrap:wrap;
+  padding:clamp(24px,3vw,40px) 0;
+  border-bottom:1px solid var(--line-2);
+}
+.filter-btn{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:9px 16px;border-radius:999px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-2);cursor:pointer;
+  transition:all .22s ease;
+}
+.filter-btn:hover{border-color:var(--ink);color:var(--ink)}
+.filter-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ---------- FEED ---------- */
+.feed{
+  padding:clamp(40px,5vw,72px) 0 clamp(80px,10vw,140px);
+}
+.feed-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+@media(max-width:980px){.feed-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.feed-grid{grid-template-columns:1fr}}
+
+/* ---------- RESOURCE CARD ---------- */
+.res-card{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  background:var(--card);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;
+}
+.res-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.res-card a{display:flex;flex-direction:column;flex:1}
+
+.res-card-thumb{
+  aspect-ratio:16/9;
+  background:var(--bg-2);
+  border-bottom:1px solid var(--line-2);
+  overflow:hidden;
+}
+
+.res-card-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.res-tag{
+  display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;
+}
+.res-tag.tag-prompt{background:var(--accent-soft);color:var(--accent-deep);border:1px solid #f5b8af}
+.res-tag.tag-article{background:var(--bg-2);color:var(--muted);border:1px solid var(--line)}
+.res-card-body h3{
+  font-family:var(--f-display);font-weight:500;font-size:20px;
+  letter-spacing:-0.02em;line-height:1.15;color:var(--ink);
+  margin-top:2px;
+}
+.res-card-body p{font-size:14px;color:var(--ink-2);line-height:1.6;flex:1}
+.res-card-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--line-2);
+}
+.res-card-foot .cta-label{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:6px;
+  transition:gap .2s ease;
+}
+.res-card:hover .cta-label{gap:10px}
+.res-card-foot .cta-label svg{width:12px;height:12px;stroke:var(--accent);fill:none}
+.res-card-foot .date{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;color:var(--muted)}
+
+/* ---------- EMPTY STATE ---------- */
+.feed-empty{
+  grid-column:1/-1;
+  padding:80px 0;
+  text-align:center;
+  color:var(--muted);
+  font-family:var(--f-mono);
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+/* ---------- FOOTER ---------- */
+.foot{
+  padding:40px var(--pad);background:var(--ink);color:rgba(255,255,255,.6);
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.foot .col{display:flex;align-items:center;gap:16px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.foot a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="../index.html" class="brand"><span class="mark"></span><b>FrameGen Studio</b></a>
+  <a href="../index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to site
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="wrap">
+    <p class="kicker"><span class="dot"></span> Resources</p>
+    <h1>Prompts &amp; Articles</h1>
+    <p>Handpicked tools, prompt libraries, and reads to help you build better AI-powered creative.</p>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <div class="wrap">
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="prompt">Prompts</button>
+      <button class="filter-btn" data-filter="article">Articles</button>
+    </div>
+
+    <!-- FEED -->
+    <section class="feed">
+      <div class="feed-grid" id="feedGrid">
+
+        <!-- CARD: Cream Prompt Library -->
+        <article class="res-card" data-type="prompt">
+          <a href="Cream_Prompt_Library.pdf" target="_blank" rel="noopener">
+            <div class="res-card-thumb">
+              <img src="cream.png" alt="Cream Prompt Library preview" style="width:100%;height:100%;object-fit:cover;display:block">
+            </div>
+            <div class="res-card-body">
+              <span class="res-tag tag-prompt">Prompt Library</span>
+              <h3>Cream Prompt Library</h3>
+              <p>A curated collection of high-converting prompts for AI UGC video, image, and ad copy generation.</p>
+              <div class="res-card-foot">
+                <span class="cta-label">Download PDF <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <span class="date">Jun 2026</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <!-- CARD: Sunglasses Campaign Prompt Library -->
+        <article class="res-card" data-type="prompt">
+          <a href="Sunglasses_Campaign_Prompt_Library.pdf" target="_blank" rel="noopener">
+            <div class="res-card-thumb">
+              <img src="sunglasses.png" alt="Sunglasses Campaign Prompt Library preview" style="width:100%;height:100%;object-fit:cover;display:block">
+            </div>
+            <div class="res-card-body">
+              <span class="res-tag tag-prompt">Prompt Library</span>
+              <h3>Sunglasses Campaign Prompt Library</h3>
+              <p>Campaign-specific prompts for sunglasses brands — hooks, visuals, and ad copy built for summer drops.</p>
+              <div class="res-card-foot">
+                <span class="cta-label">Download PDF <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <span class="date">Jun 2026</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="col">
+    <span class="brand" style="color:rgba(255,255,255,.85)"><span class="mark"></span><b>FRAMEGEN STUDIO</b></span>
+    <span>© 2026</span>
+  </div>
+  <div class="col"><span>Built by hand · Powered by machines.</span></div>
+</footer>
+
+<script>
+  /* Filter logic */
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.res-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.type === f) ? '' : 'none';
+      });
+    });
+  });
+
+  /* Reveal animation */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)'; } });
+  }, { threshold: 0.08 });
+
+  cards.forEach((card, i) => {
+    card.style.opacity = 0;
+    card.style.transform = 'translateY(24px)';
+    card.style.transition = `opacity .6s ${i * 0.08}s cubic-bezier(.2,.7,.2,1), transform .6s ${i * 0.08}s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease`;
+    observer.observe(card);
+  });
+</script>
+
+</body>
+</html>
