@@ -1,0 +1,19 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Node
+node_modules/
+
+# Build / cache
+.vercel/
+.next/
