@@ -141,6 +141,33 @@ a{color:inherit;text-decoration:none}
   overflow:hidden;
 }
 
+/* Placeholder thumb for Content Dashboard card */
+.thumb-dashboard{
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(210,64,52,.14), transparent 60%),
+    linear-gradient(180deg, #14100f 0%, #241614 100%);
+  position:relative;
+}
+.thumb-dashboard-inner{
+  position:absolute;inset:0;padding:20px 22px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  color:#f7f2ee;
+}
+.thumb-tag{
+  align-self:flex-start;font-family:var(--f-mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);
+  padding:4px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px;
+}
+.thumb-rows{position:absolute;left:22px;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;opacity:.35}
+.thumb-rows span{display:block;height:6px;border-radius:3px;background:rgba(255,255,255,.7)}
+.thumb-rows span:nth-child(1){width:64%}
+.thumb-rows span:nth-child(2){width:82%}
+.thumb-rows span:nth-child(3){width:48%}
+.thumb-title{
+  font-family:var(--f-display);font-weight:500;font-size:22px;line-height:1.02;
+  letter-spacing:-0.02em;color:#fff;
+}
+
 .res-card-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
 .res-tag{
   display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
@@ -256,6 +283,24 @@ a{color:inherit;text-decoration:none}
               <div class="res-card-foot">
                 <span class="cta-label">Download PDF <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
                 <span class="date">Jun 2026</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <!-- CARD: Content Dashboard Prompts -->
+        <article class="res-card" data-type="prompt">
+          <a href="/resources/Content_Dashboard_Prompts.pdf" target="_blank" rel="noopener">
+            <div class="res-card-thumb">
+              <img src="/resources/dashboard.png" alt="Content Dashboard Prompts preview" style="width:100%;height:100%;object-fit:cover;display:block">
+            </div>
+            <div class="res-card-body">
+              <span class="res-tag tag-prompt">Prompt Library</span>
+              <h3>Content Dashboard Prompts</h3>
+              <p>A production-ready prompt set for building content dashboards — briefs, metrics, and creative-ops workflows.</p>
+              <div class="res-card-foot">
+                <span class="cta-label">Download PDF <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <span class="date">Jul 2026</span>
               </div>
             </div>
           </a>
