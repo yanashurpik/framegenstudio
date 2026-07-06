@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Your FrameGen dashboard — setup</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #faf6ec; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
+    #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #faf6ec; z-index: 9999; }
+    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
+    #__bundler_placeholder { color: #999; font-size: 14px; }
+  </style>
+  <noscript>
+    <style>#__bundler_loading { display: none; }</style>
+    <div style="position:fixed;bottom:12px;left:12px;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;color:#999;background:rgba(255,255,255,0.9);padding:6px 12px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);z-index:10000;">
+      This page requires JavaScript to display.
+    </div>
+  </noscript>
+</head>
+<body>
+  <div id="__bundler_thumbnail">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#faf6ec"></rect>
+    <rect x="480" y="280" width="240" height="240" rx="72" fill="#e2794f"></rect>
+    <circle cx="600" cy="400" r="44" fill="#faf6ec"></circle>
+  </svg>
+</div>
+  <div id="__bundler_loading">Unpacking...</div>
+
+  <script>
+    
+document.addEventListener('DOMContentLoaded', async function() {
+  const loading = document.getElementById('__bundler_loading');
+  function setStatus(msg) { if (loading) loading.textContent = msg; }
+
+  // Error sink persists across replaceWith since it's on window, not the DOM.
+  window.addEventListener('error', function(e) {
+    var p = document.body || document.documentElement;
+    var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
+    d.id = '__bundler_err';
+    d.style.cssText = 'position:fixed;bottom:12px;left:12px;right:12px;font:12px/1.4 ui-monospace,monospace;background:#2a1215;color:#ff8a80;padding:10px 14px;border-radius:8px;border:1px solid #5c2b2e;z-index:99999;white-space:pre-wrap;max-height:40vh;overflow:auto';
+    d.textContent = (d.textContent ? d.textContent + String.fromCharCode(10) : '') +
+      '[bundle] ' + (e.message || e.type) +
+      (e.filename ? ' (' + e.filename.slice(0, 60) + ':' + e.lineno + ')' : '');
+  }, true);
+
+  try {
+    const manifestEl = document.querySelector('script[type="__bundler/manifest"]');
+    const templateEl = document.querySelector('script[type="__bundler/template"]');
+    if (!manifestEl || !templateEl) {
+      setStatus('Error: missing bundle data');
+      console.error('[bundler] Missing script tags — manifestEl:', !!manifestEl, 'templateEl:', !!templateEl);
+      return;
+    }
+
+    const manifest = JSON.parse(manifestEl.textContent);
+    let template = JSON.parse(templateEl.textContent);
+
+    const uuids = Object.keys(manifest);
+    setStatus('Unpacking ' + uuids.length + ' assets...');
+
+    const blobUrls = {};
+    await Promise.all(uuids.map(async (uuid) => {
+      const entry = manifest[uuid];
+      try {
+        const binaryStr = atob(entry.data);
+        const bytes = new Uint8Array(binaryStr.length);
+        for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
+
+        let finalBytes = bytes;
+        if (entry.compressed) {
+          if (typeof DecompressionStream !== 'undefined') {
+            const ds = new DecompressionStream('gzip');
+            const writer = ds.writable.getWriter();
+            const reader = ds.readable.getReader();
+            writer.write(bytes);
+            writer.close();
+            const chunks = [];
+            let totalLen = 0;
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              chunks.push(value);
+              totalLen += value.length;
+            }
+            finalBytes = new Uint8Array(totalLen);
+            let offset = 0;
+            for (const chunk of chunks) { finalBytes.set(chunk, offset); offset += chunk.length; }
+          } else {
+            console.warn('DecompressionStream not available, asset ' + uuid + ' may not render');
+          }
+        }
+
+        blobUrls[uuid] = URL.createObjectURL(new Blob([finalBytes], { type: entry.mime }));
+      } catch (err) {
+        console.error('Failed to decode asset ' + uuid + ':', err);
+        blobUrls[uuid] = URL.createObjectURL(new Blob([], { type: entry.mime }));
+      }
+    }));
+
+    const extResEl = document.querySelector('script[type="__bundler/ext_resources"]');
+    const extResources = extResEl ? JSON.parse(extResEl.textContent) : [];
+    const resourceMap = {};
+    for (const entry of extResources) {
+      if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
+    }
+
+    setStatus('Rendering...');
+    for (const uuid of uuids) template = template.split(uuid).join(blobUrls[uuid]);
+
+    // Strip integrity + crossorigin — blob URLs from a file:// document inherit
+    // a null origin, so crossorigin forces a CORS fetch that SRI then rejects.
+    // The manifest bytes are ours; SRI protects against CDN compromise, not this.
+    template = template.replace(/\s+integrity="[^"]*"/gi, '').replace(/\s+crossorigin="[^"]*"/gi, '');
+
+    const resourceScript = '<script>window.__resources = ' +
+      JSON.stringify(resourceMap).split('</' + 'script>').join('<\\/' + 'script>') +
+      ';</' + 'script>';
+    // Inject after <head> so the DOCTYPE stays first; prepending the script
+    // would push the parser into quirks mode. DOMParser always emits a <head>
+    // (synthesizing one if the source HTML omitted it) but may carry
+    // attributes through, so match the full opening tag. slice() rather than
+    // replace() keeps us clear of $-pattern substitution in resourceScript.
+    const headOpen = template.match(/<head[^>]*>/i);
+    if (headOpen) {
+      const i = headOpen.index + headOpen[0].length;
+      template = template.slice(0, i) + resourceScript + template.slice(i);
+    }
+
+    // Parse the template and swap the root element. Scripts inserted via
+    // DOMParser/replaceWith are inert per spec — re-create each with
+    // createElement so they execute, awaiting onload for src scripts to
+    // preserve ordering (React before ReactDOM before Babel before text/babel).
+    const doc = new DOMParser().parseFromString(template, 'text/html');
+    document.documentElement.replaceWith(doc.documentElement);
+    const dead = Array.from(document.scripts);
+    for (const old of dead) {
+      const s = document.createElement('script');
+      for (const a of old.attributes) s.setAttribute(a.name, a.value);
+      s.textContent = old.textContent;
+      // text/babel scripts with a src: fetch and inline. transformScriptTags
+      // does XHR against the src, but blob:null/ from a file:// origin is
+      // silently dropped. Inlining makes it a plain inline babel script,
+      // which transformScriptTags handles unconditionally.
+      if ((s.type === 'text/babel' || s.type === 'text/jsx') && s.src) {
+        const r = await fetch(s.src);
+        s.textContent = await r.text();
+        s.removeAttribute('src');
+      }
+      const p = s.src ? new Promise(function(r) { s.onload = s.onerror = r; }) : null;
+      old.replaceWith(s);
+      if (p) await p;
+    }
+    // Babel standalone auto-transforms type=text/babel on DOMContentLoaded,
+    // which fired before we swapped the document. Trigger manually if present.
+    if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
+      window.Babel.transformScriptTags();
+    }
+  } catch (err) {
+    setStatus('Error unpacking: ' + err.message);
+    console.error('Bundle unpack error:', err);
+  }
+});
+
+  </script>
+
+  <script type="__bundler/manifest">
+{}
+  </script>
+
+  <script type="__bundler/ext_resources">
+[]
+  </script>
+
+  <script type="__bundler/template">
+"<!DOCTYPE html>\n<html lang=\"en\"><head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Your FrameGen dashboard — setup<\u002Ftitle>\n\n<\u002Fhead>\n<body style=\"margin:0; padding:0; background:#ece3d2;\">\n<!-- Preheader (hidden) -->\n<div style=\"display:none; max-height:0; overflow:hidden; opacity:0; color:#ece3d2; font-size:1px; line-height:1px;\">Thanks for your purchase — here's how to get your dashboard running in about 20–30 minutes.<\u002Fdiv>\n\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background:#ece3d2;\">\n  <tbody><tr>\n    <td align=\"center\" style=\"padding:32px 16px;\">\n\n      <table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"width:600px; max-width:600px; background:#faf6ec; border-radius:24px; overflow:hidden; font-family:'Segoe UI', Helvetica, Arial, sans-serif;\">\n\n        <!-- Header -->\n        <tbody><tr>\n          <td style=\"padding:36px 44px 24px;\">\n            <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n              <tbody><tr>\n                <td style=\"padding-right:12px;\">\n                  <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n                    <tbody><tr><td width=\"40\" height=\"40\" align=\"center\" valign=\"middle\" style=\"width:40px; height:40px; background:#e2794f; border-radius:12px;\">\n                      <span style=\"display:inline-block; width:14px; height:14px; background:#faf6ec; border-radius:50%;\"><\u002Fspan>\n                    <\u002Ftd><\u002Ftr>\n                  <\u002Ftbody><\u002Ftable>\n                <\u002Ftd>\n                <td style=\"font-size:22px; font-weight:800; color:#201d19; letter-spacing:-0.02em;\">FrameGen<\u002Ftd>\n              <\u002Ftr>\n            <\u002Ftbody><\u002Ftable>\n          <\u002Ftd>\n        <\u002Ftr>\n\n        <!-- Hero -->\n        <tr>\n          <td style=\"padding:8px 44px 8px;\">\n            <div style=\"font-size:12px; font-weight:700; letter-spacing:0.16em; color:#8a7d68;\">CODE + SKILL · SETUP<\u002Fdiv>\n            <h1 style=\"margin:12px 0 0; font-size:34px; line-height:1.15; font-weight:800; color:#201d19; letter-spacing:-0.02em;\">Thanks for your purchase.<br>Here is your dashboard.<\u002Fh1>\n            <p style=\"margin:16px 0 0; font-size:16px; line-height:1.6; color:#5d5546;\">Two steps and you're running. Plan about 20–30 minutes — you'll be guided the whole way.<\u002Fp>\n          <\u002Ftd>\n        <\u002Ftr>\n\n        <!-- Step 1 -->\n        <tr>\n          <td style=\"padding:28px 44px 0;\">\n            <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background:#f2ebdc; border-radius:16px;\">\n              <tbody><tr>\n                <td style=\"padding:24px 26px;\">\n                  <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n                    <tbody><tr>\n                      <td width=\"34\" valign=\"top\" style=\"font-size:22px; font-weight:800; color:#e2794f; font-family:Georgia, 'Times New Roman', serif;\">1<\u002Ftd>\n                      <td style=\"font-size:16px; line-height:1.55; color:#201d19;\">\n                        <strong style=\"font-size:17px;\">Install Claude Code<\u002Fstrong> (one time).<br>\n                        <span style=\"color:#5d5546;\">Download it at<\u002Fspan> <a href=\"https://claude.com/claude-code\" style=\"color:#c05a30; font-weight:600; text-decoration:underline;\">claude.com/claude-code<\u002Fa><span style=\"color:#5d5546;\">. You'll need a Claude account — a Pro or Max plan covers it.<\u002Fspan>\n                      <\u002Ftd>\n                    <\u002Ftr>\n                  <\u002Ftbody><\u002Ftable>\n                <\u002Ftd>\n              <\u002Ftr>\n            <\u002Ftbody><\u002Ftable>\n          <\u002Ftd>\n        <\u002Ftr>\n\n        <!-- Step 2 -->\n        <tr>\n          <td style=\"padding:16px 44px 0;\">\n            <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background:#f2ebdc; border-radius:16px;\">\n              <tbody><tr>\n                <td style=\"padding:24px 26px;\">\n                  <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n                    <tbody><tr>\n                      <td width=\"34\" valign=\"top\" style=\"font-size:22px; font-weight:800; color:#e2794f; font-family:Georgia, 'Times New Roman', serif;\">2<\u002Ftd>\n                      <td style=\"font-size:16px; line-height:1.55; color:#201d19;\">\n                        <strong style=\"font-size:17px;\">Open Claude Code and paste this:<\u002Fstrong>\n                        <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin-top:12px;\">\n                          <tbody><tr><td style=\"background:#201d19; border-radius:12px; padding:16px 18px;\">\n                            <span style=\"font-family:'SF Mono', Consolas, Menlo, monospace; font-size:14px; line-height:1.6; color:#f0e9d8;\">Clone https://github.com/yanashurpik/competitor-dashboard, cd into it, then run the framegen-onboard skill to set up the dashboard for my brand.<\u002Fspan>\n                          <\u002Ftd><\u002Ftr>\n                        <\u002Ftbody><\u002Ftable>\n                      <\u002Ftd>\n                    <\u002Ftr>\n                  <\u002Ftbody><\u002Ftable>\n                <\u002Ftd>\n              <\u002Ftr>\n            <\u002Ftbody><\u002Ftable>\n          <\u002Ftd>\n        <\u002Ftr>\n\n        <!-- What happens next -->\n        <tr>\n          <td style=\"padding:28px 44px 0;\">\n            <div style=\"font-size:12px; font-weight:700; letter-spacing:0.16em; color:#8a7d68;\">WHAT HAPPENS NEXT<\u002Fdiv>\n            <p style=\"margin:12px 0 0; font-size:16px; line-height:1.65; color:#45402f;\">That starts the guided setup. It interviews you about your brand, your competitors, and your carousel style, collects the accounts you need (it opens the signup pages for you), and finishes with the dashboard running — with your first competitive brief already generated.<\u002Fp>\n          <\u002Ftd>\n        <\u002Ftr>\n\n        <!-- Help -->\n        <tr>\n          <td style=\"padding:24px 44px 0;\">\n            <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"background:#fbe4d6; border-radius:16px;\">\n              <tbody><tr>\n                <td style=\"padding:18px 22px; font-size:15.5px; line-height:1.55; color:#8a3d1c;\">\n                  <strong>If anything fails<\u002Fstrong>, screenshot it and send it to me — I'll get you unblocked.\n                <\u002Ftd>\n              <\u002Ftr>\n            <\u002Ftbody><\u002Ftable>\n          <\u002Ftd>\n        <\u002Ftr>\n\n        <!-- Footer -->\n        <tr>\n          <td style=\"padding:36px 44px 40px;\">\n            <hr style=\"border:none; border-top:1px solid #e0d6c2; margin:0 0 24px;\">\n            <div style=\"font-family:Georgia, 'Times New Roman', serif; font-style:italic; font-size:18px; color:#201d19;\">Good AI video is not fast. It's strategic.<\u002Fdiv>\n            <p style=\"margin:10px 0 0; font-size:14px; color:#8a7d68; line-height:1.5;\">FrameGen Studio · <a href=\"https://www.instagram.com/frame.gen.studio\" style=\"color:#8a7d68; text-decoration:underline;\">@frame.gen.studio<\u002Fa> · framegenstudio.com<\u002Fp>\n          <\u002Ftd>\n        <\u002Ftr>\n\n      <\u002Ftbody><\u002Ftable>\n\n    <\u002Ftd>\n  <\u002Ftr>\n<\u002Ftbody><\u002Ftable>\n\n<\u002Fbody><\u002Fhtml>"
+  </script>
+</body>
+</html>
