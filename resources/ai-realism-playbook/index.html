@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<!-- SEO / GEO -->
+<title>The AI Realism Playbook — Prompt Structure, Character Lock & Model Stack | FrameGen Studio</title>
+<meta name="description" content="A director-level reference for photoreal AI images and video: prompt anatomy, visual taste system, character lock, angle-consistency set, and the model stack behind FrameGen's AI UGC ads." />
+<meta name="keywords" content="AI realism, photoreal AI, AI prompt structure, character consistency, Nano Banana Pro, Runway Gen-4, Veo 3, AI UGC prompt library" />
+<meta name="author" content="Yana Shurpik" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+<link rel="canonical" href="https://www.framegenstudio.com/resources/ai-realism-playbook/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="FrameGen Studio" />
+<meta property="og:title" content="The AI Realism Playbook — Prompt Structure, Character Lock & Model Stack" />
+<meta property="og:description" content="A director-level reference for building photoreal AI characters and campaigns — prompt anatomy, visual taste, character lock, model stack." />
+<meta property="og:url" content="https://www.framegenstudio.com/resources/ai-realism-playbook/" />
+<meta property="og:image" content="https://www.framegenstudio.com/resources/this_is_AI.png" />
+<meta property="article:author" content="Yana Shurpik" />
+<meta property="article:published_time" content="2026-07-01" />
+<meta property="article:section" content="AI UGC" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The AI Realism Playbook" />
+<meta name="twitter:description" content="A director-level reference for photoreal AI images and video." />
+<meta name="twitter:image" content="https://www.framegenstudio.com/resources/this_is_AI.png" />
+
+<link rel="icon" href="/avatar/logo.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/resources/article.css">
+
+<!-- Structured data: Breadcrumb -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.framegenstudio.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://www.framegenstudio.com/resources/" },
+    { "@type": "ListItem", "position": 3, "name": "AI Realism Playbook", "item": "https://www.framegenstudio.com/resources/ai-realism-playbook/" }
+  ]
+}
+</script>
+
+<!-- Structured data: Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "The AI Realism Playbook",
+  "alternativeHeadline": "Prompt Structure · Visual Taste System · Character Lock · Model Stack",
+  "description": "A director-level reference guide for building consistent, photoreal AI characters and campaigns — from prompt anatomy to full character-angle locking and the FrameGen model stack.",
+  "image": "https://www.framegenstudio.com/resources/this_is_AI.png",
+  "datePublished": "2026-07-01",
+  "dateModified": "2026-07-09",
+  "author": {
+    "@type": "Person",
+    "name": "Yana Shurpik",
+    "jobTitle": "Founder, FrameGen Studio",
+    "url": "https://www.framegenstudio.com/",
+    "sameAs": ["https://www.instagram.com/frame.gen.studio/"]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FrameGen Studio",
+    "url": "https://www.framegenstudio.com/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.framegenstudio.com/framegen-logo.png"
+    }
+  },
+  "mainEntityOfPage": "https://www.framegenstudio.com/resources/ai-realism-playbook/",
+  "articleSection": "AI UGC",
+  "keywords": ["AI realism","AI prompt structure","photoreal AI","character consistency","Nano Banana Pro","Runway Gen-4"],
+  "inLanguage": "en-US"
+}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="brand"><span class="mark"></span><b>FrameGen Studio</b></a>
+  <div class="nav-links">
+    <a href="/resources/">Resources</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://ig.me/m/frame.gen.studio" target="_blank" rel="noopener">DM</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span>/</span><a href="/resources/">Resources</a><span>/</span>AI Realism Playbook
+  </nav>
+
+  <header class="article-header">
+    <span class="kicker">Playbook · Prompt Library</span>
+    <h1>The AI Realism Playbook</h1>
+    <p class="lede">A director-level reference for photoreal AI: prompt anatomy, a visual-taste system, character lock, the 24-shot angle pack, and the FrameGen model stack. This is the internal method behind every FrameGen ad.</p>
+    <div class="article-meta">
+      <span>By <a href="/">Yana Shurpik</a></span>
+      <span>Updated Jul 2026</span>
+      <span>18 min read</span>
+    </div>
+  </header>
+
+  <article class="post">
+
+    <div class="callout download">
+      <span class="label">Bonus download</span>
+      Prefer the print version? <a href="/resources/AI_Realism_Playbook.pdf">Download the AI Realism Playbook PDF</a> — same content, formatted for offline reference.
+    </div>
+
+    <h2>01. The core principle: direction over luck</h2>
+    <p>Ninety-five percent of AI images look like generic noise — not because the tools are weak, but because the decisions behind them are random. A prompt is not a wish. It's a technical brief handed to a photographer and a lighting designer at the same time.</p>
+    <p><strong>Random prompt → random image. Directed prompt → repeatable, on-brand result.</strong></p>
+    <p>A user writes "cool car" and hopes for luck. A director specifies time of day, lens, lighting direction, material, and mood — and gets a predictable result. Consistency matters more than any single "perfect" output. Style is a repeatable system of decisions.</p>
+
+    <h3>The core formula</h3>
+    <pre>SHOT + LENS + LIGHT + TEXTURE + COMPOSITION + STYLE REFERENCE</pre>
+
+    <h3>The 3-pillar system</h3>
+    <table>
+      <thead><tr><th>Pillar</th><th>Covers</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Structure</td><td>Camera, light, materials, composition</td><td>Handheld 35mm, f/2.8, 1/30s, ISO 400, gritty 90s analog</td></tr>
+        <tr><td>Reference</td><td>Visual anchors — photographers, films, eras</td><td>Styled like 1970s motorcycle ads; Bruce Gilden authenticity</td></tr>
+        <tr><td>Vision</td><td>The emotional intention behind the shot</td><td>Intense, gritty, unfiltered realism</td></tr>
+      </tbody>
+    </table>
+    <p>Layer every prompt in this order: <em>subject → camera → light → texture → composition → style</em>. Each layer adds precision. Never write a prompt as one flat sentence.</p>
+
+    <h2>02. Prompt anatomy</h2>
+
+    <h3>Subject &amp; action</h3>
+    <p>The skeleton of the frame — who's in it, what they're doing, and where. Avoid abstraction.</p>
+    <table>
+      <thead><tr><th>✕ Weak</th><th>✓ Directed</th></tr></thead>
+      <tbody>
+        <tr><td>A happy person</td><td>A young woman laughing while holding a cup of coffee, sitting on a balcony at sunset</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Camera &amp; shot type</h3>
+    <ul>
+      <li><strong>Extreme close-up (ECU)</strong> — eye, lips, ring. Intimacy, tension.</li>
+      <li><strong>Close-up (CU)</strong> — face/chest. Emotion, drama.</li>
+      <li><strong>Medium shot (MS)</strong> — waist-up. Balance of emotion &amp; context.</li>
+      <li><strong>Full shot (FS)</strong> — full body. Figure + environment.</li>
+      <li><strong>Over-the-shoulder (OTS)</strong> — from behind subject. Presence, cinematic.</li>
+      <li><strong>POV</strong> — first-person. Full immersion.</li>
+      <li><strong>Dutch angle</strong> — tilted frame. Energy, instability.</li>
+    </ul>
+
+    <h3>Lens &amp; focal length</h3>
+    <table>
+      <thead><tr><th>Range</th><th>Look</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>14–24mm ultra-wide</td><td>Strong perspective, distortion</td><td>Architecture, streets</td></tr>
+        <tr><td>24–35mm wide</td><td>Lots of environment, dynamic</td><td>Street, travel, reportage</td></tr>
+        <tr><td>35–50mm standard</td><td>"Human eye" natural look</td><td>Documentary, lifestyle</td></tr>
+        <tr><td>85–135mm portrait</td><td>Background compression, isolation</td><td>Portraits</td></tr>
+        <tr><td>200mm+ telephoto</td><td>Flat background, full isolation</td><td>Sport, wildlife</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Lighting</h3>
+    <p><strong>Source</strong> — natural light (alive, realistic, soft); studio strobes/softbox (clean, commercial); neon/LED (futurism, cyberpunk); candlelight (intimacy, warmth); practical in-frame lights (lived-in realism).</p>
+    <p><strong>Direction</strong> — front-lit (flat), side-lit / Rembrandt (drama, depth), backlit (silhouette, halo), rim-light (edge separation).</p>
+    <p><strong>Color temperature</strong> — warm 2700–3500K (cozy, nostalgic); daylight 5000–5600K (neutral, realistic); cool 6000–7000K (techy, cold).</p>
+
+    <h3>Material &amp; texture — the plastic-AI killer</h3>
+    <p>The single biggest realism unlock: name the material. <strong>Skin</strong> should have visible pores, micro-wrinkles, and natural tone irregularities. <strong>Metal</strong> can be matte, brushed, polished, or scratched. <strong>Fabric</strong> — silk (glossy), denim (rough), wool (warm), leather (patina). Ambiguous materials give you smooth, plastic outputs. Specificity gives you a photograph.</p>
+
+    <h3>Composition</h3>
+    <p>Rule of thirds (balanced, natural), centered (formal, iconic), negative space (air, drama, room for text), leading lines (guides the eye), foreground/mid/background layering (depth).</p>
+
+    <h3>Style references — anchor every image</h3>
+    <p>Photographers (Annie Leibovitz — dramatic portrait; Bruce Gilden — harsh street; Helmut Newton — fashion). Films (<em>Blade Runner 2049</em> — neon + fog; <em>Dune</em> — sandy monumentality; <em>Drive</em> — night &amp; neon). Eras (1970s ads, 1990s grunge, 1920s art deco).</p>
+
+    <h3>A full layered prompt</h3>
+    <pre>Motocross rider mid-lean on a dirt track, captured in gritty 90s analog style,
+vertical black and white frame with strong motion blur, shot handheld with a
+35mm lens at f/2.8, 1/30s, ISO 400. Flat overcast daylight, diffuse shadows,
+helmet highlights softly blown out, granular dirt with lateral dust streaks.
+Styled like vintage Marlboro campaigns, evoking raw speed and unpolished realism.</pre>
+
+    <h2>03. The visual taste system</h2>
+    <p>Visual taste is what separates "AI content" from premium, intentional creative work. It is your aesthetic identity — the repeatable decisions that make visuals consistent and recognizable: color language, lighting style, composition habits, texture choices, mood, and reference anchors. Taste is trainable — you build it through a system, not by scrolling more.</p>
+
+    <h3>The 4-step creative director method</h3>
+    <ol>
+      <li><strong>Curate like a director.</strong> Stop scrolling for entertainment. Build a moodboard of references that feel premium, emotional, and aligned with your style. Target: 20–30 strong references to start, then +5 per day.</li>
+      <li><strong>Find the patterns.</strong> Treat your moodboard as a dataset, not a collage. Identify 2–4 repeating patterns: a color palette, a lighting signature, texture choices, composition habits, recurring moods.</li>
+      <li><strong>Translate into prompt language.</strong> "Cinematic lighting" is too vague. Better: <em>"muted blue-gray palette, matte textures, soft haze, asymmetrical composition, gritty editorial mood, 35mm lens."</em></li>
+      <li><strong>Micro-practice.</strong> Recreate one reference exactly. Generate 5 consistent variations. Change only lighting, then only angle. Build a small signature pack — a mini set that visibly matches.</li>
+    </ol>
+
+    <blockquote>ChatGPT shortcut: feed your moodboard to ChatGPT and ask it to extract palette, lighting, textures, composition, mood, keywords, ready-to-use prompts, and an aesthetic "NO list" — what breaks your style. The result is a repeatable system.</blockquote>
+
+    <h2>04. Aesthetic selection algorithm</h2>
+    <p>Use this decision chain before writing any prompt: <em>Goal → Audience → Emotion → Aesthetic → Substyle → Style Kit → Prompts.</em></p>
+
+    <h3>The 7 base aesthetics — pick exactly one</h3>
+    <table>
+      <thead><tr><th>Base aesthetic</th><th>Meta-message</th><th>Style keywords</th></tr></thead>
+      <tbody>
+        <tr><td>Cinematic</td><td>Story, depth, emotion</td><td>low-key, haze, shallow DOF, filmic grade</td></tr>
+        <tr><td>Minimalist</td><td>Clarity, trust, premium</td><td>neutral palette, negative space, diffused light</td></tr>
+        <tr><td>Editorial / Fashion</td><td>Luxury, confidence, trend</td><td>studio light, glossy textures, bold pose</td></tr>
+        <tr><td>Dreamy / Soft</td><td>Gentle, nostalgic, emotional</td><td>pastels, bloom, soft haze, romantic light</td></tr>
+        <tr><td>Retro / Vintage</td><td>Memory, authenticity, human</td><td>warm film tones, grain, slight softness</td></tr>
+        <tr><td>Gritty / Dark</td><td>Edge, power, rebellion</td><td>high contrast, desaturated, harsh side light</td></tr>
+        <tr><td>Futuristic / Tech</td><td>Innovation, speed, efficiency</td><td>neon rim, chrome, clean geometry</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Prompt formula — copy/paste template</h3>
+    <pre>[SUBJECT], [ACTION/SCENE]. Style: [BASE AESTHETIC] + [SUBSTYLE].
+Palette: [3-5 color words]. Lighting: [soft/hard + direction + contrast].
+Composition: [negative space / centered / rule-of-thirds].
+Texture: [clean / grain / haze / bloom]. Camera: [lens + depth of field].
+Mood: [2-3 words]. Post: [filmic grade / matte / glossy].
+Negative: low-res, text, watermark, messy background</pre>
+
+    <h2>05. Character lock — visual DNA</h2>
+    <p><strong>The Sprint Rule:</strong> to grow fast, stop being random. One account = one character: same face, same skin aesthetic, same vibe. Every project starts by locking a <em>Fixed DNA</em> block before any scene or context is added.</p>
+    <p>Workflow: 1) choose your aesthetic → 2) copy the Fixed DNA text → 3) convert it with the JSON Engine → 4) add a scenario and generate.</p>
+
+    <h3>Five Fixed-DNA starting points</h3>
+    <ul>
+      <li><strong>High-contrast organic.</strong> Deep warm skin with organic vitiligo patches, dark brows, green eyes, silver hair, natural oily sheen, unretouched texture. Organic patterns create a unique visual fingerprint for instant retention.</li>
+      <li><strong>Ultra-light ethereal.</strong> Albinism aesthetic — translucent skin, visible veins, platinum lashes, violet-blue iris. Pale skin pops against dark feeds — rare, mystical, expensive.</li>
+      <li><strong>Hyper-freckled.</strong> Heavy freckles, emerald eyes, ginger curly hair, rosacea flush, chapped lips. Imperfections read as "real" and build trust fast.</li>
+      <li><strong>Glass skin.</strong> Extremely hydrated but visibly pored, sharp jawline, ice-blue eyes, jet-black bangs. Uncanny-valley effect — ideal for tech and beauty niches.</li>
+      <li><strong>Raw realism.</strong> Uneven skin tone, cheek redness, open pores, peach fuzz, messy bun. Reads 100% native/UGC — the audience won't clock it as AI.</li>
+    </ul>
+
+    <h3>The DNA Extractor prompt (from a reference photo)</h3>
+    <pre>Analyze the uploaded image and create a "Visual DNA" description for AI image
+generation. Focus ONLY on biological and physical features: Face (bone
+structure, eye shape/color, nose, lips) · Skin (exact tone, texture, specific
+imperfections — pores, freckles, moles — and age) · Hair (color, texture,
+style). Do NOT describe clothing, background, or lighting. Keep it under 50
+words. High density of adjectives.</pre>
+
+    <h3>The Universal Constructor (build from scratch)</h3>
+    <pre>PART 1 — FIXED DNA (Biology): Portrait of a [AGE] year old [GENDER],
+[ETHNICITY]. Skin: [SKIN TEXTURE]. Eyes: [EYE COLOR], looking at camera.
+Hair: [HAIR COLOR &amp; STYLE]. Details: visible pores, slight imperfections,
+authentic human look.
+
+PART 2 — VARIABLE CONTEXT (Scene): Location: [WHERE?]. Action: [DOING WHAT?].
+Lighting: [LIGHT SOURCE]. Tech specs: shot on iPhone 17 Pro, raw photo,
+amateur footage, unedited, realistic shadows.</pre>
+
+    <h3>The JSON Engine — for Nano Banana Pro</h3>
+    <pre>{
+  "subject": "Main subject description",
+  "dna_features": "Eyes, skin, hair, bone structure (Fixed Part)",
+  "context_modifiers": "Clothing, location, lighting (Variable Part)",
+  "camera_settings": "iPhone 17 Pro, flash, raw photo, unedited",
+  "negative_prompt": "cartoon, 3d render, plastic, illustration"
+}</pre>
+
+    <h3>Variable context menu — lifestyle triggers</h3>
+    <ul>
+      <li><strong>The bathroom mirror (morning)</strong> — mirror selfie, dirty mirror texture with water spots, holding iPhone 17 Pro, fluorescent lighting, messy room, raw photo.</li>
+      <li><strong>The night flash (party)</strong> — hard direct flash, red-eye reduction, dark background, motion blur, Snapchat quality.</li>
+      <li><strong>The car sunset (travel)</strong> — driver's seat, golden-hour sunlight on the face, seatbelt on, lens flare, front camera, Instagram-story vibe.</li>
+      <li><strong>The gym elevator (fitness)</strong> — elevator mirror selfie, full body, harsh overhead lighting, fingerprint smudges, street-style outfit.</li>
+    </ul>
+
+    <h2>06. The 24-shot angle lock pack</h2>
+    <p>Once a character's Fixed DNA is locked, generate the full 24-shot angle set to build a consistent reference library — every prompt anchors back to "the reference character" so identity never drifts.</p>
+    <p><strong>Base tail (append to every prompt):</strong> clean white studio background, soft studio lighting, photorealistic, maintain character consistency — hair, eyes, nose, lips, skin texture, spots, moles, pores, and natural facial features.</p>
+    <p>The set covers front views (85mm shallow DOF), close-ups (100mm macro), full body front / left / right / back (50mm), plus expression variants — neutral, soft smile, laughing, serious, chin-lowered, slight head-turn. Twenty-four shots per character, generated once, used forever as reference anchors.</p>
+
+    <h2>07. Hybrid reality workflow</h2>
+    <p>Put your locked AI character into your real footage:</p>
+    <ol>
+      <li>Record yourself on a tripod — static camera is required.</li>
+      <li>Screenshot a clear frame from the video.</li>
+      <li>Open Nano Banana Pro → Inpainting tool.</li>
+      <li>Mask only the face.</li>
+      <li>Paste your Fixed DNA text only.</li>
+      <li>Generate — AI keeps the room and clothes, swaps only the face.</li>
+    </ol>
+
+    <h2>08. Model &amp; tool stack — which engine for which job</h2>
+    <table>
+      <thead><tr><th>Job</th><th>Model</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Photoreal character stills, angle lock</td><td>Nano Banana Pro</td><td>Best identity consistency + inpainting for hybrid workflow</td></tr>
+        <tr><td>Cinematic motion, hero shots</td><td>Runway Gen-4, Veo 3</td><td>Longer clips with camera-move control and physical realism</td></tr>
+        <tr><td>Fast expressive motion</td><td>Kling 3.0, Seedance 2.0</td><td>Snappy motion for UGC-style hooks</td></tr>
+        <tr><td>Voice</td><td>ElevenLabs v3</td><td>Natural inflection and multi-language coverage</td></tr>
+        <tr><td>Stylized inserts</td><td>Pika 2, Higgsfield</td><td>Stylized cutaways and effects</td></tr>
+      </tbody>
+    </table>
+    <p>Swap the stack as the frontier moves — none of these were the answer 12 months ago and none will be in 12 months. What stays: the prompt structure, the DNA lock, the angle set.</p>
+
+    <h2>09. End-to-end workflow checklist</h2>
+    <ol>
+      <li>Lock the Fixed DNA (one character, one aesthetic).</li>
+      <li>Generate the 24-shot angle pack — save as reference library.</li>
+      <li>For every scene: paste DNA at the top, then layer shot + lens + light + texture + composition + style.</li>
+      <li>Run a realism upscale pass — enhance skin texture, natural imperfections, film-grain grade.</li>
+      <li>Deliver: raw shots + edit-ready MP4, same DNA everywhere.</li>
+    </ol>
+
+    <div class="callout">
+      <span class="label">Want this run for your brand?</span>
+      FrameGen Studio uses this exact system to build AI UGC ads for DTC brands — from $140 per video, no retainer. <a href="/#pricing">See pricing</a> or <a href="https://ig.me/m/frame.gen.studio" target="_blank" rel="noopener">DM on Instagram</a>.
+    </div>
+
+    <div class="author">
+      <div class="avatar">Y</div>
+      <div class="author-body">
+        <h4>Yana Shurpik</h4>
+        <p>Founder of FrameGen Studio. Builds AI UGC video ads for DTC and Shopify brands using the character-lock and prompt-structure system in this playbook. Based in Warsaw, worldwide remote.</p>
+        <div class="credits">
+          <a href="https://www.instagram.com/frame.gen.studio/" target="_blank" rel="noopener">@frame.gen.studio</a>
+          · <a href="/">framegenstudio.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="end-cta">
+      <h3>Skip the learning curve — book a spot.</h3>
+      <p>Real-feeling creator-style ads, built with the exact system above. From $140/video.</p>
+      <a href="/#pricing" class="btn">See pricing</a>
+      <a href="https://ig.me/m/frame.gen.studio" target="_blank" rel="noopener" class="btn ghost">DM on Instagram</a>
+    </div>
+
+    <div class="related">
+      <h4>Related resources</h4>
+      <div class="related-list">
+        <a href="/resources/ai-ecommerce-workflow/">AI Ecommerce Content Workflow</a>
+        <a href="/resources/content-dashboard-prompts/">Content Dashboard Prompts</a>
+        <a href="/faq/">Frequently asked questions</a>
+        <a href="/resources/">Back to all resources</a>
+      </div>
+    </div>
+
+  </article>
+</div>
+
+<footer class="foot">
+  <div class="col">
+    <span class="foot-brand"><span class="mark"></span>FRAMEGEN STUDIO</span>
+    <span>© 2026</span>
+  </div>
+  <div class="col">
+    <a href="/">Home</a>
+    <a href="/resources/">Resources</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/content-dashboard/">Content Dashboard</a>
+    <a href="https://www.instagram.com/frame.gen.studio/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</footer>
+
+</body>
+</html>
