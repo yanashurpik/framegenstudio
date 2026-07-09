@@ -1,0 +1,10 @@
+# Pre-rebrand drafts and standalone artifacts.
+# Kept in git for reference; excluded from Vercel deploys so they don't
+# appear as duplicate/thin content or bloat the deployment.
+AI UGC website v1.html
+Frame Zero - AI UGC Studio.html
+FrameGen Setup Email (standalone).html
+FrameGen Dashboard Landing Page.html
+
+# Editorial / working files that shouldn't ship
+framegenstudio-seo-geo-30-day-plan.md
