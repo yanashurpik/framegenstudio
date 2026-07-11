@@ -60,6 +60,24 @@
   .comparison-table .check{color:#16a34a;font-weight:700}
   .comparison-table .cross{color:var(--accent)}
   @media(max-width:700px){.comparison-table{font-size:12px}.comparison-table td,.comparison-table th{padding:8px 10px}}
+
+  /* Video preview + modal */
+  .video-preview{position:relative;cursor:pointer;border-radius:12px;overflow:hidden;margin:16px 0;border:1px solid var(--line);background:#000}
+  .video-preview video{width:100%;display:block;max-height:420px;object-fit:cover;pointer-events:none}
+  .video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.28);transition:background .2s}
+  .video-preview:hover .video-play-btn{background:rgba(0,0,0,.18)}
+  .video-play-btn span{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3);transition:transform .2s}
+  .video-preview:hover .video-play-btn span{transform:scale(1.08)}
+  .video-play-btn svg{width:20px;height:20px;fill:#111;margin-left:3px}
+
+  /* Modal */
+  .v-modal{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.2,.8,.2,1)}
+  .v-modal.open{opacity:1;pointer-events:auto}
+  .v-modal-box{width:90%;max-width:420px;aspect-ratio:9/16;background:#000;border-radius:22px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);transform:scale(.92);transition:transform .35s cubic-bezier(.2,.8,.2,1);position:relative}
+  .v-modal.open .v-modal-box{transform:scale(1)}
+  .v-modal-box video{width:100%;height:100%;object-fit:contain;background:#000}
+  .v-modal-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:2;transition:background .2s,transform .2s}
+  .v-modal-close:hover{background:#fff;color:#000;transform:rotate(90deg)}
 </style>
 
 <!-- Breadcrumb -->
@@ -269,7 +287,12 @@
       <h3>FrameGen Studio</h3>
       <p class="tagline">framegenstudio.com · Warsaw / Worldwide remote</p>
       <p>FrameGen Studio is a done-for-you AI UGC ad agency that builds creator-style video ads using generative AI — without a single shoot day or influencer fee. Every project starts with a competitive hook audit and a brand-DNA build (character, lighting, palette, tone) that carries through every asset in the campaign. The result: a full ad set that looks like one universe, not seven random outputs.</p>
-      <video src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" autoplay loop muted playsinline style="width:100%;border-radius:12px;margin:16px 0;display:block;max-height:420px;object-fit:cover;border:1px solid var(--line)"></video>
+      <div class="video-preview" id="videoPreview">
+        <video src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" autoplay loop muted playsinline></video>
+        <div class="video-play-btn">
+          <span><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></span>
+        </div>
+      </div>
       <p>What separates FrameGen from both traditional UGC agencies and self-serve AI tools is the strategy layer. Founder Yana Shurpik studies what's winning in your category on Meta and TikTok before writing a single hook — so the creative starts from a tested framework, not a blank prompt. Videos are delivered with full commercial rights and raw source files.</p>
       <div class="agency-meta">
         <span><b>From:</b> $140 / video</span>
@@ -584,5 +607,37 @@
   </div>
 </footer>
 
+<!-- Video modal -->
+<div class="v-modal" id="vModal">
+  <div class="v-modal-box">
+    <button class="v-modal-close" id="vModalClose" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <video id="vModalVideo" src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" playsinline controls></video>
+  </div>
+</div>
+
+<script>
+  const preview = document.getElementById('videoPreview');
+  const modal   = document.getElementById('vModal');
+  const modalV  = document.getElementById('vModalVideo');
+  const closeBtn= document.getElementById('vModalClose');
+
+  function openModal() {
+    modal.classList.add('open');
+    modalV.currentTime = 0;
+    modalV.play();
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modalV.pause();
+    modalV.currentTime = 0;
+  }
+
+  preview.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
 </body>
 </html>
