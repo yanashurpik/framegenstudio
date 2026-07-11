@@ -153,6 +153,33 @@
 
   <article class="post">
 
+    <div id="videoPreview" style="position:relative;cursor:pointer;border-radius:12px;overflow:hidden;margin:0 0 32px;border:1px solid var(--line);background:#000">
+      <video src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_video.png" autoplay loop muted playsinline style="width:100%;display:block;max-height:420px;object-fit:cover;pointer-events:none"></video>
+      <div id="playOverlay" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25);transition:background .2s">
+        <span style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)"><svg width="20" height="20" viewBox="0 0 24 24" fill="#111" style="margin-left:3px"><polygon points="5,3 19,12 5,21"/></svg></span>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="vModal" style="position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(16px);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s">
+      <div id="vModalBox" style="width:90%;max-width:420px;aspect-ratio:9/16;background:#000;border-radius:22px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);transform:scale(.92);transition:transform .35s;position:relative">
+        <button id="vModalClose" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:2;transition:background .2s" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <video id="vModalVideo" src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" playsinline controls style="width:100%;height:100%;object-fit:contain;background:#000"></video>
+      </div>
+    </div>
+
+    <script>
+      const _p=document.getElementById('videoPreview'),_m=document.getElementById('vModal'),_mv=document.getElementById('vModalVideo'),_mb=document.getElementById('vModalBox'),_mc=document.getElementById('vModalClose');
+      function _open(){_m.style.opacity=1;_m.style.pointerEvents='auto';_mb.style.transform='scale(1)';_mv.currentTime=0;_mv.play();}
+      function _close(){_m.style.opacity=0;_m.style.pointerEvents='none';_mb.style.transform='scale(.92)';_mv.pause();_mv.currentTime=0;}
+      _p.addEventListener('click',_open);
+      _mc.addEventListener('click',_close);
+      _m.addEventListener('click',e=>{if(e.target===_m)_close();});
+      document.addEventListener('keydown',e=>{if(e.key==='Escape')_close();});
+    </script>
+
     <h2 id="what-is-ai-advertising">What is AI advertising?</h2>
     <p>AI advertising is the use of artificial intelligence to create, optimize, or deliver ad content. It's not one technology — it's a stack of tools applied at different stages of an ad campaign:</p>
     <ul>
