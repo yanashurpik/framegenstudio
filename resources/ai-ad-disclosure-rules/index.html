@@ -290,6 +290,32 @@
       </div>
     </div>
 
+    <div id="videoPreview" style="position:relative;cursor:pointer;border-radius:12px;overflow:hidden;margin:0 0 32px;border:1px solid var(--line);background:#000">
+      <video src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_video.png" autoplay loop muted playsinline style="width:100%;display:block;max-height:420px;object-fit:cover;pointer-events:none"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+        <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.18)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 4l14 8-14 8V4z" fill="#111"/></svg>
+        </div>
+      </div>
+      <p style="position:absolute;bottom:12px;left:16px;font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.04em">Example AI UGC ad — FrameGen Studio</p>
+    </div>
+    <div id="vModal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.88);align-items:center;justify-content:center">
+      <div style="position:relative;width:min(520px,92vw)">
+        <video id="vModalVid" src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" controls playsinline style="width:100%;border-radius:12px;display:block"></video>
+        <button onclick="document.getElementById('vModal').style.display='none';document.getElementById('vModalVid').pause()" style="position:absolute;top:-36px;right:0;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;line-height:1">✕</button>
+      </div>
+    </div>
+    <script>
+      document.getElementById('videoPreview').addEventListener('click',function(){
+        var m=document.getElementById('vModal');
+        m.style.display='flex';
+        document.getElementById('vModalVid').play();
+      });
+      document.getElementById('vModal').addEventListener('click',function(e){
+        if(e.target===this){this.style.display='none';document.getElementById('vModalVid').pause();}
+      });
+    </script>
+
     <div class="end-cta">
       <h3>Want AI UGC ads that are compliant from day one?</h3>
       <p>FrameGen handles the creative and the disclosure — from $140/video, no retainer.</p>
