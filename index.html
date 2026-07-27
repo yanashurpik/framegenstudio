@@ -618,6 +618,20 @@ a{color:inherit;text-decoration:none}
 .filter{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink-2);transition:all .25s ease}
 .filter:hover{border-color:var(--ink);color:var(--ink)}
 .filter.is-active{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* See-more toggle: hide extras until expanded, but only when filter is "all" */
+#grid .card.is-more{display:none}
+#grid.is-expanded .card.is-more{display:block}
+.work-more{display:flex;justify-content:center;margin:32px 0 8px}
+.work-more-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:12px 22px;border-radius:999px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-2);cursor:pointer;
+  transition:border-color .22s ease,color .22s ease,transform .22s ease;
+}
+.work-more-btn:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
+.work-more-btn svg{width:12px;height:12px;transition:transform .3s ease}
+.work-more-btn.is-open svg{transform:rotate(180deg)}
 
 .grid-work{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
 .card{position:relative;border-radius:var(--radius-md);overflow:hidden;background:var(--card);border:1px solid var(--line-2);transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease}
@@ -1304,7 +1318,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v6 reveal" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%201%20%231..mp4">
+      <a class="card is-more span-4 v6 reveal" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%201%20%231..mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%201%20%231..jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%201%20%231..mp4" loop muted playsinline preload="none"></video>
           <span class="tag">Meta</span>
@@ -1368,7 +1382,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v4 reveal d1" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/crash_LAWSHARKS.mp4">
+      <a class="card is-more span-4 v4 reveal d1" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/crash_LAWSHARKS.mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/crash_LAWSHARKS.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/crash_LAWSHARKS.mp4" loop muted playsinline preload="none"></video>
           <span class="tag">Meta</span>
@@ -1384,7 +1398,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v5 reveal" data-cat="tiktok" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%202.mp4">
+      <a class="card is-more span-4 v5 reveal" data-cat="tiktok" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%202.mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%202.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%202.mp4" loop muted playsinline preload="none"></video>
           <span class="tag">TikTok</span>
@@ -1415,7 +1429,22 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v1 reveal" data-cat="tiktok" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%203.mp4">
+      <a class="card span-4 v5 reveal" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2_fixed.mp4">
+        <div class="frame">
+          <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2_fixed.mp4" loop muted playsinline preload="none"></video>
+          <span class="tag">Meta</span>
+          <button class="play" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <span class="dur">B-ROLL · MOTION + UI</span>
+        </div>
+        <div class="meta">
+          <div>
+            <h4>WebArm ERP API — B-roll</h4>
+            <div class="sub">Product motion · Meta feed</div>
+          </div>
+        </div>
+      </a>
+
+      <a class="card is-more span-4 v1 reveal" data-cat="tiktok" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%203.mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%203.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/SugarLips%20Hook%203.mp4" loop muted playsinline preload="none"></video>
           <span class="tag">TikTok</span>
@@ -1431,7 +1460,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v3 reveal d1" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%201%20%232.mp4">
+      <a class="card is-more span-4 v3 reveal d1" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%201%20%232.mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%202%20%231.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20FathersDay%20Hook%202%20%231.mp4" loop muted playsinline preload="none"></video>
           <span class="tag">Meta</span>
@@ -1447,7 +1476,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v1 reveal d2" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/messsagesvLAWSHARKS.mp4">
+      <a class="card is-more span-4 v1 reveal d2" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/messsagesvLAWSHARKS.mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/messsagesvLAWSHARKS.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/messsagesvLAWSHARKS.mp4" loop muted playsinline preload="none"></video>
           <span class="tag">Meta</span>
@@ -1463,7 +1492,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v4 reveal" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/gym_ad.mp4">
+      <a class="card is-more span-4 v4 reveal" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/gym_ad.mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/gym_ad.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/gym_ad.mp4" loop muted playsinline preload="none"></video>
           <span class="tag">Meta</span>
@@ -1508,7 +1537,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v3 reveal d1" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArmKsef_ERP_1.mov">
+      <a class="card is-more span-4 v3 reveal d1" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArmKsef_ERP_1.mov">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_1.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArmKsef_ERP_1.mov" loop muted playsinline preload="none"></video>
           <span class="tag">Meta</span>
@@ -1523,7 +1552,7 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v4 reveal d2" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.mp4">
+      <a class="card is-more span-4 v4 reveal d2" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.mp4">
         <div class="frame">
           <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.mp4" loop muted playsinline preload="none"></video>
           <span class="tag">Meta</span>
@@ -1538,21 +1567,13 @@ a{color:inherit;text-decoration:none}
         </div>
       </a>
 
-      <a class="card span-4 v5 reveal" data-cat="meta" data-video="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2_fixed.mp4">
-        <div class="frame">
-          <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2_fixed.mp4" loop muted playsinline preload="none"></video>
-          <span class="tag">Meta</span>
-          <button class="play" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-          <span class="dur">B-ROLL · MOTION + UI</span>
-        </div>
-        <div class="meta">
-          <div>
-            <h4>WebArm ERP API — B-roll</h4>
-            <div class="sub">Product motion · Meta feed</div>
-          </div>
-        </div>
-      </a>
+    </div>
 
+    <div class="work-more reveal">
+      <button type="button" class="work-more-btn" id="seeMoreWork" aria-expanded="false" aria-controls="grid">
+        <span data-label>See more work</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
     </div>
 
     <form class="mini-capture reveal" action="https://api.web3forms.com/submit" method="POST" data-mini-form>
@@ -1961,23 +1982,56 @@ a{color:inherit;text-decoration:none}
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 })();
 
-/* portfolio filter */
+/* portfolio filter + see-more */
 (function(){
+  const grid = document.getElementById('grid');
   const filters = document.querySelectorAll('#filters .filter');
   const cards = document.querySelectorAll('#grid .card');
-  filters.forEach(b=>b.addEventListener('click', ()=>{
-    filters.forEach(x=>x.classList.remove('is-active'));
-    b.classList.add('is-active');
-    const f = b.dataset.f;
+  const moreBtn = document.getElementById('seeMoreWork');
+  const moreLabel = moreBtn ? moreBtn.querySelector('[data-label]') : null;
+  const moreWrap = moreBtn ? moreBtn.closest('.work-more') : null;
+  let activeFilter = 'all';
+  let expanded = false;
+
+  function apply(animate){
     cards.forEach(c=>{
-      const show = f==='all' || c.dataset.cat===f;
-      c.style.transition='opacity .35s ease, transform .45s ease';
+      const matchesFilter = activeFilter === 'all' || c.dataset.cat === activeFilter;
+      const isHiddenExtra = c.classList.contains('is-more');
+      // On "all", hide is-more cards unless expanded. On category filters, show all matches.
+      const show = matchesFilter && (activeFilter !== 'all' || !isHiddenExtra || expanded);
+      if(animate) c.style.transition = 'opacity .35s ease, transform .45s ease';
       c.style.opacity = show ? '1' : '0';
       c.style.transform = show ? '' : 'scale(.98)';
       c.style.pointerEvents = show ? '' : 'none';
-      setTimeout(()=>{ c.style.display = show ? '' : 'none'; }, show?0:300);
+      const delay = show ? 0 : (animate ? 300 : 0);
+      // Explicit 'block' when showing so CSS rule `.card.is-more{display:none}` doesn't win
+      setTimeout(()=>{ c.style.display = show ? 'block' : 'none'; }, delay);
     });
+    if(moreWrap){
+      // Only meaningful in "all" view
+      moreWrap.style.display = (activeFilter === 'all') ? '' : 'none';
+    }
+  }
+
+  filters.forEach(b=>b.addEventListener('click', ()=>{
+    filters.forEach(x=>x.classList.remove('is-active'));
+    b.classList.add('is-active');
+    activeFilter = b.dataset.f;
+    apply(true);
   }));
+
+  if(moreBtn){
+    moreBtn.addEventListener('click', ()=>{
+      expanded = !expanded;
+      moreBtn.classList.toggle('is-open', expanded);
+      moreBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      if(grid) grid.classList.toggle('is-expanded', expanded);
+      if(moreLabel) moreLabel.textContent = expanded ? 'Show less' : 'See more work';
+      apply(true);
+    });
+  }
+
+  apply(false);
 })();
 
 /* budget toggle */
