@@ -32,6 +32,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/resources/article.css">
 
+<style>
+/* --- Video showcase --- */
+.showcase{margin:36px 0}
+.showcase-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.showcase-head .slabel{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px}
+.showcase-head .slabel::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.showcase-head .smore{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.showcase-head .smore:hover{color:var(--ink);text-decoration:none}
+.showcase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:700px){.showcase-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+.sc-item{
+  position:relative;overflow:hidden;border-radius:10px;
+  background:#0d0d0d;aspect-ratio:9/16;cursor:pointer;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease;
+  border:1px solid var(--line);
+}
+.sc-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.sc-item video,.sc-item img{width:100%;height:100%;object-fit:cover;display:block}
+.sc-item .sctag{
+  position:absolute;top:8px;left:8px;z-index:2;
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  color:#fff;padding:3px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
+}
+.sc-item .scplay{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:3;width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.92);display:grid;place-items:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .2s ease;
+}
+.sc-item:hover .scplay{transform:translate(-50%,-50%) scale(1.08)}
+.sc-item .scplay svg{width:12px;height:12px;fill:#111;margin-left:2px}
+
+/* Video modal */
+.v-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(14px);
+  z-index:10000;display:flex;align-items:center;justify-content:center;
+  padding:24px;opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.v-modal.is-open{opacity:1;pointer-events:auto}
+.v-modal-box{
+  width:100%;max-width:min(420px,92vw);aspect-ratio:9/16;max-height:88vh;
+  background:#000;border-radius:18px;overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);
+  transform:scale(.94);transition:transform .3s ease;position:relative;
+}
+.v-modal.is-open .v-modal-box{transform:scale(1)}
+.v-modal-box video{width:100%;height:100%;object-fit:contain;background:#000}
+.v-modal-close{
+  position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);color:#fff;
+  display:grid;place-items:center;cursor:pointer;z-index:2;
+}
+.v-modal-close svg{width:16px;height:16px;stroke:currentColor;fill:none}
+</style>
+
 <!-- Breadcrumb -->
 <script type="application/ld+json">
 {
@@ -230,6 +286,35 @@
     <p>AI production compresses that pipeline to under a week for a single asset. Under two weeks for a full campaign — multiple videos, hook variants, and the Meta Ads setup wired up. For a launch push where the market window is measured in weeks, that difference is the difference between shipping on time and missing the launch.</p>
     <p>Real example: <a href="/clients/">the WebArm case study</a>. Two B2B SaaS products (KSeF e-invoicing and ERP API), four videos, ten images and animations, and a full Meta Ads campaign — all shipped in under two weeks off one shared <strong>brand DNA</strong>.</p>
 
+    <div class="showcase">
+      <div class="showcase-head">
+        <span class="slabel">WebArm videos</span>
+        <a class="smore" href="/clients/">Full case study →</a>
+      </div>
+      <div class="showcase-grid">
+        <div class="sc-item" data-vsrc="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArm_Ksef.mov">
+          <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_1.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArm_Ksef.mov" loop muted playsinline preload="none"></video>
+          <span class="sctag">KSeF · Talking head</span>
+          <span class="scplay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="sc-item" data-vsrc="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArmKsef_ERP_1.mov">
+          <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_1.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArmKsef_ERP_1.mov" loop muted playsinline preload="none"></video>
+          <span class="sctag">ERP API · Talking head</span>
+          <span class="scplay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="sc-item" data-vsrc="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.mp4">
+          <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.mp4" loop muted playsinline preload="none"></video>
+          <span class="sctag">KSeF · B-roll</span>
+          <span class="scplay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        <div class="sc-item" data-vsrc="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2_fixed.mp4">
+          <video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/video_2_fixed.mp4" loop muted playsinline preload="none"></video>
+          <span class="sctag">ERP API · B-roll</span>
+          <span class="scplay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+      </div>
+    </div>
+
     <h2 id="when-traditional-wins">When you should still pay for traditional production</h2>
     <p>AI isn't universally better. Three cases where traditional wins, and it's worth naming them honestly:</p>
     <ul>
@@ -298,6 +383,55 @@
     <a href="https://www.instagram.com/frame.gen.studio/" target="_blank" rel="noopener">Instagram</a>
   </div>
 </footer>
+
+<!-- Video modal -->
+<div id="vModal" class="v-modal" aria-hidden="true" role="dialog" aria-label="Video Player">
+  <div class="v-modal-box">
+    <button class="v-modal-close" id="vModalClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <video id="vModalVideo" playsinline controls></video>
+  </div>
+</div>
+
+<script>
+/* Lazy-load videos */
+(function(){
+  function load(v){ if(!v.dataset.src) return; v.src = v.dataset.src; delete v.dataset.src; v.load(); }
+  if(!('IntersectionObserver' in window)){ document.querySelectorAll('video[data-src]').forEach(load); return; }
+  const io = new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ load(en.target); io.unobserve(en.target); }}), { rootMargin:'300px 0px' });
+  document.querySelectorAll('video[data-src]').forEach(v=>io.observe(v));
+})();
+
+/* Hover to autoplay */
+(function(){
+  document.querySelectorAll('.sc-item').forEach(card=>{
+    const v = card.querySelector('video');
+    if(!v) return;
+    card.addEventListener('mouseenter', ()=>{
+      if(v.dataset.src){ v.src = v.dataset.src; delete v.dataset.src; v.load(); }
+      const p = v.play(); if(p) p.catch(()=>{});
+    });
+    card.addEventListener('mouseleave', ()=>{ v.pause(); });
+  });
+})();
+
+/* Video modal */
+(function(){
+  const modal = document.getElementById('vModal');
+  const modalVid = document.getElementById('vModalVideo');
+  const closeBtn = document.getElementById('vModalClose');
+  if(!modal || !modalVid) return;
+  function open(src){ modalVid.src = src; modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); modalVid.play().catch(()=>{}); }
+  function close(){ modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); modalVid.pause(); modalVid.src=''; }
+  document.querySelectorAll('[data-vsrc]').forEach(el=>{
+    el.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); const s = el.getAttribute('data-vsrc'); if(s) open(s); });
+  });
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', e=>{ if(e.target === modal) close(); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+})();
+</script>
 
 </body>
 </html>
