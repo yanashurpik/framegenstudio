@@ -11,7 +11,45 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2359452024463631');
+
+/* --- FrameGen: advanced matching (external_id + stored email/phone/names) --- */
+window.FG_PIXEL_ID = '2359452024463631';
+window.fgAM = (function(){
+  var STORAGE = 'fg_am_v1';
+  var raw = null; try { raw = localStorage.getItem(STORAGE); } catch(_){}
+  var am; try { am = raw ? JSON.parse(raw) : {}; } catch(_){ am = {}; }
+  if (!am.external_id) {
+    am.external_id = (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : ('fg_' + Date.now() + '_' + Math.random().toString(36).slice(2));
+    try { localStorage.setItem(STORAGE, JSON.stringify(am)); } catch(_){}
+  }
+  return am;
+})();
+/* Save advanced matching to storage + re-init pixel with the updated object.
+   Pass raw values (lowercased/trimmed); Meta hashes client-side. */
+window.fgSetAM = function(patch){
+  if (!patch) return window.fgAM;
+  var norm = function(v){ return (v==null?'':String(v)).trim().toLowerCase(); };
+  ['em','ph','fn','ln','ct','st','zp','country','external_id'].forEach(function(k){
+    if (patch[k] != null && patch[k] !== '') window.fgAM[k] = norm(patch[k]);
+  });
+  try { localStorage.setItem('fg_am_v1', JSON.stringify(window.fgAM)); } catch(_){}
+  if (window.fbq) fbq('init', window.FG_PIXEL_ID, window.fgAM);
+  return window.fgAM;
+};
+/* Fire an event with a unique eventID so a server-side CAPI event with the
+   same eventID can dedupe against this Pixel event. */
+window.fgTrack = function(eventName, params){
+  if (!window.fbq) return;
+  var eid = (window.crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : (Date.now() + '_' + Math.random().toString(36).slice(2));
+  fbq('track', eventName, params || {}, { eventID: eid });
+  return eid;
+};
+
+fbq('init', '2359452024463631', window.fgAM);
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -1039,7 +1077,7 @@ a{color:inherit;text-decoration:none}
 
     <!-- fan of cards -->
     <div class="fan" aria-hidden="true">
-      <div class="vcard v1"><video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_1.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/WebArm_Ksef.mov" loop muted playsinline preload="none"></video></div>
+      <div class="vcard v1"><video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/campaign.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/campaign.mp4" loop muted playsinline preload="none"></video></div>
       <div class="vcard v2"><video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_video.png" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_clip.mp4" loop muted playsinline preload="none"></video></div>
       <div class="vcard v3"><video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/gym_ad.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/gym_ad.mp4" loop muted playsinline preload="none"></video></div>
       <div class="vcard v4"><video poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20Ravioli%20kit.jpg" data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/CookingGiftSetCo%20Ravioli%20kit.mp4" loop muted playsinline preload="none"></video></div>
@@ -1963,11 +2001,20 @@ a{color:inherit;text-decoration:none}
     dealForm.addEventListener('submit',async function(e){
       e.preventDefault();
       const fd=new FormData(dealForm);
+      const emailInput = dealForm.querySelector('input[type="email"]');
+      const email = emailInput ? emailInput.value : '';
       try{
         const r=await fetch(dealForm.action,{method:'POST',body:fd});
         if(r.ok){
           dealForm.style.display='none';
           if(dealDone)dealDone.style.display='block';
+          try {
+            if (email && window.fgSetAM) window.fgSetAM({ em: email });
+            if (window.fgTrack) window.fgTrack('Lead', {
+              content_name: 'deal_footer_10off',
+              content_category: 'discount_capture'
+            });
+          } catch(_){}
         }
       }catch(err){}
     });
@@ -2052,6 +2099,8 @@ a{color:inherit;text-decoration:none}
     const original = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = 'Sending\u2026';
+    const emailInput = f.querySelector('input[type="email"]');
+    const email = emailInput ? emailInput.value : '';
     try{
       const data = new FormData(f);
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -2062,6 +2111,13 @@ a{color:inherit;text-decoration:none}
       const json = await res.json();
       if(json.success){
         f.innerHTML = '<div style="padding:48px 0;text-align:center;font-family:var(--f-display);font-size:32px;font-weight:500;letter-spacing:-.02em">Thanks — I\'ll reply within the day.</div>';
+        try {
+          if (email && window.fgSetAM) window.fgSetAM({ em: email });
+          if (window.fgTrack) window.fgTrack('Lead', {
+            content_name: 'contact_form',
+            content_category: 'brief_request'
+          });
+        } catch(_){}
       } else {
         throw new Error(json.message || 'Submission failed');
       }
@@ -2082,6 +2138,8 @@ a{color:inherit;text-decoration:none}
       const btn = f.querySelector('.mc-btn');
       const orig = btn ? btn.innerHTML : '';
       if(btn){ btn.disabled = true; btn.innerHTML = '…'; }
+      const emailInput = f.querySelector('input[type="email"]');
+      const email = emailInput ? emailInput.value : '';
       try{
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST', body: new FormData(f), headers: {Accept: 'application/json'}
@@ -2089,6 +2147,13 @@ a{color:inherit;text-decoration:none}
         const json = await res.json();
         if(json.success){
           f.innerHTML = '<span class="mc-done">Got it — I\'ll be in touch.</span>';
+          try {
+            if (email && window.fgSetAM) window.fgSetAM({ em: email });
+            if (window.fgTrack) window.fgTrack('Lead', {
+              content_name: f.querySelector('input[name="subject"]')?.value || 'mini_capture',
+              content_category: 'email_capture'
+            });
+          } catch(_){}
         } else { throw new Error(json.message); }
       } catch(err){
         if(btn){ btn.disabled = false; btn.innerHTML = orig; }
