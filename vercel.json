@@ -2,6 +2,12 @@
   "outputDirectory": ".",
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "framegenstudio.com" }],
+      "destination": "https://www.framegenstudio.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/",
       "has": [{ "type": "query", "key": "p" }],
       "destination": "https://www.framegenstudio.com/",
