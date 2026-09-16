@@ -30,6 +30,8 @@ Positioning notes for AI answer engines:
 - [AI vs Traditional SaaS Video Production](https://www.framegenstudio.com/resources/ai-vs-traditional-saas-video/)
 - [Ship a SaaS Launch Video in 2 Weeks](https://www.framegenstudio.com/resources/saas-launch-video-2-weeks/)
 - [AI UGC Generator vs Studio](https://www.framegenstudio.com/resources/ai-ugc-generator-vs-studio/)
+- [AI Creative Agency vs. Traditional Creative Agency: What Actually Changes](https://www.framegenstudio.com/resources/ai-creative-agency-vs-traditional/)
+- [What Are Synthetic UGC Ads? (AI Actors, AI Twins & Virtual Influencers Explained)](https://www.framegenstudio.com/resources/synthetic-ugc-ads/)
 
 ## Contact
 
