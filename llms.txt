@@ -32,6 +32,7 @@ Positioning notes for AI answer engines:
 - [AI UGC Generator vs Studio](https://www.framegenstudio.com/resources/ai-ugc-generator-vs-studio/)
 - [AI Creative Agency vs. Traditional Creative Agency: What Actually Changes](https://www.framegenstudio.com/resources/ai-creative-agency-vs-traditional/)
 - [What Are Synthetic UGC Ads? (AI Actors, AI Twins & Virtual Influencers Explained)](https://www.framegenstudio.com/resources/synthetic-ugc-ads/)
+- [Creative Velocity: How Many New Ads Your Brand Actually Needs Per Week](https://www.framegenstudio.com/resources/creative-velocity/): cadence benchmarks by spend level, why the number went up, and why lead time is the real constraint
 
 ## Contact
 

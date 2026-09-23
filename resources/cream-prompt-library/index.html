@@ -52,7 +52,7 @@
   "description": "12 director-level master prompts, negative prompts, and JSON specs reverse-engineered from the FrameGen visual campaign — covering product-only hero shots, lifestyle scenes, and model-led beauty portraits.",
   "image": "https://www.framegenstudio.com/resources/cream.png",
   "datePublished": "2026-07-01",
-  "dateModified": "2026-07-12",
+  "dateModified": "2026-09-23",
   "author": {
     "@type": "Person",
     "name": "Yana Shurpik",
@@ -67,6 +67,48 @@
   },
   "mainEntityOfPage": "https://www.framegenstudio.com/resources/cream-prompt-library/",
   "keywords": ["AI product photography","cream campaign","beauty prompts","AI UGC","Nano Banana Pro","skincare photography"]
+}
+</script>
+
+<!-- FAQPage for AI Overview / Perplexity pickup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I write AI prompts for beauty product photography?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Effective AI prompts for beauty product photography follow a director-level structure: specify the exact product form and finish, name the lens focal length and aperture, describe lighting quality and color temperature, define the composition, name a style reference, and include a negative prompt that blocks common AI artifacts (plastic sheen, warped labels, colored backgrounds). The master prompts in this library cover all of these elements for 12 distinct beauty product scenarios — solo hero shots, lifestyle context, and model-led portraits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a master prompt in AI product photography?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A master prompt is a complete, reusable prompt that encodes all the visual decisions for a specific shot: product description, camera settings, lighting setup, composition, mood, and a negative prompt. It functions like a director's brief for an AI image generator — you run it once to set the look, then vary small elements (angle, model, props) while keeping the brand-DNA consistent across the whole campaign."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What AI tools can generate product photography from text prompts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The prompts in this library are structured for tools like Nano Banana Pro, GPT Image, and similar diffusion-based image generators that accept detailed plain-text prompts. The JSON versions are also provided for tools that accept structured parameter input. The negative prompt fields help prevent common generation artifacts regardless of which tool you use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a negative prompt and why does it matter for product photos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A negative prompt tells the AI what to exclude from the generated image. For product photography, the most important negative prompt elements are: no extra text or logos (AI tends to hallucinate random text), no plastic-looking sheen (a common telltale sign of AI-generated products), no warped product shape (logo text and symmetrical forms are where AI generators often fail), and no harsh shadows (which read as low-budget studio photography). Including a specific negative prompt is one of the most effective ways to eliminate the most common AI artifacts before they appear."
+      }
+    }
+  ]
 }
 </script>
 </head>
