@@ -612,5 +612,32 @@ campaign photography. Evoking calm, tender, quietly luminous self-care.</pre>
   </div>
 </footer>
 
+<script>
+/* GA4 contact click tracking */
+(function(){
+  function platform(el){
+    var h=(el.getAttribute('href')||'').toLowerCase(),c=el.className||'';
+    if(/ig\.me|instagram\.com/.test(h)||c.indexOf('instagram')>-1)return'instagram_dm';
+    if(/wa\.me/.test(h)||c.indexOf('whatsapp')>-1)return'whatsapp';
+    if(/\/t\.me\//.test(h)||c.indexOf('telegram')>-1)return'telegram';
+    if(/m\.me/.test(h)||c.indexOf('messenger')>-1)return'messenger';
+    if(/^sms:/.test(h)||c.indexOf('imessage')>-1)return'imessage';
+    if(/^mailto:/.test(h)||c.indexOf('email')>-1)return'email';
+    return'link';
+  }
+  function loc(el){
+    var s=el.closest&&el.closest('[data-screen-label]');
+    if(s)return s.getAttribute('data-screen-label');
+    var sec=el.closest&&el.closest('section[id]');
+    if(sec)return sec.id;
+    return window.location.pathname;
+  }
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('a[href^="sms:"],a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
+    if(!el||typeof gtag!=='function')return;
+    gtag('event','contact_click',{method:platform(el),location:loc(el),page:window.location.pathname});
+  });
+})();
+</script>
 </body>
 </html>

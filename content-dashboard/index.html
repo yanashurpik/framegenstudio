@@ -539,6 +539,7 @@ function escapeHtml(s){
         "Got it — <strong>" + escapeHtml(email) + "</strong>. " +
         "Complete your $20 payment now. Setup instructions will land in your inbox in about 5 minutes." +
         '<br><a href="' + WISE_URL + '" target="_blank" rel="noopener" class="cs-continue">Continue to payment on Wise →</a>';
+      if(typeof gtag==='function')gtag('event','email_capture',{location:'content_dashboard_$20',page:window.location.pathname});
       parent.replaceChild(sent, form);
     } catch(err){
       btn.disabled = false;
@@ -566,6 +567,7 @@ function escapeHtml(s){
       });
       var json = await res.json();
       if(json.success){
+        if(typeof gtag==='function')gtag('event','email_capture',{location:'content_dashboard_$300',page:window.location.pathname});
         var parent = form.parentNode;
         var sent = document.createElement('div');
         sent.className = 'dfy-sent';
@@ -579,6 +581,34 @@ function escapeHtml(s){
       alert('Something went wrong. Please email shurpik.y@gmail.com directly.');
       console.error(err);
     }
+  });
+})();
+</script>
+
+<script>
+/* GA4 contact click tracking */
+(function(){
+  function platform(el){
+    var h=(el.getAttribute('href')||'').toLowerCase(),c=el.className||'';
+    if(/ig\.me|instagram\.com/.test(h)||c.indexOf('instagram')>-1)return'instagram_dm';
+    if(/wa\.me/.test(h)||c.indexOf('whatsapp')>-1)return'whatsapp';
+    if(/\/t\.me\//.test(h)||c.indexOf('telegram')>-1)return'telegram';
+    if(/m\.me/.test(h)||c.indexOf('messenger')>-1)return'messenger';
+    if(/^sms:/.test(h)||c.indexOf('imessage')>-1)return'imessage';
+    if(/^mailto:/.test(h)||c.indexOf('email')>-1)return'email';
+    return'link';
+  }
+  function loc(el){
+    var s=el.closest&&el.closest('[data-screen-label]');
+    if(s)return s.getAttribute('data-screen-label');
+    var sec=el.closest&&el.closest('section[id]');
+    if(sec)return sec.id;
+    return window.location.pathname;
+  }
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('a[href^="sms:"],a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
+    if(!el||typeof gtag!=='function')return;
+    gtag('event','contact_click',{method:platform(el),location:loc(el),page:window.location.pathname});
   });
 })();
 </script>
