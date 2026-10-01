@@ -224,6 +224,12 @@
   .cs-form button:hover { background: #faf6ec; color: #201d19; }
   .cs-form button:disabled { opacity: .7; cursor: default; }
   .cs-hp { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
+  .plan-ig { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; font-family: 'Gantari', sans-serif; font-size: 13px; }
+  .plan-mid .plan-ig { color: rgba(255,233,221,.6); }
+  .plan-dfy .plan-ig { color: #7a715f; }
+  .plan-ig a { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; color: inherit; border-bottom: 1px solid currentColor; padding-bottom: 1px; text-decoration: none; transition: color .2s ease; }
+  .plan-mid .plan-ig a:hover { color: #fff; }
+  .plan-dfy .plan-ig a:hover { color: #faf6ec; }
   .cs-sent { margin-top: 28px; background: #faf6ec; color: #201d19; border-radius: 16px; padding: 20px 22px; font-size: 15.5px; line-height: 1.55; text-align: center; }
   .cs-sent strong { color: #c05a30; }
   .cs-sent .cs-continue { display: inline-block; margin-top: 16px; background: #201d19; color: #faf6ec; text-decoration: none; padding: 13px 22px; border-radius: 999px; font-weight: 700; font-size: 15.5px; }
@@ -441,6 +447,13 @@
             <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email">
             <button type="submit">Save my email &amp; continue to payment</button>
           </form>
+          <div class="plan-ig">
+            <span>or</span>
+            <a href="https://ig.me/m/frame.gen.studio" target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+              DM on Instagram
+            </a>
+          </div>
 
           <p class="plan-note">Complete your $20 payment on Wise — setup instructions arrive in your inbox ~5 minutes later.</p>
         </div>
@@ -460,6 +473,13 @@
             <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email">
             <button type="submit">Contact me</button>
           </form>
+          <div class="plan-ig">
+            <span>or</span>
+            <a href="https://ig.me/m/frame.gen.studio" target="_blank" rel="noopener">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+              DM on Instagram
+            </a>
+          </div>
 
           <p class="plan-note">Leave your email — I'll reach out personally to plan your setup.</p>
         </div>
