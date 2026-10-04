@@ -100,6 +100,8 @@ article.post th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;te
 
 /* CTA */
 .end-cta{margin-top:48px;padding:36px;border-radius:20px;background:var(--ink);color:#fff;text-align:center}
+.end-cta-reel{margin:-36px -36px 28px;border-radius:20px 20px 0 0;overflow:hidden;height:220px}
+.end-cta-reel video{width:100%;height:100%;object-fit:cover;display:block}
 .end-cta h3{font-family:var(--f-display);font-weight:500;font-size:clamp(24px,3vw,32px);letter-spacing:-0.02em;margin-bottom:12px;color:#fff}
 .end-cta p{color:rgba(255,255,255,.75);margin-bottom:22px;font-size:15px}
 .end-cta a.btn{display:inline-block;padding:12px 22px;background:var(--accent);color:#fff;border-radius:999px;font-weight:600;font-size:15px;letter-spacing:-0.01em}
