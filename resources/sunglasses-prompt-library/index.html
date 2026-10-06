@@ -675,7 +675,6 @@ clean, confident luxury eyewear campaign hero shot. Mood: composed, direct confi
     if(/wa\.me/.test(h)||c.indexOf('whatsapp')>-1)return'whatsapp';
     if(/\/t\.me\//.test(h)||c.indexOf('telegram')>-1)return'telegram';
     if(/m\.me/.test(h)||c.indexOf('messenger')>-1)return'messenger';
-    if(/^sms:/.test(h)||c.indexOf('imessage')>-1)return'imessage';
     if(/^mailto:/.test(h)||c.indexOf('email')>-1)return'email';
     return'link';
   }
@@ -687,7 +686,7 @@ clean, confident luxury eyewear campaign hero shot. Mood: composed, direct confi
     return window.location.pathname;
   }
   document.addEventListener('click',function(e){
-    var el=e.target.closest('a[href^="sms:"],a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
+    var el=e.target.closest('a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
     if(!el||typeof gtag!=='function')return;
     gtag('event','contact_click',{method:platform(el),location:loc(el),page:window.location.pathname});
   });

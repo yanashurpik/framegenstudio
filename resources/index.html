@@ -171,6 +171,12 @@
         "position": 15,
         "url": "https://www.framegenstudio.com/resources/creative-velocity/",
         "name": "Creative Velocity: How Many New Ads Your Brand Actually Needs Per Week"
+      },
+      {
+        "@type": "ListItem",
+        "position": 16,
+        "url": "https://www.framegenstudio.com/resources/ai-ugc-skincare-supplements-high-aov/",
+        "name": "Does AI UGC Work for Skincare, Supplements and High-Ticket Products?"
       }
     ]
   }
@@ -728,6 +734,30 @@ a{color:inherit;text-decoration:none}
           </a>
         </article>
 
+        <!-- CARD: AI UGC for Skincare, Supplements & High-Ticket -->
+        <article class="res-card" data-type="article">
+          <a href="/resources/ai-ugc-skincare-supplements-high-aov/">
+            <div class="res-card-thumb">
+              <div class="thumb-dashboard" style="background:radial-gradient(120% 80% at 50% 0%, rgba(210,64,52,.30), transparent 55%), linear-gradient(150deg, #0f1211 0%, #1c1519 100%);position:relative;height:100%">
+                <div class="thumb-dashboard-inner">
+                  <span class="thumb-tag">Trust Categories</span>
+                  <div class="thumb-rows"><span></span><span></span><span></span></div>
+                  <span class="thumb-title">AI UGC for Skincare &amp; High-AOV</span>
+                </div>
+              </div>
+            </div>
+            <div class="res-card-body">
+              <span class="res-tag tag-article">Guide · Read online</span>
+              <h3>Does AI UGC Work for Skincare, Supplements and High-Ticket Products?</h3>
+              <p>AI UGC fits demo-led and visual-benefit products. For result claims, supplement testimonials, and high-AOV buys, the trust problem is real. Here's exactly where the line is.</p>
+              <div class="res-card-foot">
+                <span class="cta-label">Read the guide <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+                <span class="date">Oct 2026</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
         <!-- CARD: What Are Synthetic UGC Ads -->
         <article class="res-card" data-type="article">
           <a href="/resources/synthetic-ugc-ads/">
@@ -810,7 +840,6 @@ a{color:inherit;text-decoration:none}
     if(/wa\.me/.test(h)||c.indexOf('whatsapp')>-1)return'whatsapp';
     if(/\/t\.me\//.test(h)||c.indexOf('telegram')>-1)return'telegram';
     if(/m\.me/.test(h)||c.indexOf('messenger')>-1)return'messenger';
-    if(/^sms:/.test(h)||c.indexOf('imessage')>-1)return'imessage';
     if(/^mailto:/.test(h)||c.indexOf('email')>-1)return'email';
     return'link';
   }
@@ -822,7 +851,7 @@ a{color:inherit;text-decoration:none}
     return window.location.pathname;
   }
   document.addEventListener('click',function(e){
-    var el=e.target.closest('a[href^="sms:"],a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
+    var el=e.target.closest('a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
     if(!el||typeof gtag!=='function')return;
     gtag('event','contact_click',{method:platform(el),location:loc(el),page:window.location.pathname});
   });

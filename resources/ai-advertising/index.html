@@ -76,7 +76,7 @@
   "description": "AI advertising covers any ad where AI creates or optimizes content — from AI-generated video to automated bidding. This guide explains the different types, what an AI ad campaign actually is, and how AI UGC fits in.",
   "image": "https://www.framegenstudio.com/framegen-logo.png",
   "datePublished": "2026-07-11",
-  "dateModified": "2026-07-11",
+  "dateModified": "2026-10-06",
   "author": {
     "@type": "Person",
     "name": "Yana Shurpik",
@@ -268,6 +268,12 @@
     <p>For most DTC brands running paid social on Meta or TikTok, yes — specifically for the video creative layer. The economics are hard to argue with: at $140–$160 per AI video ad versus $3,000+ for an influencer video, you can afford to test 10–20 hooks for every one you'd have tested before. That testing velocity is where the performance lift actually comes from.</p>
     <p>The categories where AI advertising works best: skincare and beauty, supplements, apparel, home goods, food and beverage, pet products, fitness gear. Categories where a real creator's identity still adds irreplaceable value: influencer-driven lifestyle brands, celebrity-backed products, niche communities where authenticity is the whole point.</p>
 
+    <h2 id="agentic-advertising">Agentic advertising: where platforms are heading — and why brand strategy still matters</h2>
+    <p>The direction Meta, Google, and TikTok are all moving is toward fully agentic advertising: platforms that not only decide who sees each ad, but generate the creative themselves. Meta's Advantage+ Creative already rewrites ad copy, swaps images, and adjusts formats automatically. Google's AI Max for Search generates ad assets from your landing page. The next stage — platforms generating video creative end-to-end from your product catalog without a human brief — is already in testing.</p>
+    <p>This sharpens a question every DTC brand should be asking about their creative investment: if the platform will eventually generate a version of your ad for you, what is the value of investing in strategy-led AI production?</p>
+    <p>The answer is brand specificity. Agentic advertising optimizes for the platform's learning signal across thousands of advertisers — the output is generic by design, because it has to perform across all of them. Strategy-led AI production starts from the other direction: a specific brand DNA, competitor hook research in your category, a locked character, and deliberate creative choices about what stops your specific buyer from scrolling. The AI executes that thinking; it doesn't replace it.</p>
+    <p>The "sea of sameness" problem performance marketers are already describing — where AI-generated ads from different brands blur into indistinguishable content — is the output of agentic production without a strategy layer. eMarketer has framed this as a brand trust question: as platform-generated creative becomes the default, the brands that stand out will be the ones that invested in distinctive, brand-specific creative systems rather than delegating creative direction entirely to the algorithm.</p>
+
     <div class="callout">
       <span class="label">Want done-for-you AI video ads?</span>
       FrameGen Studio builds AI UGC ads for DTC brands — from the brand-DNA system to the final hook variants. From $140/video, no retainer. <a href="/#pricing">See pricing</a> · <a href="https://ig.me/m/frame.gen.studio" target="_blank" rel="noopener">DM on Instagram</a>.
@@ -327,7 +333,6 @@
     if(/wa\.me/.test(h)||c.indexOf('whatsapp')>-1)return'whatsapp';
     if(/\/t\.me\//.test(h)||c.indexOf('telegram')>-1)return'telegram';
     if(/m\.me/.test(h)||c.indexOf('messenger')>-1)return'messenger';
-    if(/^sms:/.test(h)||c.indexOf('imessage')>-1)return'imessage';
     if(/^mailto:/.test(h)||c.indexOf('email')>-1)return'email';
     return'link';
   }
@@ -339,7 +344,7 @@
     return window.location.pathname;
   }
   document.addEventListener('click',function(e){
-    var el=e.target.closest('a[href^="sms:"],a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
+    var el=e.target.closest('a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
     if(!el||typeof gtag!=='function')return;
     gtag('event','contact_click',{method:platform(el),location:loc(el),page:window.location.pathname});
   });

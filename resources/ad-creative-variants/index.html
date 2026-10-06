@@ -76,7 +76,7 @@
   "description": "Creative fatigue kills ad performance faster than most DTC brands realize. Here's the rule of thumb for how many ad creative variants you need per month, what actually counts as a variant, and what it costs to test at scale.",
   "image": "https://www.framegenstudio.com/resources/ad-creative-variants/variants.png",
   "datePublished": "2026-07-12",
-  "dateModified": "2026-07-12",
+  "dateModified": "2026-10-06",
   "author": {
     "@type": "Person",
     "name": "Yana Shurpik",
@@ -180,6 +180,7 @@
       <li><strong>$30,000+/week spend:</strong> 20+ new variants/month, often tested in weekly batches</li>
     </ul>
     <p>The relationship isn't exact — audience size, category, and how aggressively you're scaling all shift it — but the direction is consistent: more spend burns through the same creative faster, because more of your addressable audience sees it sooner.</p>
+    <p>If you'd rather think in weekly terms — how many net-new creatives need to enter rotation each week rather than the total per month — the <a href="/resources/creative-velocity/">Creative Velocity guide</a> maps the same spend levels to weekly delivery targets and average fatigue windows. The monthly figures above translate directly: at $5,000/week spend, plan for 2–3 new ads per week, not a monthly batch delivered all at once.</p>
 
     <h2 id="what-counts-as-a-variant">What actually counts as a variant</h2>
     <p>Not every new asset is a variant, and the distinction matters for planning both time and budget:</p>
@@ -265,7 +266,6 @@
     if(/wa\.me/.test(h)||c.indexOf('whatsapp')>-1)return'whatsapp';
     if(/\/t\.me\//.test(h)||c.indexOf('telegram')>-1)return'telegram';
     if(/m\.me/.test(h)||c.indexOf('messenger')>-1)return'messenger';
-    if(/^sms:/.test(h)||c.indexOf('imessage')>-1)return'imessage';
     if(/^mailto:/.test(h)||c.indexOf('email')>-1)return'email';
     return'link';
   }
@@ -277,7 +277,7 @@
     return window.location.pathname;
   }
   document.addEventListener('click',function(e){
-    var el=e.target.closest('a[href^="sms:"],a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
+    var el=e.target.closest('a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
     if(!el||typeof gtag!=='function')return;
     gtag('event','contact_click',{method:platform(el),location:loc(el),page:window.location.pathname});
   });

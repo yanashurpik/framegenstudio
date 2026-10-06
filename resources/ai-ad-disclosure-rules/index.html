@@ -74,7 +74,7 @@
   "description": "AI ad disclosure law explained for DTC brands — synthetic performer rules under NY S.8420-A, state watch list, penalties, and a practical compliance checklist.",
   "image": "https://www.framegenstudio.com/resources/ai-advertising/ai-advertising-thumb.png",
   "datePublished": "2026-07-12",
-  "dateModified": "2026-07-12",
+  "dateModified": "2026-10-06",
   "author": {
     "@type": "Person",
     "name": "Yana Shurpik",
@@ -268,6 +268,9 @@
 
     <p>The EU AI Act's transparency obligations for synthetic content are already phased in and apply to brands selling to European customers — another reason to build disclosure into your default workflow rather than treating it as a US-only concern.</p>
 
+    <h3>EU AI Act Article 50: the specific provision that applies to AI UGC ads</h3>
+    <p>Article 50 of the EU AI Act is the provision that directly governs synthetic content in advertising. It requires that operators deploying AI systems to generate deepfake content — including realistic AI-generated images, audio, or video of people — must label the output as artificially generated or manipulated, in an "appropriate, timely, visible, legible and unambiguous manner." The obligation falls on the operator using the AI system, not just the developer who built it. A DTC brand using a video generation tool to produce AI UGC ads for European markets is an operator under Article 50's definition. An exception exists for legitimate creative or artistic work, but only where disclosure is still provided and the creative context is clear — it is not a blanket exemption for commercial advertising. Article 50 provisions came into force in August 2026 as part of the Act's phased rollout. For practical purposes, the in-creative label FrameGen ships by default — "AI-generated performer," persistent throughout the clip — satisfies Article 50's requirements. If you're already compliant for New York, the label treatment itself is the same.</p>
+
     <h2>Penalties for non-disclosure</h2>
     <p>Under NY S.8420-A:</p>
     <ul>
@@ -385,7 +388,6 @@
     if(/wa\.me/.test(h)||c.indexOf('whatsapp')>-1)return'whatsapp';
     if(/\/t\.me\//.test(h)||c.indexOf('telegram')>-1)return'telegram';
     if(/m\.me/.test(h)||c.indexOf('messenger')>-1)return'messenger';
-    if(/^sms:/.test(h)||c.indexOf('imessage')>-1)return'imessage';
     if(/^mailto:/.test(h)||c.indexOf('email')>-1)return'email';
     return'link';
   }
@@ -397,7 +399,7 @@
     return window.location.pathname;
   }
   document.addEventListener('click',function(e){
-    var el=e.target.closest('a[href^="sms:"],a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
+    var el=e.target.closest('a[href^="https://wa.me"],a[href^="https://t.me"],a[href^="https://m.me"],a[href^="mailto:"],a[href*="ig.me"]');
     if(!el||typeof gtag!=='function')return;
     gtag('event','contact_click',{method:platform(el),location:loc(el),page:window.location.pathname});
   });
