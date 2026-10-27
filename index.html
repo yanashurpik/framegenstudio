@@ -2175,7 +2175,9 @@ a{color:inherit;text-decoration:none}
     <h2 class="h-display" style="font-size:clamp(28px,4vw,44px);margin-bottom:10px">Get updates from FrameGen</h2>
     <p style="color:var(--ink-2);font-size:clamp(15px,1.1vw,17px);margin-bottom:28px;line-height:1.6">Drop your email and I'll reach out with new case studies, offers, and AI UGC tips. No spam, unsubscribe any time.</p>
     <form id="subscribeForm" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center" novalidate>
-      <input type="text" name="website" autocomplete="off" style="display:none" tabindex="-1" aria-hidden="true">
+      <input type="hidden" name="access_key" value="31a1cd0c-af59-449d-8762-7add14f69e99">
+      <input type="hidden" name="subject" value="New subscriber — FrameGen Studio">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
       <input
         type="email"
         id="subscribeEmail"
@@ -2210,10 +2212,10 @@ a{color:inherit;text-decoration:none}
     if (!email) return;
     btn.disabled = true;
     btn.textContent = 'Sending…';
-    fetch('/api/subscribe', {
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ email: email, website: form.website ? form.website.value : '' })
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
     })
     .then(function(r){ return r.json(); })
     .then(function(data){
@@ -2222,12 +2224,13 @@ a{color:inherit;text-decoration:none}
         msg.style.display  = 'block';
         msg.style.color    = 'var(--accent)';
         msg.textContent    = 'Got it — I\'ll be in touch soon!';
+        if (typeof gtag === 'function') gtag('event', 'email_capture', { location: 'newsletter', page: window.location.pathname });
       } else {
         btn.disabled = false;
         btn.textContent = 'Notify me';
         msg.style.display = 'block';
         msg.style.color   = '#c0392b';
-        msg.textContent   = data.error || 'Something went wrong, please try again.';
+        msg.textContent   = data.message || 'Something went wrong, please try again.';
       }
     })
     .catch(function(){
