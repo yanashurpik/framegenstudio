@@ -2168,6 +2168,79 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- EMAIL CAPTURE -->
+<section class="section" id="newsletter" style="background:var(--bg-2);padding:72px 0">
+  <div class="wrap" style="max-width:560px;text-align:center">
+    <span class="kicker" style="justify-content:center;margin-bottom:16px"><span class="dot"></span>Stay in the loop</span>
+    <h2 class="h-display" style="font-size:clamp(28px,4vw,44px);margin-bottom:10px">Get updates from FrameGen</h2>
+    <p style="color:var(--ink-2);font-size:clamp(15px,1.1vw,17px);margin-bottom:28px;line-height:1.6">Drop your email and I'll reach out with new case studies, offers, and AI UGC tips. No spam, unsubscribe any time.</p>
+    <form id="subscribeForm" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center" novalidate>
+      <input type="text" name="website" autocomplete="off" style="display:none" tabindex="-1" aria-hidden="true">
+      <input
+        type="email"
+        id="subscribeEmail"
+        name="email"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+        style="flex:1;min-width:220px;max-width:340px;padding:14px 18px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;font-family:var(--f-body);background:var(--bg);color:var(--ink);outline:none;transition:border-color .2s"
+        onfocus="this.style.borderColor='var(--accent)'"
+        onblur="this.style.borderColor='var(--border)'"
+      >
+      <button
+        type="submit"
+        id="subscribeBtn"
+        style="padding:14px 28px;background:var(--ink);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;font-family:var(--f-body);cursor:pointer;white-space:nowrap;transition:background .2s,transform .15s"
+        onmouseover="this.style.background='var(--accent)'"
+        onmouseout="this.style.background='var(--ink)'"
+      >Notify me</button>
+    </form>
+    <p id="subscribeMsg" style="display:none;margin-top:16px;font-size:14px;font-weight:500"></p>
+  </div>
+</section>
+<script>
+(function(){
+  var form = document.getElementById('subscribeForm');
+  var btn  = document.getElementById('subscribeBtn');
+  var msg  = document.getElementById('subscribeMsg');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('subscribeEmail').value.trim();
+    if (!email) return;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email: email, website: form.website ? form.website.value : '' })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data.success) {
+        form.style.display = 'none';
+        msg.style.display  = 'block';
+        msg.style.color    = 'var(--accent)';
+        msg.textContent    = 'Got it — I\'ll be in touch soon!';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Notify me';
+        msg.style.display = 'block';
+        msg.style.color   = '#c0392b';
+        msg.textContent   = data.error || 'Something went wrong, please try again.';
+      }
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Notify me';
+      msg.style.display = 'block';
+      msg.style.color   = '#c0392b';
+      msg.textContent   = 'Network error — please try again.';
+    });
+  });
+})();
+</script>
+
 <!-- DEAL FOOTER STRIP -->
 <div class="deal-foot" id="dealFoot">
   <div class="deal-foot-inner">
