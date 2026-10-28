@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupAccordion();
   setupWebinarForm();
   setupWebinarModal();
+  setupGallery();
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -781,5 +782,132 @@ function setupWebinarModal() {
     submitWebinarEmail(email, submitBtn, status, function () {
       form.innerHTML = '<p class="wf-success" style="text-align:left">Link sent! Check your inbox.</p>';
     });
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HERO VIDEO GALLERY
+// ─────────────────────────────────────────────────────────────────────────────
+
+function setupGallery() {
+  var outer   = document.getElementById('galleryOuter');
+  var track   = document.getElementById('galleryTrack');
+  var dotsEl  = document.getElementById('galleryDots');
+  var prevBtn = document.getElementById('galleryPrev');
+  var nextBtn = document.getElementById('galleryNext');
+  if (!track) return;
+
+  var cards   = Array.from(track.querySelectorAll('.gallery-card'));
+  var n       = cards.length;
+  var GAP     = 12;
+  var current = 0;
+  var startX  = 0;
+  var dragDx  = 0;
+  var dragging = false;
+  var autoTimer;
+
+  // Dots
+  cards.forEach(function (_, i) {
+    var d = document.createElement('button');
+    d.className = i === 0 ? 'gdot active' : 'gdot';
+    d.setAttribute('aria-label', 'Video ' + (i + 1));
+    d.addEventListener('click', function () { goTo(i); resetAuto(); });
+    if (dotsEl) dotsEl.appendChild(d);
+  });
+  var dots = dotsEl ? Array.from(dotsEl.querySelectorAll('.gdot')) : [];
+
+  function offsetFor(idx) {
+    var o = 0;
+    for (var i = 0; i < idx; i++) o += cards[i].offsetWidth + GAP;
+    return o;
+  }
+
+  function applyX(extra) {
+    track.style.transform = 'translateX(' + (-offsetFor(current) + (extra || 0)) + 'px)';
+  }
+
+  function activateCard(idx) {
+    var video = cards[idx] && cards[idx].querySelector('video');
+    if (!video) return;
+    if (video.dataset.src) { video.src = video.dataset.src; delete video.dataset.src; video.load(); }
+    video.play().catch(function () {});
+  }
+
+  function deactivateOthers(idx) {
+    cards.forEach(function (c, i) {
+      if (i === idx) return;
+      var v = c.querySelector('video');
+      if (v) v.pause();
+    });
+  }
+
+  function goTo(idx, animate) {
+    current = (idx + n) % n;
+    track.style.transition = animate === false
+      ? 'none' : 'transform 0.42s cubic-bezier(.2,.7,.2,1)';
+    applyX(0);
+    dots.forEach(function (d, i) { d.className = i === current ? 'gdot active' : 'gdot'; });
+    activateCard(current);
+    deactivateOthers(current);
+  }
+
+  function startAuto() { autoTimer = setInterval(function () { goTo(current + 1, true); }, 4500); }
+  function stopAuto()  { clearInterval(autoTimer); }
+  function resetAuto() { stopAuto(); startAuto(); }
+
+  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1, true); resetAuto(); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1, true); resetAuto(); });
+
+  // Mouse drag
+  if (outer) {
+    outer.addEventListener('mousedown', function (e) {
+      if (e.button !== 0) return;
+      dragging = true; startX = e.clientX; dragDx = 0;
+      track.style.transition = 'none';
+      e.preventDefault();
+    });
+  }
+  document.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    dragDx = e.clientX - startX;
+    applyX(dragDx);
+  });
+  document.addEventListener('mouseup', function () {
+    if (!dragging) return;
+    dragging = false;
+    if (Math.abs(dragDx) > 60) goTo(dragDx < 0 ? current + 1 : current - 1, true);
+    else goTo(current, true);
+    resetAuto();
+    dragDx = 0;
+  });
+
+  // Touch
+  if (outer) {
+    outer.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX; dragDx = 0;
+      track.style.transition = 'none'; stopAuto();
+    }, { passive: true });
+    outer.addEventListener('touchmove', function (e) {
+      dragDx = e.touches[0].clientX - startX;
+      applyX(dragDx);
+    }, { passive: true });
+    outer.addEventListener('touchend', function () {
+      if (Math.abs(dragDx) > 50) goTo(dragDx < 0 ? current + 1 : current - 1, true);
+      else goTo(current, true);
+      resetAuto(); dragDx = 0;
+    });
+  }
+
+  // Pause auto on hover
+  var gallery = document.getElementById('heroGallery');
+  if (gallery) {
+    gallery.addEventListener('mouseenter', stopAuto);
+    gallery.addEventListener('mouseleave', function () { if (!dragging) startAuto(); });
+  }
+
+  // Init after layout
+  requestAnimationFrame(function () {
+    goTo(0, false);
+    startAuto();
   });
 }
