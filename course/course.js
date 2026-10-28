@@ -207,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupMobileMenu();
   setupAccordion();
   setupWebinarForm();
+  setupWebinarModal();
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -690,57 +691,95 @@ function setupAccordion() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// WEBINAR EMAIL CAPTURE FORM (Web3Forms)
+// WEBINAR EMAIL CAPTURE — shared submit logic
 // ─────────────────────────────────────────────────────────────────────────────
 
+function submitWebinarEmail(email, submitBtn, status, onSuccess) {
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+  if (status) { status.textContent = ''; status.className = 'wf-status'; }
+
+  fetch('/api/webinar', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body:    JSON.stringify({ email: email })
+  })
+  .then(function (res) { return res.json(); })
+  .then(function (data) {
+    if (data.success) {
+      onSuccess();
+    } else {
+      throw new Error(data.error || 'Submission failed');
+    }
+  })
+  .catch(function () {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Get the link →';
+    if (status) {
+      status.textContent = 'Something went wrong — try again.';
+      status.className = 'wf-status wf-error';
+    }
+  });
+}
+
+// Inline form (bottom of page)
 function setupWebinarForm() {
   var form = document.getElementById('webinar-form');
   if (!form) return;
-
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-
     var emailInput = form.querySelector('input[type="email"]');
     var submitBtn  = form.querySelector('.wf-submit');
     var status     = document.getElementById('wf-status');
     var email      = emailInput ? emailInput.value.trim() : '';
-
     if (!email) return;
+    submitWebinarEmail(email, submitBtn, status, function () {
+      form.innerHTML = '<p class="wf-success">Link sent! Check your inbox.</p>';
+    });
+  });
+}
 
-    // Disable while submitting
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
-    if (status) { status.textContent = ''; status.className = 'wf-status'; }
+// Hero modal
+function setupWebinarModal() {
+  var modal   = document.getElementById('webinar-modal');
+  var form    = document.getElementById('webinar-modal-form');
+  var closeBtn = document.getElementById('wm-close');
+  var overlay = modal ? modal.querySelector('.wm-overlay') : null;
+  if (!modal || !form) return;
 
-    var payload = {
-      access_key: WEBINAR_FORM_KEY,
-      email:      email,
-      subject:    'Free webinar — ' + COURSE_NAME,
-      from_name:  'FrameGen Studio',
-      message:    'New webinar signup: ' + email
-    };
+  function openModal() {
+    modal.removeAttribute('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var emailInput = form.querySelector('input[type="email"]');
+    if (emailInput) emailInput.focus();
+  }
 
-    fetch('https://api.web3forms.com/submit', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body:    JSON.stringify(payload)
-    })
-    .then(function (res) { return res.json(); })
-    .then(function (data) {
-      if (data.success) {
-        form.innerHTML =
-          '<p class="wf-success">You\'re on the list. I\'ll email you the link before the session.</p>';
-      } else {
-        throw new Error(data.message || 'Submission failed');
-      }
-    })
-    .catch(function (err) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Get the link →';
-      if (status) {
-        status.textContent = 'Something went wrong — try again or email me directly.';
-        status.className = 'wf-status wf-error';
-      }
+  function closeModal() {
+    modal.setAttribute('hidden', '');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-webinar-modal]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (overlay)  overlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var emailInput = form.querySelector('input[type="email"]');
+    var submitBtn  = document.getElementById('wm-submit');
+    var status     = document.getElementById('wm-status');
+    var email      = emailInput ? emailInput.value.trim() : '';
+    if (!email) return;
+    submitWebinarEmail(email, submitBtn, status, function () {
+      form.innerHTML = '<p class="wf-success" style="text-align:left">Link sent! Check your inbox.</p>';
     });
   });
 }

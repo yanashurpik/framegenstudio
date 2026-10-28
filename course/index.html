@@ -195,10 +195,9 @@ src="https://www.facebook.com/tr?id=2359452024463631&ev=PageView&noscript=1"
             Join the course
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
-          <button class="btn btn-ghost"
-            data-lightbox="/course/media/hero-trailer.mp4">
+          <button class="btn btn-ghost" data-webinar-modal>
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:16px;height:16px;"><path d="M8 5v14l11-7z"/></svg>
-            Watch the 30 s trailer
+            Watch Free Webinar
           </button>
         </div>
       </div>
@@ -206,23 +205,8 @@ src="https://www.facebook.com/tr?id=2359452024463631&ev=PageView&noscript=1"
       <!-- Right: media -->
       <div class="hero-media" aria-hidden="true">
         <div class="hero-video-frame">
-          <div class="hero-video-placeholder">
-            <span>hero-trailer.mp4</span>
-          </div>
-          <!-- Replace placeholder with: -->
-          <!-- <video src="/course/media/hero-trailer.mp4" poster="/course/media/hero-trailer.jpg" autoplay muted loop playsinline></video> -->
-        </div>
-        <div class="hero-fan">
-          <div class="fan-card">
-            <video data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/saas_demo.mp4"
-              poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/saas_demo.jpg"
-              loop muted playsinline preload="none" aria-hidden="true"></video>
-          </div>
-          <div class="fan-card">
-            <video data-src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.mp4"
-              poster="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.jpg"
-              loop muted playsinline preload="none" aria-hidden="true"></video>
-          </div>
+          <video src="https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen-demo-35s.mp4"
+            autoplay muted loop playsinline preload="metadata"></video>
         </div>
       </div>
     </div>
@@ -516,6 +500,27 @@ src="https://www.facebook.com/tr?id=2359452024463631&ev=PageView&noscript=1"
     <span>· $20 one-time</span>
   </div>
   <a href="#pricing" class="btn btn-primary sticky-cta" aria-label="Join the course">Join the course</a>
+</div>
+
+<!-- ─── WEBINAR MODAL ────────────────────────────────────────────────────── -->
+<div class="webinar-modal" id="webinar-modal" hidden role="dialog" aria-modal="true" aria-label="Get the webinar link" aria-hidden="true">
+  <div class="wm-overlay"></div>
+  <div class="wm-inner">
+    <button class="wm-close" id="wm-close" aria-label="Close">×</button>
+    <p class="wm-eyebrow">Free session · no cost</p>
+    <h2 class="wm-title">Get the webinar link</h2>
+    <p class="wm-desc">Drop your email and I'll send it to you right now.</p>
+    <form class="wf-form" id="webinar-modal-form" novalidate>
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
+      <div class="wf-row">
+        <label for="wm-email" class="sr-only">Your email address</label>
+        <input type="email" id="wm-email" name="email" class="wf-input" placeholder="your@email.com" autocomplete="email" required>
+        <button type="submit" class="btn btn-accent wf-submit" id="wm-submit">Send me the link →</button>
+      </div>
+      <p class="wf-status" id="wm-status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="wf-note">No spam. Unsubscribe any time.</p>
+  </div>
 </div>
 
 <!-- ─── LIGHTBOX ─────────────────────────────────────────────────────────── -->
