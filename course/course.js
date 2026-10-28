@@ -799,7 +799,6 @@ function setupGallery() {
 
   var cards   = Array.from(track.querySelectorAll('.gallery-card'));
   var n       = cards.length;
-  var GAP     = 12;
   var current = 0;
   var startX  = 0;
   var dragDx  = 0;
@@ -816,14 +815,10 @@ function setupGallery() {
   });
   var dots = dotsEl ? Array.from(dotsEl.querySelectorAll('.gdot')) : [];
 
-  function offsetFor(idx) {
-    var o = 0;
-    for (var i = 0; i < idx; i++) o += cards[i].offsetWidth + GAP;
-    return o;
-  }
+  function cardWidth() { return outer ? outer.offsetWidth : 0; }
 
   function applyX(extra) {
-    track.style.transform = 'translateX(' + (-offsetFor(current) + (extra || 0)) + 'px)';
+    track.style.transform = 'translateX(' + (-current * cardWidth() + (extra || 0)) + 'px)';
   }
 
   function activateCard(idx) {
