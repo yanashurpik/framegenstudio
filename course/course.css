@@ -259,7 +259,7 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: 1fr 1.7fr;
   gap: clamp(32px, 4vw, 56px);
-  align-items: start;
+  align-items: center;
 }
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
@@ -319,7 +319,7 @@ a { color: inherit; text-decoration: none; }
 .cmd-text .cmd-arg   { color: rgba(232,232,228,.55); }
 
 /* Hero gallery */
-.hero-gallery { width: 100%; padding-top: clamp(24px, 4vw, 56px); }
+.hero-gallery { width: 100%; }
 .gallery-outer {
   overflow: hidden;
   border-radius: var(--radius-lg);
