@@ -257,11 +257,11 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 5vw, 72px);
-  align-items: center;
+  grid-template-columns: 1fr 1.7fr;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: start;
 }
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
 }
 .hero-eyebrow { margin-bottom: 24px; }
@@ -325,10 +325,10 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius-lg);
   border: 5px solid #fff;
   box-shadow: 0 12px 40px rgba(0,0,0,.18);
-  aspect-ratio: 16/9;
   background: #111;
   cursor: grab;
   position: relative;
+  /* width + height set by JS per video ratio */
 }
 .gallery-outer:active { cursor: grabbing; }
 .gallery-track {

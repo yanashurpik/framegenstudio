@@ -795,13 +795,13 @@ function setupGallery() {
   var dotsEl  = document.getElementById('galleryDots');
   var prevBtn = document.getElementById('galleryPrev');
   var nextBtn = document.getElementById('galleryNext');
-  if (!track) return;
+  if (!track || !outer) return;
 
-  var cards   = Array.from(track.querySelectorAll('.gallery-card'));
-  var n       = cards.length;
-  var current = 0;
-  var startX  = 0;
-  var dragDx  = 0;
+  var cards    = Array.from(track.querySelectorAll('.gallery-card'));
+  var n        = cards.length;
+  var current  = 0;
+  var startX   = 0;
+  var dragDx   = 0;
   var dragging = false;
   var autoTimer;
 
@@ -810,40 +810,72 @@ function setupGallery() {
     var d = document.createElement('button');
     d.className = i === 0 ? 'gdot active' : 'gdot';
     d.setAttribute('aria-label', 'Video ' + (i + 1));
-    d.addEventListener('click', function () { goTo(i); resetAuto(); });
+    d.addEventListener('click', function () { goTo(i, true); resetAuto(); });
     if (dotsEl) dotsEl.appendChild(d);
   });
   var dots = dotsEl ? Array.from(dotsEl.querySelectorAll('.gdot')) : [];
 
-  function cardWidth() { return outer ? outer.offsetWidth : 0; }
+  // Resize outer to match the current card's natural aspect ratio.
+  // Portrait videos are height-capped so they don't take over the page.
+  function setOuterSize() {
+    var ratio   = (cards[current].dataset.ratio || '16/9').split('/');
+    var rw = parseFloat(ratio[0]), rh = parseFloat(ratio[1]);
+    var colW    = outer.parentElement.offsetWidth;
+    var w, h;
+
+    if (rw >= rh) {          // landscape
+      w = colW;
+      h = Math.round(colW * rh / rw);
+    } else {                 // portrait — cap height so it fits the screen
+      h = Math.min(Math.round(window.innerHeight * 0.68), 560);
+      w = Math.round(h * rw / rh);
+    }
+
+    outer.style.width  = w + 'px';
+    outer.style.height = h + 'px';
+    // center portrait cards inside the column
+    outer.style.marginLeft  = rw < rh ? 'auto' : '';
+    outer.style.marginRight = rw < rh ? 'auto' : '';
+    void outer.offsetWidth;  // force reflow so new dimensions are live
+  }
+
+  function cardW() { return outer.offsetWidth; }
 
   function applyX(extra) {
-    track.style.transform = 'translateX(' + (-current * cardWidth() + (extra || 0)) + 'px)';
+    track.style.transform = 'translateX(' + (-current * cardW() + (extra || 0)) + 'px)';
   }
 
   function activateCard(idx) {
-    var video = cards[idx] && cards[idx].querySelector('video');
-    if (!video) return;
-    if (video.dataset.src) { video.src = video.dataset.src; delete video.dataset.src; video.load(); }
-    video.play().catch(function () {});
+    var v = cards[idx] && cards[idx].querySelector('video');
+    if (!v) return;
+    if (v.dataset.src) { v.src = v.dataset.src; delete v.dataset.src; v.load(); }
+    v.play().catch(function () {});
   }
 
-  function deactivateOthers(idx) {
+  function pauseOthers(idx) {
     cards.forEach(function (c, i) {
-      if (i === idx) return;
-      var v = c.querySelector('video');
-      if (v) v.pause();
+      if (i !== idx) { var v = c.querySelector('video'); if (v) v.pause(); }
     });
   }
 
   function goTo(idx, animate) {
     current = (idx + n) % n;
-    track.style.transition = animate === false
-      ? 'none' : 'transform 0.42s cubic-bezier(.2,.7,.2,1)';
+
+    // Snap track to current position before resize (no animation)
+    track.style.transition = 'none';
     applyX(0);
+
+    // Resize container to new ratio (instant — forces reflow inside setOuterSize)
+    setOuterSize();
+
+    // Now animate track to the same logical position in new dimensions
+    track.style.transition = animate === false
+      ? 'none' : 'transform 0.48s cubic-bezier(.2,.7,.2,1)';
+    applyX(0);
+
     dots.forEach(function (d, i) { d.className = i === current ? 'gdot active' : 'gdot'; });
     activateCard(current);
-    deactivateOthers(current);
+    pauseOthers(current);
   }
 
   function startAuto() { autoTimer = setInterval(function () { goTo(current + 1, true); }, 4500); }
@@ -854,14 +886,12 @@ function setupGallery() {
   if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1, true); resetAuto(); });
 
   // Mouse drag
-  if (outer) {
-    outer.addEventListener('mousedown', function (e) {
-      if (e.button !== 0) return;
-      dragging = true; startX = e.clientX; dragDx = 0;
-      track.style.transition = 'none';
-      e.preventDefault();
-    });
-  }
+  outer.addEventListener('mousedown', function (e) {
+    if (e.button !== 0) return;
+    dragging = true; startX = e.clientX; dragDx = 0;
+    track.style.transition = 'none';
+    e.preventDefault();
+  });
   document.addEventListener('mousemove', function (e) {
     if (!dragging) return;
     dragDx = e.clientX - startX;
@@ -872,26 +902,23 @@ function setupGallery() {
     dragging = false;
     if (Math.abs(dragDx) > 60) goTo(dragDx < 0 ? current + 1 : current - 1, true);
     else goTo(current, true);
-    resetAuto();
-    dragDx = 0;
+    resetAuto(); dragDx = 0;
   });
 
   // Touch
-  if (outer) {
-    outer.addEventListener('touchstart', function (e) {
-      startX = e.touches[0].clientX; dragDx = 0;
-      track.style.transition = 'none'; stopAuto();
-    }, { passive: true });
-    outer.addEventListener('touchmove', function (e) {
-      dragDx = e.touches[0].clientX - startX;
-      applyX(dragDx);
-    }, { passive: true });
-    outer.addEventListener('touchend', function () {
-      if (Math.abs(dragDx) > 50) goTo(dragDx < 0 ? current + 1 : current - 1, true);
-      else goTo(current, true);
-      resetAuto(); dragDx = 0;
-    });
-  }
+  outer.addEventListener('touchstart', function (e) {
+    startX = e.touches[0].clientX; dragDx = 0;
+    track.style.transition = 'none'; stopAuto();
+  }, { passive: true });
+  outer.addEventListener('touchmove', function (e) {
+    dragDx = e.touches[0].clientX - startX;
+    applyX(dragDx);
+  }, { passive: true });
+  outer.addEventListener('touchend', function () {
+    if (Math.abs(dragDx) > 50) goTo(dragDx < 0 ? current + 1 : current - 1, true);
+    else goTo(current, true);
+    resetAuto(); dragDx = 0;
+  });
 
   // Pause auto on hover
   var gallery = document.getElementById('heroGallery');
@@ -900,9 +927,9 @@ function setupGallery() {
     gallery.addEventListener('mouseleave', function () { if (!dragging) startAuto(); });
   }
 
-  // Init after layout
-  requestAnimationFrame(function () {
-    goTo(0, false);
-    startAuto();
-  });
+  // Re-size on window resize
+  window.addEventListener('resize', function () { setOuterSize(); applyX(0); }, { passive: true });
+
+  // Init
+  requestAnimationFrame(function () { goTo(0, false); startAuto(); });
 }
