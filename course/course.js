@@ -141,8 +141,8 @@ var TEMPLATES = [
     duration: '15 s',
     ratio: '9:16',
     use: 'Reels, TikTok and paid social',
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/GammaLoop.mp4',
-    poster: '/GammaLoop.jpg',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/1_problem_solution.mp4',
+    poster: '',
     scenes: [
       { label: 'Hook',     desc: 'the pain in one punchy line' },
       { label: 'Problem',  desc: '"before" cards pile up and shatter' },
