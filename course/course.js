@@ -6,7 +6,7 @@ var COURSE_NAME       = 'SaaS Demo Motion Lab';
 var CHECKOUT_URL      = '#checkout';    // [PLACEHOLDER] replace with Gumroad / Lemon Squeezy link
 var BOOKING_URL       = '#book';        // [PLACEHOLDER] replace with Cal.com / Calendly link
 var WEBINAR_URL       = '#webinar';     // [PLACEHOLDER] replace with webinar registration link
-var WEBINAR_FORM_KEY  = '';             // [PLACEHOLDER] paste your Web3Forms access key — get one free at web3forms.com
+var WEBINAR_FORM_KEY  = '31a1cd0c-af59-449d-8762-7add14f69e99';
 
 var ANNOUNCEMENT = {
   enabled: true,
