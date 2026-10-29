@@ -305,6 +305,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupWebinarModal();
   setupGallery();
   setupForWhoDots();
+  setupHiwAnimation();
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1194,6 +1195,18 @@ function setupGallery() {
 // ─────────────────────────────────────────────────────────────────────────────
 // FOR-WHO SWIPE DOTS
 // ─────────────────────────────────────────────────────────────────────────────
+
+function setupHiwAnimation() {
+  var grid = document.getElementById('hiwGrid');
+  if (!grid) return;
+  var obs = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) {
+      grid.classList.add('hiw-in-view');
+      obs.disconnect();
+    }
+  }, { threshold: 0.2 });
+  obs.observe(grid);
+}
 
 function setupForWhoDots() {
   var grid = document.getElementById('forWhoGrid');
