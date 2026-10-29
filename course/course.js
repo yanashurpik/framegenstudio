@@ -173,8 +173,8 @@ var TEMPLATES = [
     duration: '20 s',
     ratio: '16:9',
     use: 'any "type a prompt, watch it work" product',
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.png',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/5_ai_feature_demo.mp4',
+    poster: '',
     scenes: [
       { label: 'Hook',     desc: 'the tedious job you\'re replacing' },
       { label: 'Prompt',   desc: 'the request types into your app' },
