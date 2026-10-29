@@ -237,8 +237,8 @@ var FAQ_ITEMS = [
     a: 'No. You finish the videos in CapCut. No After Effects, no Premiere, no motion-design background required.'
   },
   {
-    q: 'Which Claude plan do I need, and what does it cost?',
-    a: 'The plugin requires a paid Claude plan (plugins are a paid-tier feature). [CONFIRM exact plan level and current price]'
+    q: 'Which Claude plan do I need?',
+    a: 'The plugin requires a paid Claude plan — plugins are a paid-tier feature.'
   },
   {
     q: 'Can you just make the video for me?',
@@ -250,24 +250,20 @@ var FAQ_ITEMS = [
   },
   {
     q: 'Can I use it for client work and multiple projects?',
-    a: 'Yes. One purchase covers your own projects and client work. [CONFIRM licence terms]'
+    a: 'Yes. One purchase covers your own projects and client work.'
   },
   {
     q: 'Is it only for demo videos?',
     a: 'No. The 5 templates cover launch trailers, feature reveals, problem → solution ads, how-it-works and AI feature demos — the main video formats SaaS teams need.'
   },
   {
-    q: 'What do the talking avatars cost to generate?',
-    a: 'The 11 avatars included in the plugin are pre-built — you use them at no extra cost. Generating additional custom avatars requires a Higgsfield account. [CONFIRM current Higgsfield pricing]'
+    q: 'Do the talking avatars cost extra?',
+    a: 'The 11 avatars included in the plugin are pre-built — you use them at no extra cost. Generating additional custom avatars requires a Higgsfield account.'
   },
   {
     q: 'What if my brand is very specific?',
     a: 'The plugin reads your actual website and pulls your real colours, fonts and logo. If something needs manual tuning, the course covers how to adjust the output inside Claude Design.'
   },
-  {
-    q: "What's the refund policy?",
-    a: '[REFUND POLICY — add your policy here]'
-  }
 ];
 
 var CURRICULUM = [
@@ -322,7 +318,6 @@ var CURRICULUM = [
       'Write the script',
       'Split it into clips',
       'Read the prompt',
-      'Check the cost',
       'Generate a 480p draft',
       'Fix a bad take',
       'Finalise the good one'
