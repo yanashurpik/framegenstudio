@@ -1194,6 +1194,11 @@ function setupGallery() {
     galVideo.style.opacity = '0';
     setTimeout(function () {
       galVideo.src = item.video;
+      if (item.poster) {
+        galVideo.setAttribute('poster', item.poster);
+      } else {
+        galVideo.removeAttribute('poster');
+      }
       galVideo.load();
       galVideo.play().catch(function () {});
       galVideo.style.opacity = '1';
