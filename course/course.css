@@ -649,7 +649,8 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius-md);
   overflow: hidden;
   background: #111;
-  border: 1px solid var(--line);
+  border: 3px solid #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
 }
 .ugc-frame video { width: 100%; height: 100%; object-fit: cover; }
 .ugc-cat {
