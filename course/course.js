@@ -221,8 +221,8 @@ var PRICING = [
       'Brand research from your website',
       'Script and scenes written for your product',
       'The finished video, ready to post',
-      '[N] revision rounds [CONFIRM]',
-      'Delivery in [N] days [CONFIRM]'
+      '3 revision rounds',
+      'Delivery in 1 day'
     ]
   }
 ];
