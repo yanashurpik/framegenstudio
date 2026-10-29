@@ -895,8 +895,8 @@ a { color: inherit; text-decoration: none; }
 .cap-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 
 .curriculum-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 2px;
 }
 .module-item {
