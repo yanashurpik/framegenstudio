@@ -634,11 +634,15 @@ a { color: inherit; text-decoration: none; }
 .tmpl-ugc-sub { font-size: 14px; color: var(--muted); }
 
 .tmpl-ugc-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 220px);
+  display: flex;
   gap: 20px;
 }
-.ugc-card { display: flex; flex-direction: column; gap: 12px; }
+.ugc-card {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 .ugc-frame {
   position: relative;
   aspect-ratio: 9/16;
@@ -671,8 +675,24 @@ a { color: inherit; text-decoration: none; }
 .ugc-title { font-size: 14px; font-weight: 600; }
 .ugc-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
 
-@media (max-width: 600px) {
-  .tmpl-ugc-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (max-width: 900px) {
+  .tmpl-ugc-grid {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+    margin-left: calc(-1 * var(--pad));
+    margin-right: calc(-1 * var(--pad));
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+    padding-bottom: 4px;
+  }
+  .tmpl-ugc-grid::-webkit-scrollbar { display: none; }
+  .ugc-card {
+    flex: 0 0 72vw;
+    scroll-snap-align: start;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

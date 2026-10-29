@@ -438,16 +438,35 @@ function renderTemplates() {
 // RENDER UGC CARDS
 // ─────────────────────────────────────────────────────────────────────────────
 
+var UGC_VIDEOS = [
+  {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/leah_clip1_v1.mp4',
+    poster: '',
+    cat:    'UGC AVATAR',
+    title:  'Leah — UGC hook',
+    desc:   'AI avatar hook for social ads.'
+  },
+  {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.mp4',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.jpg',
+    cat:    'UGC DEMO',
+    title:  'WebArm ERP — demo',
+    desc:   'Product demo for social.'
+  },
+  {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/mina_clip3_v2.mp4',
+    poster: '',
+    cat:    'UGC AVATAR',
+    title:  'Mina — UGC hook',
+    desc:   'AI avatar hook for social ads.'
+  }
+];
+
 function renderUgc() {
   var grid = document.getElementById('tmplUgcGrid');
   if (!grid) return;
 
-  var ugcItems = SHOWCASE.filter(function (s) {
-    return s.ratio === '9/16' &&
-      (s.title.indexOf('Yuna') !== -1 || s.title.indexOf('Nexus') !== -1);
-  });
-
-  ugcItems.forEach(function (item) {
+  UGC_VIDEOS.forEach(function (item) {
     var card = document.createElement('div');
     card.className = 'ugc-card reveal';
     var posterAttr = item.poster ? ' poster="' + item.poster + '"' : '';
