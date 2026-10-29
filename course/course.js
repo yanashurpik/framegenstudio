@@ -203,7 +203,7 @@ var PRICING = [
       'Brand from your website: colours, fonts, real logo',
       '11 talking avatars for UGC clips',
       'Helper agents: brand researcher, render reviewer, UGC producer',
-      'Future plugin updates [CONFIRM]'
+      'Future plugin updates'
     ]
   },
   {
