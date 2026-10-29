@@ -18,7 +18,7 @@ var ANNOUNCEMENT = {
 var SHOWCASE = [
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen-demo-35s.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_video.png',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegendemo.jpg',
     cat:    'DEMO REEL',
     title:  'FrameGen — demo reel',
     desc:   'AI UGC video production demo.',
