@@ -271,14 +271,63 @@ var FAQ_ITEMS = [
 ];
 
 var CURRICULUM = [
-  { title: 'Setup: Claude plan, Claude Design, installing the plugin', lessons: '[N]' },
-  { title: 'Brand from a website: colours, fonts, the real logo',       lessons: '[N]' },
-  { title: 'The 5 templates, one lesson each',                          lessons: '[N]' },
-  { title: 'The 5 looks and when to use which',                         lessons: '[N]' },
-  { title: 'Building in Claude Design, scene by scene',                 lessons: '[N]' },
-  { title: 'Review and fix: what makes AI video look cheap',            lessons: '[N]' },
-  { title: 'Talking avatars for UGC ads (Higgsfield)',                  lessons: '[N]' },
-  { title: 'Finishing in CapCut and posting',                           lessons: '[N]' }
+  {
+    title: 'Install the plugin',
+    desc: 'Add saas-demo-director to Claude and verify it works.',
+    steps: [
+      'Add the saas-demo-director plugin to Claude',
+      'Run /saas-demo-director',
+      'Confirm the welcome message shows all five templates with preview links'
+    ]
+  },
+  {
+    title: 'Connect Higgsfield',
+    desc: 'Add the Higgsfield connector and verify the avatar picker.',
+    steps: [
+      'Add the Higgsfield connector to Claude',
+      'Run /saas-ugc-director',
+      'Confirm the avatar picker shows all 11 avatars'
+    ]
+  },
+  {
+    title: 'Claude Design basics',
+    desc: 'Tour the interface and learn every way to edit.',
+    steps: [
+      'Tour the screen — what you\'re looking at',
+      'Under the hood: HTML, CSS and JS',
+      'Three ways to edit: chat, inline comments, direct edits',
+      'Tweaks and custom controls',
+      'Export and share',
+      'The limits'
+    ]
+  },
+  {
+    title: 'Make a demo video',
+    desc: 'Build one from a template, then recreate a reference.',
+    steps: [
+      'Brand research from your website',
+      'The scene-by-scene plan',
+      'The prompt pack',
+      'Build scene by scene in Claude Design',
+      'MP4 review',
+      'Recreate the idea of a video you like from a reference',
+      'Use the motion cheat sheet to make precise changes'
+    ]
+  },
+  {
+    title: 'UGC video with an AI avatar',
+    desc: 'Pick an avatar, generate a draft, fix it, and ship it.',
+    steps: [
+      'Pick an avatar',
+      'Write the script',
+      'Split it into clips',
+      'Read the prompt',
+      'Check the cost',
+      'Generate a 480p draft',
+      'Fix a bad take',
+      'Finalise the good one'
+    ]
+  }
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -643,15 +692,24 @@ function renderCurriculum() {
     item.className = 'module-item';
     if (i === 0) item.classList.add('open');
 
+    var stepsHTML = mod.steps.map(function (s) {
+      return '<li class="module-step"><span class="module-step-icon" aria-hidden="true">' +
+        '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,8 6,11 13,4"/></svg>' +
+        '</span>' + s + '</li>';
+    }).join('');
+
     item.innerHTML =
       '<button class="module-head" aria-expanded="' + (i === 0 ? 'true' : 'false') + '">' +
         '<span class="module-num">' + String(i + 1).padStart(2, '0') + '</span>' +
-        '<span class="module-title">' + mod.title + '</span>' +
-        '<span class="module-lessons">' + mod.lessons + ' lessons</span>' +
+        '<div class="module-head-info">' +
+          '<span class="module-title">' + mod.title + '</span>' +
+          '<span class="module-desc">' + mod.desc + '</span>' +
+        '</div>' +
+        '<span class="module-lessons">' + mod.steps.length + ' steps</span>' +
         '<svg class="module-arrow" viewBox="0 0 16 16" aria-hidden="true"><polyline points="4,6 8,10 12,6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
       '</button>' +
       '<div class="module-body">' +
-        '<p class="module-note">Lesson details coming — placeholder for ' + mod.lessons + ' lessons.</p>' +
+        '<ul class="module-steps">' + stepsHTML + '</ul>' +
       '</div>';
 
     grid.appendChild(item);

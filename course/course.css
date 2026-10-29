@@ -906,7 +906,7 @@ a { color: inherit; text-decoration: none; }
   background: var(--card);
 }
 .module-head {
-  width: 100%; padding: 18px 20px;
+  width: 100%; padding: 20px 20px;
   display: flex; align-items: center; gap: 14px;
   text-align: left;
   transition: background .2s;
@@ -916,7 +916,9 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em;
   color: var(--muted); flex-shrink: 0;
 }
-.module-title { flex: 1; font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+.module-head-info { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.module-title { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.module-desc  { font-size: 13px; color: var(--muted); line-height: 1.4; }
 .module-lessons {
   font-family: var(--f-mono); font-size: 10px; letter-spacing: .08em;
   color: var(--muted); flex-shrink: 0; white-space: nowrap;
@@ -929,11 +931,34 @@ a { color: inherit; text-decoration: none; }
 .module-item.open .module-head  { background: var(--bg-2); }
 .module-body {
   display: none;
-  padding: 0 20px 18px 20px;
+  padding: 4px 20px 20px 52px;
   border-top: 1px solid var(--line-2);
 }
 .module-item.open .module-body { display: block; }
-.module-note { font-size: 13px; color: var(--muted); padding-top: 14px; font-style: italic; }
+.module-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 16px;
+}
+.module-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.module-step-icon {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.module-step-icon svg { width: 10px; height: 10px; color: var(--accent); }
 
 @media (max-width: 640px) {
   .curriculum-grid { grid-template-columns: 1fr; }
