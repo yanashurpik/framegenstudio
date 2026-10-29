@@ -448,6 +448,13 @@ var UGC_VIDEOS = [
     desc:   'AI avatar hook for social ads.'
   },
   {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ella.mp4',
+    poster: '',
+    cat:    'UGC AVATAR',
+    title:  'Ella — UGC hook',
+    desc:   'AI avatar hook for social ads.'
+  },
+  {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ugc1.mp4',
     poster: '',
     cat:    'UGC AVATAR',
@@ -473,13 +480,6 @@ var UGC_VIDEOS = [
     poster: '',
     cat:    'UGC AVATAR',
     title:  'Yuna — UGC hook',
-    desc:   'AI avatar hook for social ads.'
-  },
-  {
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ella.mp4',
-    poster: '',
-    cat:    'UGC AVATAR',
-    title:  'Ella — UGC hook',
     desc:   'AI avatar hook for social ads.'
   }
 ];
