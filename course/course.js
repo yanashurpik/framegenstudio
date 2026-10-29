@@ -466,6 +466,13 @@ var UGC_VIDEOS = [
     cat:    'HOW IT WORKS',
     title:  'Nexus — app walkthrough',
     desc:   'App launch ad, Meta feed, 9:16.'
+  },
+  {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/maya.mp4',
+    poster: '',
+    cat:    'UGC AVATAR',
+    title:  'Maya — UGC hook',
+    desc:   'AI avatar hook for social ads.'
   }
 ];
 
