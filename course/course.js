@@ -44,6 +44,15 @@ var SHOWCASE = [
     ratio:  '16/9'
   },
   {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen-demo-35s.mp4',
+    poster: '',
+    cat:    'DEMO REEL',
+    title:  'FrameGen — demo reel',
+    desc:   'AI UGC video production demo.',
+    tags:   ['16:9', 'demo'],
+    ratio:  '16/9'
+  },
+  {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.mp4',
     poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.jpg',
     cat:    'HOW IT WORKS',
@@ -797,7 +806,7 @@ function setupGallery() {
   var galMain   = document.getElementById('galMain');
   if (!galVideo || !galThumbs) return;
 
-  var items = SHOWCASE.filter(function (s) { return s.ratio === '16/9'; });
+  var items = SHOWCASE.filter(function (s) { return s.ratio === '16/9'; }).slice(0, 4);
   var n = items.length;
   var current = 0;
   var autoTimer, progAnim;
