@@ -790,146 +790,107 @@ function setupWebinarModal() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function setupGallery() {
-  var outer   = document.getElementById('galleryOuter');
-  var track   = document.getElementById('galleryTrack');
-  var dotsEl  = document.getElementById('galleryDots');
-  var prevBtn = document.getElementById('galleryPrev');
-  var nextBtn = document.getElementById('galleryNext');
-  if (!track || !outer) return;
+  var galVideo  = document.getElementById('galVideo');
+  var galBadge  = document.getElementById('galBadge');
+  var galProgBar = document.getElementById('galProgBar');
+  var galThumbs = document.getElementById('galThumbs');
+  var galMain   = document.getElementById('galMain');
+  if (!galVideo || !galThumbs) return;
 
-  var cards    = Array.from(track.querySelectorAll('.gallery-card'));
-  var n        = cards.length;
-  var current  = 0;
-  var startX   = 0;
-  var dragDx   = 0;
-  var dragging = false;
-  var autoTimer;
+  var items = SHOWCASE.filter(function (s) { return s.ratio === '16/9'; });
+  var n = items.length;
+  var current = 0;
+  var autoTimer, progAnim;
+  var AUTO_MS = 5500;
+  var paused = false;
 
-  // Dots
-  cards.forEach(function (_, i) {
-    var d = document.createElement('button');
-    d.className = i === 0 ? 'gdot active' : 'gdot';
-    d.setAttribute('aria-label', 'Video ' + (i + 1));
-    d.addEventListener('click', function () { goTo(i, true); resetAuto(); });
-    if (dotsEl) dotsEl.appendChild(d);
+  // Build thumbnail strip
+  var thumbEls = items.map(function (item, i) {
+    var div = document.createElement('div');
+    div.className = 'gal-thumb' + (i === 0 ? ' active' : '');
+    div.setAttribute('aria-label', item.title);
+
+    var v = document.createElement('video');
+    v.src = item.video;
+    if (item.poster) v.poster = item.poster;
+    v.loop = true; v.muted = true; v.playsInline = true; v.preload = 'none';
+    v.setAttribute('aria-hidden', 'true');
+    div.appendChild(v);
+
+    // Hover: play preview in thumbnail
+    div.addEventListener('mouseenter', function () { v.play().catch(function () {}); });
+    div.addEventListener('mouseleave', function () { if (i !== current) v.pause(); });
+
+    // Click: feature this video
+    div.addEventListener('click', function () { goTo(i); resetAuto(); });
+
+    galThumbs.appendChild(div);
+    return { el: div, video: v };
   });
-  var dots = dotsEl ? Array.from(dotsEl.querySelectorAll('.gdot')) : [];
 
-  // Resize outer to match the current card's natural aspect ratio.
-  // Portrait videos are height-capped so they don't take over the page.
-  function setOuterSize() {
-    var ratio   = (cards[current].dataset.ratio || '16/9').split('/');
-    var rw = parseFloat(ratio[0]), rh = parseFloat(ratio[1]);
-    var colW    = outer.parentElement.offsetWidth;
-    var w, h;
-
-    if (rw >= rh) {          // landscape
-      w = colW;
-      h = Math.round(colW * rh / rw);
-    } else {                 // portrait — cap height so it fits the screen
-      h = Math.min(Math.round(window.innerHeight * 0.68), 560);
-      w = Math.round(h * rw / rh);
-    }
-
-    outer.style.width  = w + 'px';
-    outer.style.height = h + 'px';
-    // center portrait cards inside the column
-    outer.style.marginLeft  = rw < rh ? 'auto' : '';
-    outer.style.marginRight = rw < rh ? 'auto' : '';
-    void outer.offsetWidth;  // force reflow so new dimensions are live
+  function startProgress() {
+    if (!galProgBar) return;
+    galProgBar.style.transition = 'none';
+    galProgBar.style.width = '0%';
+    void galProgBar.offsetWidth;
+    galProgBar.style.transition = 'width ' + AUTO_MS + 'ms linear';
+    galProgBar.style.width = '100%';
   }
 
-  function cardW() { return outer.offsetWidth; }
-
-  function applyX(extra) {
-    track.style.transform = 'translateX(' + (-current * cardW() + (extra || 0)) + 'px)';
+  function stopProgress() {
+    if (!galProgBar) return;
+    var cur = parseFloat(getComputedStyle(galProgBar).width) /
+              parseFloat(getComputedStyle(galProgBar.parentElement).width) * 100;
+    galProgBar.style.transition = 'none';
+    galProgBar.style.width = cur + '%';
   }
 
-  function activateCard(idx) {
-    var v = cards[idx] && cards[idx].querySelector('video');
-    if (!v) return;
-    if (v.dataset.src) { v.src = v.dataset.src; delete v.dataset.src; v.load(); }
-    v.play().catch(function () {});
+  function goTo(idx) {
+    current = (idx + n) % n;
+    var item = items[current];
+
+    // Fade out → swap source → fade in
+    galVideo.style.opacity = '0';
+    setTimeout(function () {
+      galVideo.src = item.video;
+      galVideo.load();
+      galVideo.play().catch(function () {});
+      galVideo.style.opacity = '1';
+    }, 200);
+
+    if (galBadge) galBadge.textContent = item.cat;
+
+    thumbEls.forEach(function (t, i) {
+      t.el.classList.toggle('active', i === current);
+      if (i !== current) t.video.pause();
+    });
+
+    startProgress();
   }
 
-  function pauseOthers(idx) {
-    cards.forEach(function (c, i) {
-      if (i !== idx) { var v = c.querySelector('video'); if (v) v.pause(); }
+  function startAuto() {
+    autoTimer = setInterval(function () { goTo(current + 1); }, AUTO_MS);
+  }
+  function stopAuto()  { clearInterval(autoTimer); }
+  function resetAuto() { stopAuto(); startAuto(); startProgress(); }
+
+  // Pause on hover
+  var gallery = document.getElementById('heroGallery');
+  if (gallery) {
+    gallery.addEventListener('mouseenter', function () {
+      paused = true; stopAuto(); stopProgress();
+    });
+    gallery.addEventListener('mouseleave', function () {
+      paused = false; resetAuto();
     });
   }
 
-  function goTo(idx, animate) {
-    current = (idx + n) % n;
-
-    // Snap track to current position before resize (no animation)
-    track.style.transition = 'none';
-    applyX(0);
-
-    // Resize container to new ratio (instant — forces reflow inside setOuterSize)
-    setOuterSize();
-
-    // Now animate track to the same logical position in new dimensions
-    track.style.transition = animate === false
-      ? 'none' : 'transform 0.48s cubic-bezier(.2,.7,.2,1)';
-    applyX(0);
-
-    dots.forEach(function (d, i) { d.className = i === current ? 'gdot active' : 'gdot'; });
-    activateCard(current);
-    pauseOthers(current);
-  }
-
-  function startAuto() { autoTimer = setInterval(function () { goTo(current + 1, true); }, 4500); }
-  function stopAuto()  { clearInterval(autoTimer); }
-  function resetAuto() { stopAuto(); startAuto(); }
-
-  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1, true); resetAuto(); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1, true); resetAuto(); });
-
-  // Mouse drag
-  outer.addEventListener('mousedown', function (e) {
-    if (e.button !== 0) return;
-    dragging = true; startX = e.clientX; dragDx = 0;
-    track.style.transition = 'none';
-    e.preventDefault();
-  });
-  document.addEventListener('mousemove', function (e) {
-    if (!dragging) return;
-    dragDx = e.clientX - startX;
-    applyX(dragDx);
-  });
-  document.addEventListener('mouseup', function () {
-    if (!dragging) return;
-    dragging = false;
-    if (Math.abs(dragDx) > 60) goTo(dragDx < 0 ? current + 1 : current - 1, true);
-    else goTo(current, true);
-    resetAuto(); dragDx = 0;
-  });
-
-  // Touch
-  outer.addEventListener('touchstart', function (e) {
-    startX = e.touches[0].clientX; dragDx = 0;
-    track.style.transition = 'none'; stopAuto();
-  }, { passive: true });
-  outer.addEventListener('touchmove', function (e) {
-    dragDx = e.touches[0].clientX - startX;
-    applyX(dragDx);
-  }, { passive: true });
-  outer.addEventListener('touchend', function () {
-    if (Math.abs(dragDx) > 50) goTo(dragDx < 0 ? current + 1 : current - 1, true);
-    else goTo(current, true);
-    resetAuto(); dragDx = 0;
-  });
-
-  // Pause auto on hover
-  var gallery = document.getElementById('heroGallery');
-  if (gallery) {
-    gallery.addEventListener('mouseenter', stopAuto);
-    gallery.addEventListener('mouseleave', function () { if (!dragging) startAuto(); });
-  }
-
-  // Re-size on window resize
-  window.addEventListener('resize', function () { setOuterSize(); applyX(0); }, { passive: true });
-
   // Init
-  requestAnimationFrame(function () { goTo(0, false); startAuto(); });
+  galVideo.src = items[0].video;
+  if (items[0].poster) galVideo.setAttribute('poster', items[0].poster);
+  galVideo.load();
+  galVideo.play().catch(function () {});
+  if (galBadge) galBadge.textContent = items[0].cat;
+  startAuto();
+  startProgress();
 }
