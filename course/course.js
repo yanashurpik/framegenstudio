@@ -428,7 +428,7 @@ function renderTemplates() {
       '<div class="tmpl-panel-body">' +
         '<p class="tmpl-use">' + t.use + '</p>' +
         '<ol class="tmpl-scenes">' + scenes + '</ol>' +
-        '<button class="btn btn-ghost tmpl-preview-btn" data-video="' + t.video + '" data-poster="' + (t.poster || '') + '">' +
+        '<button class="btn btn-accent tmpl-preview-btn" data-video="' + t.video + '" data-poster="' + (t.poster || '') + '">' +
           '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:14px;height:14px;flex-shrink:0;"><path d="M8 5v14l11-7z"/></svg>' +
           'Watch a preview' +
         '</button>' +
