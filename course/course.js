@@ -108,8 +108,8 @@ var TEMPLATES = [
     duration: '33 s',
     ratio: '16:9',
     use: 'launch day, Product Hunt, landing-page hero',
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/Hostwise.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/Hostwise.jpg',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/granola-launch-trailer-2.mp4',
+    poster: '',
     scenes: [
       { label: 'Hook',      desc: 'a bold claim zooms in' },
       { label: 'Problem',   desc: 'three pain panels slide in, then shut like blinds' },
