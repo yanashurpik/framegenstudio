@@ -411,7 +411,6 @@ a { color: inherit; text-decoration: none; }
 }
 .value-inner .h-2 { margin-bottom: 24px; }
 .value-inner p { font-size: clamp(16px, 1.2vw, 18px); color: var(--ink-2); line-height: 1.7; }
-@media (max-width: 900px) { .value-inner p { display: none; } }
 
 /* ─────────────────────────────────────────────────────────────────────────────
    SHOWCASE
