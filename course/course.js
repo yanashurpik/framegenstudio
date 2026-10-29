@@ -450,7 +450,7 @@ var UGC_VIDEOS = [
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ugc1.mp4',
     poster: '',
     cat:    'UGC AVATAR',
-    title:  'UGC hook',
+    title:  'Liam — UGC hook',
     desc:   'AI avatar hook for social ads.'
   },
   {
