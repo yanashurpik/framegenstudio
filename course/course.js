@@ -17,12 +17,21 @@ var ANNOUNCEMENT = {
 
 var SHOWCASE = [
   {
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/saas_demo.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/saas_demo.jpg',
-    cat:    'LAUNCH TRAILER',
-    title:  'SaaS launch trailer',
-    desc:   '30 s product debut, editorial look.',
-    tags:   ['16:9', 'editorial'],
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen-demo-35s.mp4',
+    poster: '',
+    cat:    'DEMO REEL',
+    title:  'FrameGen — demo reel',
+    desc:   'AI UGC video production demo.',
+    tags:   ['16:9', 'demo'],
+    ratio:  '16/9'
+  },
+  {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/asian_dude.mp4',
+    poster: '',
+    cat:    'UGC AD',
+    title:  'Asian dude — UGC ad',
+    desc:   'Creator-style UGC hook.',
+    tags:   ['16:9', 'ugc'],
     ratio:  '16/9'
   },
   {
@@ -41,15 +50,6 @@ var SHOWCASE = [
     title:  'GammaLoop — product ad',
     desc:   'Problem → solution, 30 s social ad.',
     tags:   ['16:9', 'dark tech'],
-    ratio:  '16/9'
-  },
-  {
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen-demo-35s.mp4',
-    poster: '',
-    cat:    'DEMO REEL',
-    title:  'FrameGen — demo reel',
-    desc:   'AI UGC video production demo.',
-    tags:   ['16:9', 'demo'],
     ratio:  '16/9'
   },
   {
