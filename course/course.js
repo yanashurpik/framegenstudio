@@ -126,8 +126,8 @@ var TEMPLATES = [
     duration: '15 s',
     ratio: '16:9 + 1:1',
     use: 'a new feature, changelog, LinkedIn post',
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/Hostwise.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/Hostwise.jpg',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/3_reveal_feature.mp4',
+    poster: '',
     scenes: [
       { label: 'Label',   desc: 'a "New" pill + the feature name' },
       { label: 'Demo',    desc: 'the feature in action, one click and the change zooms in' },
