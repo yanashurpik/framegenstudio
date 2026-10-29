@@ -364,7 +364,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  border: 2.5px solid transparent;
+  border: 2.5px solid #fff;
   background: #111;
   transition: transform .18s ease, border-color .2s;
 }
