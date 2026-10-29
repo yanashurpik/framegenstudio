@@ -18,7 +18,7 @@ var ANNOUNCEMENT = {
 var SHOWCASE = [
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen-demo-35s.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_video.png',
     cat:    'DEMO REEL',
     title:  'FrameGen — demo reel',
     desc:   'AI UGC video production demo.',
@@ -27,7 +27,7 @@ var SHOWCASE = [
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/asian_dude.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/asian_dude.jpg',
     cat:    'UGC AD',
     title:  'Asian dude — UGC ad',
     desc:   'Creator-style UGC hook.',
