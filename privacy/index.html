@@ -7,114 +7,83 @@
 <meta name="description" content="Privacy Policy for FrameGen Studio." />
 <meta name="robots" content="noindex" />
 <link rel="icon" href="/avatar/logo.svg" type="image/svg+xml" />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:      #0c0c0e;
-  --bg-2:    #141416;
-  --card:    #17171a;
-  --line:    rgba(255,255,255,.08);
-  --ink:     #e8e8ea;
-  --ink-2:   #a0a0aa;
-  --muted:   #6b6b7b;
-  --accent:  #7c6cf8;
-  --f-head:  'Bricolage Grotesque', sans-serif;
-  --f-body:  'Geist', sans-serif;
-  --pad:     clamp(20px, 5vw, 48px);
-  --max:     720px;
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:        #fbfbf9;
+  --bg-2:      #f3f3ef;
+  --card:      #ffffff;
+  --ink:       #111111;
+  --ink-2:     #444444;
+  --muted:     #7a7a73;
+  --line:      rgba(17,17,17,.10);
+  --accent:    #d24034;
+  --f-display: "Bricolage Grotesque","Geist",system-ui,sans-serif;
+  --f-body:    "Geist",system-ui,sans-serif;
+  --f-mono:    "JetBrains Mono",ui-monospace,monospace;
+  --pad:       clamp(20px,4vw,56px);
+  --radius-lg: 28px;
+  --radius-sm: 12px;
 }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--f-body);
-  font-size: 16px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+html{scroll-behavior:smooth}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
 
 /* NAV */
-.nav {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--pad);
-  height: 56px;
-  background: rgba(12,12,14,.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+.nav{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:30;
+  width:min(calc(100vw - 32px),1200px);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:10px 14px 10px 22px;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid var(--line);
+  border-radius:999px;
 }
-.brand {
-  display: flex; align-items: center; gap: 8px;
-  font-family: var(--f-head); font-weight: 700; font-size: 15px;
-  color: var(--ink); text-decoration: none; letter-spacing: -.2px;
-}
-.mark {
-  width: 20px; height: 20px; border-radius: 6px;
-  background: var(--accent); flex-shrink: 0;
-}
-.nav-back {
-  font-size: 13px; color: var(--ink-2);
-  display: flex; align-items: center; gap: 6px;
-}
-.nav-back svg { width: 14px; height: 14px; }
-.nav-back:hover { color: var(--ink); text-decoration: none; }
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:15px;color:var(--ink);letter-spacing:-.2px}
+.brand .mark{width:24px;height:24px;border-radius:7px;background:var(--ink);position:relative;display:grid;place-items:center;overflow:hidden;flex-shrink:0}
+.brand .mark::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.brand .mark::after{content:"";position:absolute;left:3px;top:3px;width:5px;height:5px;border-radius:50%;background:#fff}
+.nav-back{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);transition:background .2s}
+.nav-back svg{width:14px;height:14px;flex-shrink:0}
+.nav-back:hover{background:var(--bg-2);text-decoration:none;color:var(--ink)}
 
-/* CONTENT */
-.page {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: clamp(48px, 8vw, 80px) var(--pad) clamp(64px, 10vw, 120px);
+/* PAGE */
+.page{
+  max-width:720px;
+  margin:0 auto;
+  padding:clamp(100px,14vw,140px) var(--pad) clamp(80px,12vw,120px);
 }
-.page-kicker {
-  font-size: 12px; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--accent);
-  margin-bottom: 16px;
+.page-kicker{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;
 }
-.page-title {
-  font-family: var(--f-head);
-  font-size: clamp(28px, 5vw, 40px);
-  font-weight: 700; line-height: 1.15;
-  letter-spacing: -.5px;
-  margin-bottom: 8px;
+.page-kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.page-title{
+  font-family:var(--f-display);font-size:clamp(36px,5vw,56px);font-weight:600;
+  line-height:1;letter-spacing:-.03em;color:var(--ink);margin-bottom:12px;
 }
-.page-date {
-  font-size: 13px; color: var(--muted);
-  margin-bottom: 48px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid var(--line);
-}
-.prose h2 {
-  font-family: var(--f-head);
-  font-size: 18px; font-weight: 700;
-  margin: 40px 0 12px;
-  color: var(--ink);
-}
-.prose p { color: var(--ink-2); margin-bottom: 14px; }
-.prose ul {
-  list-style: none; margin: 0 0 14px; padding: 0;
-}
-.prose ul li {
-  color: var(--ink-2); padding-left: 18px; position: relative; margin-bottom: 6px;
-}
-.prose ul li::before {
-  content: '–'; position: absolute; left: 0; color: var(--muted);
-}
-.prose strong { color: var(--ink); font-weight: 600; }
-.prose a { color: var(--accent); }
+.page-date{font-size:13px;color:var(--muted);margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+.prose h2{font-family:var(--f-display);font-size:19px;font-weight:600;color:var(--ink);margin:40px 0 10px}
+.prose p{color:var(--ink-2);margin-bottom:14px}
+.prose ul{list-style:none;margin:0 0 16px;padding:0}
+.prose ul li{color:var(--ink-2);padding-left:20px;position:relative;margin-bottom:8px}
+.prose ul li::before{content:"–";position:absolute;left:0;color:var(--muted)}
+.prose strong{color:var(--ink);font-weight:600}
+.prose a{color:var(--accent)}
 
 /* FOOTER */
-.foot {
-  border-top: 1px solid var(--line);
-  padding: 24px var(--pad);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
-  font-size: 13px; color: var(--muted);
+.foot{
+  border-top:1px solid var(--line);
+  padding:24px var(--pad);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  font-size:13px;color:var(--muted);
 }
-.foot a { color: var(--muted); }
-.foot a:hover { color: var(--ink); text-decoration: none; }
+.foot a{color:var(--muted)}
+.foot a:hover{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -128,7 +97,7 @@ a:hover { text-decoration: underline; }
 </nav>
 
 <main class="page">
-  <p class="page-kicker">Legal</p>
+  <p class="page-kicker"><span class="dot"></span>Legal</p>
   <h1 class="page-title">Privacy Policy</h1>
   <p class="page-date">Last updated: October 2026</p>
 
@@ -145,7 +114,7 @@ a:hover { text-decoration: underline; }
       <li><strong>Ad interaction data</strong> — anonymous events (page views, button clicks) collected via the Meta Pixel to measure and improve ad performance.</li>
       <li><strong>A randomly generated ID</strong> — stored in your browser's local storage to link your own sessions together for analytics de-duplication. It contains no personal information.</li>
     </ul>
-    <p>We do not collect payment information. Payments are processed by third-party providers (e.g. Stripe, Gumroad) under their own privacy policies.</p>
+    <p>We do not collect payment information. Payments are processed by third-party providers under their own privacy policies.</p>
 
     <h2>How we use your data</h2>
     <ul>
@@ -167,7 +136,7 @@ a:hover { text-decoration: underline; }
     <p>Google Analytics and the Meta Pixel set cookies to track visits. The random session ID is stored in local storage. You can clear these at any time through your browser settings. Disabling cookies will not affect your ability to use the site.</p>
 
     <h2>Your rights</h2>
-    <p>You have the right to access, correct, or delete any personal data we hold about you. To exercise these rights, email us at <a href="mailto:shurpik.y@gmail.com">shurpik.y@gmail.com</a> and we will respond within 30 days.</p>
+    <p>You have the right to access, correct, or delete any personal data we hold about you. Email <a href="mailto:shurpik.y@gmail.com">shurpik.y@gmail.com</a> and we will respond within 30 days.</p>
 
     <h2>Data retention</h2>
     <p>We keep email addresses for as long as you remain on our mailing list. You can unsubscribe at any time by replying "unsubscribe" to any email we send. Analytics data is retained for 14 months per Google Analytics default settings.</p>
@@ -176,21 +145,17 @@ a:hover { text-decoration: underline; }
     <p>Our services are not directed at children under 16. We do not knowingly collect data from anyone under 16.</p>
 
     <h2>Changes to this policy</h2>
-    <p>We may update this policy occasionally. The "Last updated" date at the top of this page will reflect any changes. Continued use of the site after a change constitutes acceptance of the updated policy.</p>
+    <p>We may update this policy occasionally. The "Last updated" date at the top reflects any changes. Continued use of the site after a change constitutes acceptance of the updated policy.</p>
 
     <h2>Contact</h2>
-    <p>Questions or requests: <a href="mailto:shurpik.y@gmail.com">shurpik.y@gmail.com</a></p>
+    <p><a href="mailto:shurpik.y@gmail.com">shurpik.y@gmail.com</a></p>
 
   </div>
 </main>
 
 <footer class="foot">
   <span>© 2026 FrameGen Studio</span>
-  <span>
-    <a href="/privacy/">Privacy</a> ·
-    <a href="/terms/">Terms</a> ·
-    <a href="/">Home</a>
-  </span>
+  <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/">Home</a></span>
 </footer>
 
 </body>
