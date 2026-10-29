@@ -349,6 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupWebinarModal();
   setupGallery();
   setupForWhoDots();
+  setupHiwDots();
   setupHiwAnimation();
 });
 
@@ -1248,6 +1249,20 @@ function setupGallery() {
 // ─────────────────────────────────────────────────────────────────────────────
 // FOR-WHO SWIPE DOTS
 // ─────────────────────────────────────────────────────────────────────────────
+
+function setupHiwDots() {
+  var grid = document.getElementById('hiwGrid');
+  var dots = document.querySelectorAll('.hiw-dot');
+  if (!grid || !dots.length) return;
+
+  grid.addEventListener('scroll', function () {
+    var cards = grid.querySelectorAll('.hiw-card');
+    if (!cards.length) return;
+    var cardW = cards[0].offsetWidth + 14;
+    var idx = Math.min(Math.round(grid.scrollLeft / cardW), cards.length - 1);
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+  }, { passive: true });
+}
 
 function setupHiwAnimation() {
   var grid = document.getElementById('hiwGrid');
