@@ -459,6 +459,13 @@ var UGC_VIDEOS = [
     cat:    'UGC AVATAR',
     title:  'Mina — UGC hook',
     desc:   'AI avatar hook for social ads.'
+  },
+  {
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.mp4',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.jpg',
+    cat:    'HOW IT WORKS',
+    title:  'Nexus — app walkthrough',
+    desc:   'App launch ad, Meta feed, 9:16.'
   }
 ];
 
