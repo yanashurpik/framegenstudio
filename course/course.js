@@ -883,6 +883,16 @@ function setupGallery() {
   function stopAuto()  { clearInterval(autoTimer); }
   function resetAuto() { stopAuto(); startAuto(); startProgress(); }
 
+  // Touch swipe on main video (mobile)
+  var swipeStartX = 0;
+  galMain.addEventListener('touchstart', function (e) {
+    swipeStartX = e.touches[0].clientX;
+  }, { passive: true });
+  galMain.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - swipeStartX;
+    if (Math.abs(dx) > 40) { goTo(dx < 0 ? current + 1 : current - 1); resetAuto(); }
+  }, { passive: true });
+
   // Pause on hover
   var gallery = document.getElementById('heroGallery');
   if (gallery) {
