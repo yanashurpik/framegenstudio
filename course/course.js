@@ -491,42 +491,42 @@ function renderTemplates() {
 var UGC_VIDEOS = [
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/leah.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/leah.jpg',
     cat:    'UGC AVATAR',
     title:  'Leah — UGC hook',
     desc:   'AI avatar hook for social ads.'
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ella.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ella.jpg',
     cat:    'UGC AVATAR',
     title:  'Ella — UGC hook',
     desc:   'AI avatar hook for social ads.'
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/chloe.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/chloe.jpg',
     cat:    'UGC AVATAR',
     title:  'Chloe — UGC hook',
     desc:   'AI avatar hook for social ads.'
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/mina_clip3_v2.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/mina.jpg',
     cat:    'UGC AVATAR',
     title:  'Mina — UGC hook',
     desc:   'AI avatar hook for social ads.'
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/jordan.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/jordan.jpg',
     cat:    'UGC AVATAR',
     title:  'Jordan — UGC hook',
     desc:   'AI avatar hook for social ads.'
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/maya.mp4',
-    poster: '',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/yuna.jpg',
     cat:    'UGC AVATAR',
     title:  'Yuna — UGC hook',
     desc:   'AI avatar hook for social ads.'
@@ -1286,13 +1286,32 @@ function setupHiwAnimation() {
 function setupForWhoDots() {
   var grid = document.getElementById('forWhoGrid');
   var dots = document.querySelectorAll('.fwd-dot');
-  if (!grid || !dots.length) return;
 
-  grid.addEventListener('scroll', function () {
-    var cards = grid.querySelectorAll('.for-card');
-    if (!cards.length) return;
-    var cardW = cards[0].offsetWidth + 14; // 14px gap
-    var idx = Math.min(Math.round(grid.scrollLeft / cardW), cards.length - 1);
-    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
-  }, { passive: true });
+  if (grid) {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      grid.classList.add('fw-visible');
+      grid.querySelectorAll('.for-card, .fw-el, .fw-arrow').forEach(function (el) {
+        el.style.opacity = '1';
+      });
+    } else {
+      var fwObs = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          grid.classList.add('fw-visible');
+          fwObs.disconnect();
+        }
+      }, { threshold: 0.1 });
+      fwObs.observe(grid);
+    }
+  }
+
+  if (grid && dots.length) {
+    grid.addEventListener('scroll', function () {
+      var cards = grid.querySelectorAll('.for-card');
+      if (!cards.length) return;
+      var cardW = cards[0].offsetWidth + 14; // 14px gap
+      var idx = Math.min(Math.round(grid.scrollLeft / cardW), cards.length - 1);
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    }, { passive: true });
+  }
 }
