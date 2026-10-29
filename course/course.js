@@ -101,6 +101,91 @@ var SHOWCASE = [
   }
 ];
 
+var TEMPLATES = [
+  {
+    num: '01',
+    name: 'Launch trailer',
+    duration: '33 s',
+    ratio: '16:9',
+    use: 'launch day, Product Hunt, landing-page hero',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen-demo-35s.mp4',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/framegen_video.png',
+    scenes: [
+      { label: 'Hook',      desc: 'a bold claim zooms in' },
+      { label: 'Problem',   desc: 'three pain panels slide in, then shut like blinds' },
+      { label: 'Intro',     desc: 'your logo builds itself at the centre' },
+      { label: 'Feature 1', desc: 'the app panel lands and one click changes something' },
+      { label: 'Feature 2', desc: 'a second screen and a second action' },
+      { label: 'Result',    desc: 'the finished outcome, stamped and centred' },
+      { label: 'CTA',       desc: 'logo + call to action + your URL' }
+    ]
+  },
+  {
+    num: '02',
+    name: 'Feature reveal',
+    duration: '15 s',
+    ratio: '16:9 + 1:1',
+    use: 'a new feature, changelog, LinkedIn post',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/Hostwise.mp4',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/Hostwise.jpg',
+    scenes: [
+      { label: 'Label',   desc: 'a "New" pill + the feature name' },
+      { label: 'Demo',    desc: 'the feature in action, one click and the change zooms in' },
+      { label: 'Benefit', desc: 'the result cards fly in and their titles become your benefit line' },
+      { label: 'CTA',     desc: '"Available now" + logo + URL' }
+    ]
+  },
+  {
+    num: '03',
+    name: 'Problem → solution ad',
+    duration: '15 s',
+    ratio: '9:16',
+    use: 'Reels, TikTok and paid social',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/GammaLoop.mp4',
+    poster: '/GammaLoop.jpg',
+    scenes: [
+      { label: 'Hook',     desc: 'the pain in one punchy line' },
+      { label: 'Problem',  desc: '"before" cards pile up and shatter' },
+      { label: 'Solution', desc: 'your app fixes it and the key number counts up' },
+      { label: 'CTA',      desc: 'logo + URL + tap' }
+    ]
+  },
+  {
+    num: '04',
+    name: 'How it works',
+    duration: '24 s',
+    ratio: '16:9',
+    use: 'homepage explainer, onboarding, sales demos',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.mp4',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.jpg',
+    scenes: [
+      { label: 'Promise', desc: 'a serif statement beside a liquid gradient shape' },
+      { label: 'Step 1',  desc: 'a caption above the card and the first action' },
+      { label: 'Step 2',  desc: 'the card morphs into the next screen' },
+      { label: 'Step 3',  desc: 'the result card forms at the centre' },
+      { label: 'Done',    desc: 'the three steps orbit the result' },
+      { label: 'CTA',     desc: 'closing line, the logo reveal, your URL' }
+    ]
+  },
+  {
+    num: '05',
+    name: 'AI feature demo',
+    duration: '20 s',
+    ratio: '16:9',
+    use: 'any "type a prompt, watch it work" product',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.mp4',
+    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ksef_video_2.png',
+    scenes: [
+      { label: 'Hook',     desc: 'the tedious job you\'re replacing' },
+      { label: 'Prompt',   desc: 'the request types into your app' },
+      { label: 'Thinking', desc: 'the AI visibly works' },
+      { label: 'Output',   desc: 'the result builds piece by piece' },
+      { label: 'Result',   desc: 'the finished output, centred' },
+      { label: 'CTA',      desc: '"Try it free" + logo + URL' }
+    ]
+  }
+];
+
 var PRICING = [
   {
     id:       'diy',
@@ -202,7 +287,8 @@ var CURRICULUM = [
 
 document.addEventListener('DOMContentLoaded', function () {
   renderAnnouncement();
-  renderShowcase();
+  renderTemplates();
+  renderUgc();
   renderPricing();
   renderFAQ();
   renderCurriculum();
@@ -251,6 +337,151 @@ function renderAnnouncement() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// RENDER TEMPLATE EXPLORER
+// ─────────────────────────────────────────────────────────────────────────────
+
+function renderTemplates() {
+  var nav     = document.getElementById('tmplNav');
+  var content = document.getElementById('tmplContent');
+  if (!nav || !content) return;
+
+  TEMPLATES.forEach(function (t, i) {
+    // Left nav button (desktop tabs)
+    var btn = document.createElement('button');
+    btn.className = 'tmpl-nav-btn' + (i === 0 ? ' active' : '');
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    btn.setAttribute('data-i', i);
+    btn.innerHTML =
+      '<span class="tmpl-num">' + t.num + '</span>' +
+      '<div class="tmpl-nav-info">' +
+        '<span class="tmpl-nav-name">' + t.name + '</span>' +
+        '<span class="tmpl-nav-meta">' + t.duration + ' · ' + t.ratio + '</span>' +
+      '</div>';
+    nav.appendChild(btn);
+
+    // Scene list
+    var scenes = t.scenes.map(function (s) {
+      return '<li><b>' + s.label + '</b> — ' + s.desc + '</li>';
+    }).join('');
+
+    // Panel (right side desktop / accordion body mobile)
+    var panel = document.createElement('div');
+    panel.className = 'tmpl-panel' + (i === 0 ? ' active' : '');
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('data-i', i);
+    panel.innerHTML =
+      '<button class="tmpl-panel-acc" data-i="' + i + '" aria-expanded="' + (i === 0 ? 'true' : 'false') + '">' +
+        '<span class="tmpl-num">' + t.num + '</span>' +
+        '<div class="tmpl-nav-info">' +
+          '<span class="tmpl-nav-name">' + t.name + '</span>' +
+          '<span class="tmpl-nav-meta">' + t.duration + ' · ' + t.ratio + '</span>' +
+        '</div>' +
+        '<svg class="tmpl-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' +
+      '</button>' +
+      '<div class="tmpl-panel-body">' +
+        '<p class="tmpl-use">' + t.use + '</p>' +
+        '<ol class="tmpl-scenes">' + scenes + '</ol>' +
+        '<button class="btn btn-ghost tmpl-preview-btn" data-video="' + t.video + '" data-poster="' + (t.poster || '') + '">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:14px;height:14px;flex-shrink:0;"><path d="M8 5v14l11-7z"/></svg>' +
+          'Watch a preview' +
+        '</button>' +
+      '</div>';
+    content.appendChild(panel);
+  });
+
+  // Desktop: tab click
+  nav.querySelectorAll('.tmpl-nav-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var i = +this.getAttribute('data-i');
+      nav.querySelectorAll('.tmpl-nav-btn').forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      content.querySelectorAll('.tmpl-panel').forEach(function (p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+      content.querySelector('.tmpl-panel[data-i="' + i + '"]').classList.add('active');
+    });
+  });
+
+  // Mobile: accordion click
+  content.querySelectorAll('.tmpl-panel-acc').forEach(function (accBtn) {
+    accBtn.addEventListener('click', function () {
+      var panel = this.closest('.tmpl-panel');
+      var isOpen = panel.classList.contains('active');
+      content.querySelectorAll('.tmpl-panel').forEach(function (p) { p.classList.remove('active'); });
+      content.querySelectorAll('.tmpl-panel-acc').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+      if (!isOpen) {
+        panel.classList.add('active');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Preview buttons → lightbox
+  content.querySelectorAll('.tmpl-preview-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = this.getAttribute('data-video');
+      var lb = document.getElementById('lightbox');
+      var lbVideo = document.getElementById('lightbox-video');
+      if (!lb || !lbVideo || !src) return;
+      lbVideo.src = src;
+      lb.removeAttribute('hidden');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lbVideo.play().catch(function () {});
+    });
+  });
+}
+
+// RENDER UGC CARDS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function renderUgc() {
+  var grid = document.getElementById('tmplUgcGrid');
+  if (!grid) return;
+
+  var ugcItems = SHOWCASE.filter(function (s) {
+    return s.ratio === '9/16' &&
+      (s.title.indexOf('Yuna') !== -1 || s.title.indexOf('Nexus') !== -1);
+  });
+
+  ugcItems.forEach(function (item) {
+    var card = document.createElement('div');
+    card.className = 'ugc-card reveal';
+    var posterAttr = item.poster ? ' poster="' + item.poster + '"' : '';
+    card.innerHTML =
+      '<div class="ugc-frame">' +
+        '<video data-src="' + item.video + '"' + posterAttr + ' loop muted playsinline preload="none" aria-label="' + item.title + '"></video>' +
+        '<span class="ugc-cat">' + item.cat + '</span>' +
+        '<button class="ugc-play-btn" data-video="' + item.video + '" aria-label="Watch ' + item.title + '">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M8 5v14l11-7z"/></svg>' +
+        '</button>' +
+      '</div>' +
+      '<div class="ugc-info">' +
+        '<b class="ugc-title">' + item.title + '</b>' +
+        '<p class="ugc-desc">' + item.desc + '</p>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  // Preview buttons → lightbox
+  grid.querySelectorAll('.ugc-play-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = this.getAttribute('data-video');
+      var lb = document.getElementById('lightbox');
+      var lbVideo = document.getElementById('lightbox-video');
+      if (!lb || !lbVideo || !src) return;
+      lbVideo.src = src;
+      lb.removeAttribute('hidden');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lbVideo.play().catch(function () {});
+    });
+  });
+}
+
 // RENDER SHOWCASE GRID
 // ─────────────────────────────────────────────────────────────────────────────
 

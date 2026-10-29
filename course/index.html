@@ -283,7 +283,7 @@ src="https://www.facebook.com/tr?id=2359452024463631&ev=PageView&noscript=1"
 <!-- film-strip border -->
 <div class="filmstrip" aria-hidden="true"></div>
 
-<!-- ─── 5. WHAT YOU'LL MAKE (showcase) ────────────────────────────────────── -->
+<!-- ─── 5. WHAT YOU'LL MAKE (templates) ───────────────────────────────────── -->
 <section class="section" id="make">
   <div class="wrap">
     <div class="section-head">
@@ -291,23 +291,20 @@ src="https://www.facebook.com/tr?id=2359452024463631&ev=PageView&noscript=1"
       <h2 class="h-display h-2 anim-h" style="margin-top:16px;">Five formats. Five looks.<br>One command to start.</h2>
     </div>
 
-    <div class="showcase-cmd">
-      <div class="cmd-block">
-        <div class="cmd-header">
-          <span class="cmd-label">What you'll type in Claude</span>
-          <button class="copy-btn" aria-label="Copy command">Copy</button>
-        </div>
-        <div class="cmd-body">
-          <code class="cmd-text" id="cmd-showcase">
-            <span class="cmd-slash">/saas-demo-director</span>
-            <span class="cmd-arg"> https://yourproduct.com</span>
-          </code>
-        </div>
-      </div>
+    <!-- Template explorer: nav (desktop tabs / mobile accordion) + panels -->
+    <div class="tmpl-explorer" id="tmplExplorer">
+      <div class="tmpl-nav" id="tmplNav" role="tablist" aria-label="Video templates"></div>
+      <div class="tmpl-content" id="tmplContent"></div>
     </div>
 
-    <!-- Showcase grid: populated by course.js from SHOWCASE array -->
-    <div class="showcase-grid" id="showcase-grid"></div>
+    <!-- UGC sub-section -->
+    <div class="tmpl-ugc-wrap">
+      <div class="tmpl-ugc-head">
+        <h3 class="tmpl-ugc-title">UGC-style · 9:16</h3>
+        <p class="tmpl-ugc-sub">Creator hooks for social ads · <code>/saas-ugc-director</code></p>
+      </div>
+      <div class="tmpl-ugc-grid" id="tmplUgcGrid"></div>
+    </div>
   </div>
 </section>
 
