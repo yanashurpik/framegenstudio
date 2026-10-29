@@ -447,11 +447,11 @@ var UGC_VIDEOS = [
     desc:   'AI avatar hook for social ads.'
   },
   {
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.jpg',
-    cat:    'UGC DEMO',
-    title:  'WebArm ERP — demo',
-    desc:   'Product demo for social.'
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ugc1.mp4',
+    poster: '',
+    cat:    'UGC AVATAR',
+    title:  'UGC hook',
+    desc:   'AI avatar hook for social ads.'
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/mina_clip3_v2.mp4',
