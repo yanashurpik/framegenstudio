@@ -10,7 +10,7 @@ var WEBINAR_FORM_KEY  = '31a1cd0c-af59-449d-8762-7add14f69e99';
 
 var ANNOUNCEMENT = {
   enabled: true,
-  text:    'Launch price for the first cohort · ends [DATE]',
+  text:    'Launch price for the first cohort · ends in <span id="announce-timer" style="font-variant-numeric:tabular-nums;letter-spacing:.02em;">--:--:--</span>',
   cta:     '→',
   url:     CHECKOUT_URL
 };
@@ -364,6 +364,39 @@ function renderAnnouncement() {
   var text = document.getElementById('announce-text');
   if (text) text.innerHTML = ANNOUNCEMENT.text + ' <span class="announce-cta">' + ANNOUNCEMENT.cta + '</span>';
   bar.removeAttribute('hidden');
+
+  // Countdown timer — 3 hours from first visit, persisted in localStorage
+  var TIMER_KEY = 'fg_launch_deadline';
+  var THREE_HOURS = 3 * 60 * 60 * 1000;
+  var deadline;
+  try {
+    deadline = parseInt(localStorage.getItem(TIMER_KEY), 10);
+    if (!deadline || isNaN(deadline)) {
+      deadline = Date.now() + THREE_HOURS;
+      localStorage.setItem(TIMER_KEY, deadline);
+    }
+  } catch (_) {
+    deadline = Date.now() + THREE_HOURS;
+  }
+
+  var timerEl = document.getElementById('announce-timer');
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var left = deadline - Date.now();
+    if (!timerEl) return;
+    if (left <= 0) {
+      timerEl.textContent = '00:00:00';
+      bar.setAttribute('hidden', '');
+      document.documentElement.style.setProperty('--announce-h', '0px');
+      return;
+    }
+    var h = Math.floor(left / 3600000);
+    var m = Math.floor((left % 3600000) / 60000);
+    var s = Math.floor((left % 60000) / 1000);
+    timerEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+    setTimeout(tick, 1000);
+  }
+  tick();
 
   // Dismissible
   var close = bar.querySelector('.announce-close');
