@@ -440,7 +440,7 @@ function renderTemplates() {
 
 var UGC_VIDEOS = [
   {
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/leah_clip1_v1.mp4',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/leah.mp4',
     poster: '',
     cat:    'UGC AVATAR',
     title:  'Leah — UGC hook',
