@@ -698,6 +698,11 @@ function setupLightbox() {
 
   if (!lb || !lbVideo) return;
 
+  lbVideo.muted = true;
+  lbVideo.addEventListener('volumechange', function () {
+    if (!lbVideo.muted) lbVideo.muted = true;
+  });
+
   document.querySelectorAll('[data-lightbox]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
