@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupWebinarForm();
   setupWebinarModal();
   setupGallery();
+  setupForWhoDots();
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -912,4 +913,22 @@ function setupGallery() {
   if (galBadge) galBadge.textContent = items[0].cat;
   startAuto();
   startProgress();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FOR-WHO SWIPE DOTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+function setupForWhoDots() {
+  var grid = document.getElementById('forWhoGrid');
+  var dots = document.querySelectorAll('.fwd-dot');
+  if (!grid || !dots.length) return;
+
+  grid.addEventListener('scroll', function () {
+    var cards = grid.querySelectorAll('.for-card');
+    if (!cards.length) return;
+    var cardW = cards[0].offsetWidth + 14; // 14px gap
+    var idx = Math.min(Math.round(grid.scrollLeft / cardW), cards.length - 1);
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+  }, { passive: true });
 }

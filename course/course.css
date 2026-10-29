@@ -558,8 +558,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   WHO IT'S FOR
+   WHO IT'S FOR  (second view)
    ───────────────────────────────────────────────────────────────────────────── */
+.for-who-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.for-who-section .wrap { width: 100%; }
+
 .for-who-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -583,11 +591,49 @@ a { color: inherit; text-decoration: none; }
 .for-pain { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin-bottom: 12px; }
 .for-outcome { font-size: 13px; font-weight: 500; color: var(--accent); }
 
-@media (max-width: 640px) {
-  .for-who-grid { grid-template-columns: 1fr; }
+/* Mobile: horizontal swipe carousel */
+@media (max-width: 900px) {
+  .for-who-section { min-height: auto; padding: clamp(64px, 10vw, 96px) 0; }
+  .for-who-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+    margin-top: 32px;
+    margin-left: calc(-1 * var(--pad));
+    margin-right: calc(-1 * var(--pad));
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+    padding-bottom: 4px;
+  }
+  .for-who-grid::-webkit-scrollbar { display: none; }
+  .for-card {
+    flex: 0 0 82vw;
+    scroll-snap-align: start;
+  }
 }
-@media (min-width: 641px) and (max-width: 860px) {
-  .for-who-grid { grid-template-columns: 1fr; }
+
+/* Swipe dots */
+.for-who-dots { display: none; }
+@media (max-width: 900px) {
+  .for-who-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 20px;
+  }
+  .fwd-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--line);
+    transition: background .2s, transform .2s;
+  }
+  .fwd-dot.active {
+    background: var(--accent);
+    transform: scale(1.3);
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
