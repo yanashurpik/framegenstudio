@@ -1199,12 +1199,34 @@ function setupGallery() {
 function setupHiwAnimation() {
   var grid = document.getElementById('hiwGrid');
   if (!grid) return;
+
+  function typeWriter(typeEl, cursorEl, text, startDelay) {
+    typeEl.textContent = '';
+    var i = 0;
+    setTimeout(function tick() {
+      if (i < text.length) {
+        typeEl.textContent += text[i++];
+        setTimeout(tick, 38);
+      } else {
+        if (cursorEl) cursorEl.classList.add('hidden');
+      }
+    }, startDelay);
+  }
+
   var obs = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) {
-      grid.classList.add('hiw-in-view');
-      obs.disconnect();
-    }
-  }, { threshold: 0.2 });
+    if (!entries[0].isIntersecting) return;
+    grid.classList.add('hiw-in-view');
+    grid.querySelectorAll('.hiw-card').forEach(function (card) {
+      var typeEl   = card.querySelector('.hiw-type');
+      var cursorEl = card.querySelector('.hiw-cursor');
+      if (typeEl) {
+        var cardDelay = parseFloat(getComputedStyle(card).getPropertyValue('--card-delay') || '0') * 1000;
+        typeWriter(typeEl, cursorEl, typeEl.getAttribute('data-text'), 300 + cardDelay);
+      }
+    });
+    obs.disconnect();
+  }, { threshold: 0.25 });
+
   obs.observe(grid);
 }
 

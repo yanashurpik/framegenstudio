@@ -699,27 +699,37 @@ a { color: inherit; text-decoration: none; }
 /* ─────────────────────────────────────────────────────────────────────────────
    HOW IT WORKS (two-plugin cards)
    ───────────────────────────────────────────────────────────────────────────── */
-/* Keyframes */
 @keyframes hiwFadeUp {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes hiwCardIn {
-  from { opacity: 0; transform: translateY(28px); }
+  from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes hiwPop {
-  0%   { opacity: 0; transform: scale(.3); }
-  60%  { transform: scale(1.15); }
+  0%   { opacity: 0; transform: scale(.2); }
+  65%  { transform: scale(1.18); }
   100% { opacity: 1; transform: scale(1); }
 }
+@keyframes hiwLine {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+@keyframes hiwBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
 
+/* Grid */
 .hiw-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   margin-top: 48px;
 }
+
+/* Card */
 .hiw-card {
   background: var(--card);
   border: 1px solid var(--line);
@@ -729,104 +739,142 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
   opacity: 0;
 }
-/* Card entrance — triggered by JS adding .hiw-in-view to #hiwGrid */
 #hiwGrid.hiw-in-view .hiw-card {
-  animation: hiwCardIn .55s cubic-bezier(.22,1,.36,1) forwards;
+  animation: hiwCardIn .6s cubic-bezier(.22,1,.36,1) forwards;
   animation-delay: var(--card-delay, 0s);
 }
-/* Inner elements */
-.hiw-anim {
-  opacity: 0;
+
+/* Terminal header */
+.hiw-card-head {
+  background: #1a1a1a;
+  padding: 14px 20px 16px;
 }
-#hiwGrid.hiw-in-view .hiw-anim {
-  animation: hiwFadeUp .4s ease forwards;
-  animation-delay: var(--delay, 0s);
+.hiw-terminal {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
 }
-/* Number pop */
-.hiw-pop {
-  opacity: 0;
+.hiw-terminal-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #444;
 }
-#hiwGrid.hiw-in-view .hiw-pop {
-  animation: hiwPop .38s cubic-bezier(.34,1.56,.64,1) forwards;
-  animation-delay: var(--delay, 0s);
-}
-.hiw-card-top {
-  padding: 32px 32px 24px;
-  border-bottom: 1px solid var(--line);
-  flex: 1;
-}
+.hiw-terminal-dot:nth-child(1) { background: #ff5f57; }
+.hiw-terminal-dot:nth-child(2) { background: #febc2e; }
+.hiw-terminal-dot:nth-child(3) { background: #28c840; }
 .hiw-cmd {
-  display: inline-block;
   font-family: var(--f-mono);
+  font-size: 14px;
+  color: #e8e8e8;
+  display: block;
+  min-height: 1.4em;
+}
+.hiw-slash { color: var(--accent); }
+.hiw-cursor {
+  display: inline-block;
+  color: var(--accent);
+  animation: hiwBlink .8s step-end infinite;
+}
+.hiw-cursor.hidden { display: none; }
+
+/* Body */
+.hiw-body { padding: 24px 28px 28px; flex: 1; display: flex; flex-direction: column; }
+.hiw-need-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.hiw-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.hiw-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-size: 13px;
+  font-weight: 500;
+  padding: 7px 13px;
   background: var(--bg-2);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 6px 12px;
-  margin-bottom: 24px;
-  color: var(--accent);
+  border-radius: 999px;
 }
-.hiw-need-label {
+.hiw-tag svg { width: 13px; height: 13px; color: var(--accent); flex-shrink: 0; }
+
+/* Separator */
+.hiw-sep {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: var(--muted);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 14px;
 }
-.hiw-need {
-  list-style: none;
+.hiw-sep::before, .hiw-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Vertical flow */
+.hiw-flow { display: flex; flex-direction: column; flex: 1; }
+.hiw-flow-row { display: flex; gap: 16px; }
+.hiw-flow-left {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-.hiw-need li {
-  display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 15px;
-  font-weight: 500;
-}
-.hiw-icon {
-  width: 34px; height: 34px;
-  border-radius: 10px;
-  background: var(--accent-soft);
-  display: grid; place-items: center;
   flex-shrink: 0;
 }
-.hiw-icon svg { width: 16px; height: 16px; color: var(--accent); }
-.hiw-steps {
-  padding: 20px 32px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--bg-2);
-  flex-wrap: wrap;
-}
-.hiw-step {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.hiw-step-num {
-  width: 24px; height: 24px;
+.hiw-num {
+  width: 28px; height: 28px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--ink);
   color: #fff;
   font-family: var(--f-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   display: grid; place-items: center;
   flex-shrink: 0;
+  opacity: 0;
 }
-.hiw-step-text { font-size: 13px; font-weight: 500; }
-.hiw-arrow { color: var(--muted); font-size: 14px; flex-shrink: 0; }
+.hiw-num-done { background: #1a9e5c; font-size: 14px; }
+.hiw-vline {
+  width: 2px;
+  flex: 1;
+  min-height: 24px;
+  background: var(--line);
+  transform-origin: top;
+  transform: scaleY(0);
+  margin: 4px 0;
+}
+.hiw-flow-body {
+  padding-bottom: 20px;
+}
+.hiw-flow-body b { font-size: 14px; font-weight: 600; display: block; margin-bottom: 2px; }
+.hiw-flow-body p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* Animations — triggered when in view */
+.hiw-anim { opacity: 0; }
+#hiwGrid.hiw-in-view .hiw-anim {
+  animation: hiwFadeUp .38s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+#hiwGrid.hiw-in-view .hiw-pop {
+  animation: hiwPop .4s cubic-bezier(.34,1.56,.64,1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+#hiwGrid.hiw-in-view .hiw-vline {
+  animation: hiwLine .28s ease forwards;
+  animation-delay: var(--line-delay, 0s);
+}
 
 @media (max-width: 900px) {
   .hiw-grid { grid-template-columns: 1fr; }
-  .hiw-steps { gap: 8px; }
-  .hiw-arrow { display: none; }
-  .hiw-steps { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hiw-cmd { font-size: 12px; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
