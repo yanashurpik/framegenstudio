@@ -810,7 +810,7 @@ function setupGallery() {
   var n = items.length;
   var current = 0;
   var autoTimer, progAnim;
-  var AUTO_MS = 5500;
+  var AUTO_MS = 20000;
   var paused = false;
 
   // Build thumbnail strip
