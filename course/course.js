@@ -156,8 +156,8 @@ var TEMPLATES = [
     duration: '24 s',
     ratio: '16:9',
     use: 'homepage explainer, onboarding, sales demos',
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/erp_api_pr.jpg',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/4_how_it_works.mp4',
+    poster: '',
     scenes: [
       { label: 'Promise', desc: 'a serif statement beside a liquid gradient shape' },
       { label: 'Step 1',  desc: 'a caption above the card and the first action' },
