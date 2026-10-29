@@ -504,10 +504,10 @@ var UGC_VIDEOS = [
     desc:   'AI avatar hook for social ads.'
   },
   {
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/ugc1.mp4',
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/chloe.mp4',
     poster: '',
     cat:    'UGC AVATAR',
-    title:  'Liam — UGC hook',
+    title:  'Chloe — UGC hook',
     desc:   'AI avatar hook for social ads.'
   },
   {
@@ -518,11 +518,11 @@ var UGC_VIDEOS = [
     desc:   'AI avatar hook for social ads.'
   },
   {
-    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.mp4',
-    poster: 'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/nexus.jpg',
-    cat:    'HOW IT WORKS',
-    title:  'Nexus — app walkthrough',
-    desc:   'App launch ad, Meta feed, 9:16.'
+    video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/jordan.mp4',
+    poster: '',
+    cat:    'UGC AVATAR',
+    title:  'Jordan — UGC hook',
+    desc:   'AI avatar hook for social ads.'
   },
   {
     video:  'https://pub-c279d7a852214fa6a518129df114c389.r2.dev/maya.mp4',
@@ -763,11 +763,6 @@ function setupLightbox() {
   var lbOverlay = lb ? lb.querySelector('.lb-overlay') : null;
 
   if (!lb || !lbVideo) return;
-
-  lbVideo.muted = true;
-  lbVideo.addEventListener('volumechange', function () {
-    if (!lbVideo.muted) lbVideo.muted = true;
-  });
 
   document.querySelectorAll('[data-lightbox]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
