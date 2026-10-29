@@ -1035,17 +1035,22 @@ function submitWebinarEmail(email, submitBtn, status, onSuccess) {
   submitBtn.textContent = 'Sending…';
   if (status) { status.textContent = ''; status.className = 'wf-status'; }
 
-  fetch('/api/webinar', {
+  fetch('https://api.web3forms.com/submit', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body:    JSON.stringify({ email: email })
+    body:    JSON.stringify({
+      access_key: WEBINAR_FORM_KEY,
+      email:      email,
+      subject:    'New webinar signup — FrameGen Studio',
+      from_name:  'FrameGen Studio Course'
+    })
   })
   .then(function (res) { return res.json(); })
   .then(function (data) {
     if (data.success) {
       onSuccess();
     } else {
-      throw new Error(data.error || 'Submission failed');
+      throw new Error(data.message || 'Submission failed');
     }
   })
   .catch(function () {
