@@ -78,11 +78,11 @@ img, svg, video { display: block; max-width: 100%; }
   100% { transform: translate(0px,  0px)   scale(1); }
 }
 @keyframes gridWarp {
-  0%   { transform: perspective(900px) rotateX(3deg) rotateZ(0deg)    translateY(0px); }
-  25%  { transform: perspective(900px) rotateX(4deg) rotateZ(0.6deg)  translateY(-30px); }
-  50%  { transform: perspective(900px) rotateX(2deg) rotateZ(-0.8deg) translateY(15px); }
-  75%  { transform: perspective(900px) rotateX(5deg) rotateZ(0.4deg)  translateY(-10px); }
-  100% { transform: perspective(900px) rotateX(3deg) rotateZ(0deg)    translateY(0px); }
+  0%   { transform: perspective(400px) rotateX(12deg) rotateZ(0deg)    skewX(0deg)   translateY(0px); }
+  20%  { transform: perspective(400px) rotateX(18deg) rotateZ(3deg)    skewX(2deg)   translateY(-60px); }
+  45%  { transform: perspective(400px) rotateX(8deg)  rotateZ(-4deg)   skewX(-3deg)  translateY(30px); }
+  70%  { transform: perspective(400px) rotateX(20deg) rotateZ(2deg)    skewX(1.5deg) translateY(-40px); }
+  100% { transform: perspective(400px) rotateX(12deg) rotateZ(0deg)    skewX(0deg)   translateY(0px); }
 }
 
 .bg-canvas {
@@ -102,7 +102,7 @@ img, svg, video { display: block; max-width: 100%; }
   background-image:
     linear-gradient(rgba(17,17,17,.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(17,17,17,.055) 1px, transparent 1px);
-  background-size: 56px 56px;
+  background-size: 28px 28px;
   transform-origin: center center;
   animation: gridWarp 28s ease-in-out infinite;
   will-change: transform;
