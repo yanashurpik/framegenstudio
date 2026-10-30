@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 var COURSE_NAME       = 'SaaS Demo Motion Lab';
-var CHECKOUT_URL      = '#checkout';    // [PLACEHOLDER] replace with Gumroad / Lemon Squeezy link
+var CHECKOUT_URL      = 'https://shurpik.gumroad.com/l/saas-motion-lab?wanted=true';
 var BOOKING_URL       = 'https://calendar.app.google/rXKtGNxjeYDnkfLa8';
 var WEBINAR_URL       = '#webinar';     // [PLACEHOLDER] replace with webinar registration link
 var WEBINAR_FORM_KEY  = '31a1cd0c-af59-449d-8762-7add14f69e99';
