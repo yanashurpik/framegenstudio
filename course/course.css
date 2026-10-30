@@ -166,9 +166,7 @@ img, svg, video { display: block; max-width: 100%; }
   mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 70%);
 }
-.bg-grid-1 { animation: gridWarp1 24s ease-in-out infinite; }
-.bg-grid-2 { animation: gridWarp2 31s ease-in-out infinite; background-size: 14px 14px; opacity: .7; }
-.bg-grid-3 { animation: gridWarp3 19s ease-in-out infinite; background-size: 22px 22px; opacity: .5; }
+.bg-grid-1 { animation: gridWarp1 24s ease-in-out infinite; background-size: 32px 32px; }
 
 /* Floating accent orbs */
 .bg-orb {
