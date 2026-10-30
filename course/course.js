@@ -191,7 +191,7 @@ var PRICING = [
     id:       'diy',
     label:    'Do it yourself',
     name:     'Course + plugin',
-    price:    20,
+    price:    19,
     per:      'one-time',
     was:      null,
     url:      CHECKOUT_URL,
