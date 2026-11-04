@@ -345,6 +345,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setupCardReveal();
   setupMobileMenu();
   setupAccordion();
+  setupEntryPopup();
   setupWebinarForm();
   setupWebinarModal();
   setupGallery();
@@ -1065,6 +1066,7 @@ function setupAccordion() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function submitWebinarEmail(email, submitBtn, status, onSuccess) {
+  var origText = submitBtn.textContent;
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending…';
   if (status) { status.textContent = ''; status.className = 'wf-status'; }
@@ -1089,11 +1091,72 @@ function submitWebinarEmail(email, submitBtn, status, onSuccess) {
   })
   .catch(function () {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Get the link →';
+    submitBtn.textContent = origText;
     if (status) {
       status.textContent = 'Something went wrong — try again.';
       status.className = 'wf-status wf-error';
     }
+  });
+}
+
+// Entry popup — auto-shows on first landing (3 s delay, localStorage-gated)
+function setupEntryPopup() {
+  var popup    = document.getElementById('entry-popup');
+  var form     = document.getElementById('ep-form');
+  var closeBtn = document.getElementById('ep-close');
+  var overlay  = popup ? popup.querySelector('.ep-overlay') : null;
+  if (!popup || !form) return;
+
+  var KEY    = 'fg_webinar_popup';
+  var stored = localStorage.getItem(KEY);
+  if (stored) {
+    var data = JSON.parse(stored);
+    if (data.submitted) return;
+    if ((Date.now() - data.ts) / 86400000 < 7) return;
+  }
+
+  function openPopup() {
+    popup.removeAttribute('hidden');
+    popup.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var emailInput = form.querySelector('input[type="email"]');
+    if (emailInput) setTimeout(function () { emailInput.focus(); }, 400);
+  }
+
+  function closePopup() {
+    popup.setAttribute('hidden', '');
+    popup.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    localStorage.setItem(KEY, JSON.stringify({ ts: Date.now(), submitted: false }));
+  }
+
+  setTimeout(openPopup, 3000);
+
+  if (closeBtn) closeBtn.addEventListener('click', closePopup);
+  if (overlay)  overlay.addEventListener('click', closePopup);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !popup.hasAttribute('hidden')) closePopup();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var emailInput = form.querySelector('input[type="email"]');
+    var submitBtn  = document.getElementById('ep-submit');
+    var status     = document.getElementById('ep-status');
+    var email      = emailInput ? emailInput.value.trim() : '';
+    if (!email) return;
+    submitWebinarEmail(email, submitBtn, status, function () {
+      localStorage.setItem(KEY, JSON.stringify({ ts: Date.now(), submitted: true }));
+      var formWrap = form.closest('.ep-form-wrap');
+      if (formWrap) {
+        formWrap.innerHTML =
+          '<div class="ep-success">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:32px;height:32px;color:var(--accent);display:block;margin:0 auto 12px"><polyline points="20 6 9 17 4 12"/></svg>' +
+            '<p class="ep-success-text">Link sent! Check your inbox.</p>' +
+            '<p class="ep-success-sub">Watch whenever you\'re ready — the link doesn\'t expire.</p>' +
+          '</div>';
+      }
+    });
   });
 }
 

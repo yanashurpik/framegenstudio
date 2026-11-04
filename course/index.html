@@ -657,6 +657,37 @@ src="https://www.facebook.com/tr?id=2359452024463631&ev=PageView&noscript=1"
   <a href="#pricing" class="btn btn-primary sticky-cta" aria-label="Join the course">Join the course</a>
 </div>
 
+<!-- ─── ENTRY POPUP ──────────────────────────────────────────────────────── -->
+<div class="entry-popup" id="entry-popup" hidden role="dialog" aria-modal="true" aria-label="Free webinar access" aria-hidden="true">
+  <div class="ep-overlay"></div>
+  <div class="ep-inner">
+    <button class="ep-close" id="ep-close" aria-label="Close">×</button>
+    <div class="ep-accent-bar"></div>
+    <div class="ep-body">
+      <p class="ep-eyebrow">Free · limited time</p>
+      <h2 class="ep-title">Watch the full walkthrough<br>while it's still free</h2>
+      <p class="ep-subtitle">See a SaaS demo video made live — from a product URL to a finished, post-ready clip in one session.</p>
+      <ul class="ep-bullets">
+        <li><span class="ep-check">✓</span>Set up the saas-demo-director plugin in 5 minutes</li>
+        <li><span class="ep-check">✓</span>Build a full launch trailer from your URL</li>
+        <li><span class="ep-check">✓</span>Export post-ready in CapCut — no After Effects</li>
+      </ul>
+      <div class="ep-form-wrap">
+        <form class="wf-form" id="ep-form" novalidate>
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
+          <div class="wf-row">
+            <label for="ep-email" class="sr-only">Your email address</label>
+            <input type="email" id="ep-email" name="email" class="wf-input" placeholder="your@email.com" autocomplete="email" required>
+            <button type="submit" class="btn btn-accent wf-submit" id="ep-submit">Get access →</button>
+          </div>
+          <p class="wf-status" id="ep-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <p class="wf-note">No spam. Unsubscribe any time.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ─── WEBINAR MODAL ────────────────────────────────────────────────────── -->
 <div class="webinar-modal" id="webinar-modal" hidden role="dialog" aria-modal="true" aria-label="Get the webinar link" aria-hidden="true">
   <div class="wm-overlay"></div>
