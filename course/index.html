@@ -414,16 +414,17 @@ src="https://www.facebook.com/tr?id=2359452024463631&ev=PageView&noscript=1"
         <div class="hiw-body">
           <p class="hiw-need-label hiw-anim" style="--delay:.9s;">You need</p>
           <div class="hiw-tags hiw-anim" style="--delay:1.0s;">
-            <span class="hiw-tag">
+            <span class="hiw-tag hiw-tag-avatars" id="avatarToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="avatarSheet">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               One of 11 avatars
+              <svg class="hiw-tag-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </span>
             <span class="hiw-tag hiw-anim" style="--delay:1.12s;">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               What they say
             </span>
           </div>
-          <div class="hiw-avatar-sheet hiw-anim" style="--delay:1.14s;">
+          <div class="hiw-avatar-sheet hiw-anim" id="avatarSheet" style="--delay:1.14s;" hidden>
             <img src="/course/media/avatar-sheet.jpg" alt="11 prepared avatars: Chloe, Mina, Yuna, Ella, Leah, Hana, Jordan, Liam, Alex, Kenji, Daniel" loading="lazy">
             <p class="hiw-avatar-sheet-caption">11 prepared avatars · pick one, describe your message</p>
           </div>

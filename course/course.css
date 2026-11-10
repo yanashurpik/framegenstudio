@@ -1080,13 +1080,35 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+/* HIW avatar sheet toggle */
+.hiw-tag-avatars {
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s, color .15s;
+}
+.hiw-tag-avatars:hover { background: var(--accent); color: #fff; }
+.hiw-tag-avatars:hover svg { color: #fff; }
+.hiw-tag-chevron {
+  width: 12px; height: 12px;
+  margin-left: 3px;
+  flex-shrink: 0;
+  transition: transform .2s ease;
+}
+.hiw-tag-avatars[aria-expanded="true"] .hiw-tag-chevron { transform: rotate(180deg); }
+
 /* HIW avatar sheet */
 .hiw-avatar-sheet {
-  margin-bottom: 20px;
-  border-radius: 10px;
   overflow: hidden;
+  border-radius: 10px;
   border: 1px solid var(--line);
+  margin-bottom: 20px;
+  animation: avatarSheetIn .22s ease;
 }
+@keyframes avatarSheetIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hiw-avatar-sheet[hidden] { display: none; }
 .hiw-avatar-sheet img {
   width: 100%;
   display: block;

@@ -1431,3 +1431,16 @@ function setupForWhoDots() {
     }, { passive: true });
   }
 }
+
+/* Avatar sheet toggle */
+(function () {
+  var toggle = document.getElementById('avatarToggle');
+  var sheet  = document.getElementById('avatarSheet');
+  if (!toggle || !sheet) return;
+  function open()  { sheet.hidden = false; toggle.setAttribute('aria-expanded', 'true'); }
+  function close() { sheet.hidden = true;  toggle.setAttribute('aria-expanded', 'false'); }
+  toggle.addEventListener('click', function () { sheet.hidden ? open() : close(); });
+  toggle.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sheet.hidden ? open() : close(); }
+  });
+}());
