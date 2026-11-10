@@ -1080,6 +1080,28 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
+/* HIW avatar sheet */
+.hiw-avatar-sheet {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.hiw-avatar-sheet img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+.hiw-avatar-sheet-caption {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  padding: 7px 10px 8px;
+  background: var(--bg-2, #f7f7f5);
+  border-top: 1px solid var(--line);
+  letter-spacing: .01em;
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    CURRICULUM
    ───────────────────────────────────────────────────────────────────────────── */
